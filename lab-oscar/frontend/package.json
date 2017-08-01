@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "jest": {
+  "globals": {
+    "__DEBUG__": true,
+    "__API_URL__": "http://localhost:7777"
+  }
+  },
   "scripts": {
     "test": "jest",
     "lint": "eslint .",

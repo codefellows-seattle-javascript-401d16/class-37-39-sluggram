@@ -1,9 +1,29 @@
 import superagent from 'superagent';
 
+//sync actions
+export const tokenSet = (token) => ({
+  type: 'TOKEN_SET',
+  payload: token,
+});
+
+//async actions
+export const signupRequest = (user) => (dispatch) => {
+  return superagent.post(`${__API_URL__}/signup`)
+    .withCredentials()
+    .send(user)
+    .then(res => {
+      dispatch(tokenSet(res.text));
+      try {
+        localStorage.token = res.text;
+      } catch (error) {
+        console.log(error);
+      }
+      return res;
+    });
+};
 
 
-
-// 
+//
 // import superagent from 'superagent'
 //
 // // sync actions for updating store

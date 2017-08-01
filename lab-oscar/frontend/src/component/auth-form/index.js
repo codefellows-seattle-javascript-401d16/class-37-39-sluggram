@@ -14,7 +14,7 @@ class AuthForm extends React.Component {
       error: null,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleComplete = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e){
