@@ -1,16 +1,32 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+import appStoreCreate from '../../lib/app-store-create.js';
+import LandingContainer from '../landing-container';
+
+const store = appStoreCreate();
 
 class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <BrowserRouter>
-          <main>
-            <Route exact path="/" />
-            <h1>something</h1>
-          </main>
-        </BrowserRouter>
+        <Provider store={store}>
+          <BrowserRouter>
+            <div>
+              <header>
+                <h1> gramgramgram </h1>
+                <nav>
+                  <ul>
+                    <li><Link to="/welcome/signup"> signup </Link> </li>
+                    <li><Link to="/welcome/login"> login </Link> </li>
+                  </ul>
+                </nav>
+              </header>
+
+              <Route path="/welcome/:auth" component={LandingContainer} />
+            </div>
+          </BrowserRouter>
+        </Provider>
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import superagent from 'superagent'
+import superagent from 'superagent';
 
 export const tokenSet = token => ({
   type: 'TOKEN_SET',
