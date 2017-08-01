@@ -1,4 +1,4 @@
-import {createStore, applyMiddleware} from 'react-redux';
+import {createStore, applyMiddleware} from 'redux';
 import thunk from './redux-thunk.js';
 import reporter from './redux-reporter.js';
 import reducer from '../reducer';

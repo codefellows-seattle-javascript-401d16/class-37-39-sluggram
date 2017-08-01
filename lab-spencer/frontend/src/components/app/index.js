@@ -13,8 +13,10 @@ class App extends React.Component {
       <div className='app'>
         <Provider store={store}>
           <BrowserRouter>
-            <Route exact path='/' component={LandingPage} />
-            <Route path='/auth/:authTarget' component={AuthContainer} />
+            <main>
+              <Route exact path='/' component={LandingPage} />
+              <Route path='/auth/:authTarget' component={AuthContainer} />
+            </main>
           </BrowserRouter>
         </Provider>
       </div>

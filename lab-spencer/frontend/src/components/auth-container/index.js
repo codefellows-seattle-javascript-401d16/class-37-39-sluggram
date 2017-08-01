@@ -12,17 +12,20 @@ class AuthContainer extends React.Component {
 
   render() {
     return (
-      <main className='auth-container'>
+      <div className='auth-container'>
         <AuthForm
-          onComplete={this.props.match.params.authTarget === 'signup' ? this.handleSignUp : this.handleSignIn}
-          type={this.props.authTarget}
+          onComplete={this.props.match.params.authTarget === 'signup'
+            ? this.props.userSignUp
+            : this.props.userSignIn
+          }
+          type={this.props.match.params.authTarget}
         />
-      </main>
+      </div>
     );
   }
 }
 
-const mapStateToProps = state => {};
+const mapStateToProps = state => ({});
 const mapDispathToProps = (dispatch, getState) => ({
   userSignUp: credentials => dispatch(userSignUpRequest(credentials)),
   userSignIn: credentials => dispatch(userSignInRequest(credentials)),
