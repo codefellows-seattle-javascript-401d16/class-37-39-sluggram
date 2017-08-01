@@ -12,6 +12,7 @@ const {DefinePlugin, EnvironmentPlugin} = require('webpack');
 let plugins = [
   new EnvironmentPlugin(['NODE_ENV']),
   new ExtractPlugin('bundle-[hash].css'),
+  new HTMLPlugin({template: `${__dirname}/src/index.html`}),
   new DefinePlugin({
     __DEBUG__: JSON.stringify(!production),
     __API_URI__: JSON.stringify(process.env.API_URL),
