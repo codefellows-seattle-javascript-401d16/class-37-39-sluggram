@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class LandingContainer extends React.Component {
   render(){
     return(
@@ -9,7 +10,7 @@ class LandingContainer extends React.Component {
 }
 
 export default LandingContainer;
-// 
+//
 //
 //
 // import {connect} from 'react-redux'
