@@ -32,8 +32,8 @@ class LandingContainer extends React.Component {
   render(){
     let {params} = this.props.match;
     let handleComplete = params.auth === 'login'
-      ? this.props.login
-      : this.props.signup;
+      ? this.handleLogin
+      : this.handleSignup;
     return(
       <div className='user-action-container'>
         {util.renderIf(this.props.auth && this.props.profile,

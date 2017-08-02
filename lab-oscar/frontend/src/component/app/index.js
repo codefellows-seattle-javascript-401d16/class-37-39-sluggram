@@ -5,8 +5,10 @@ import {BrowserRouter, Route, Link} from 'react-router-dom';
 import './_app-header.scss';
 import * as util from '../../lib/util.js';
 import LandingContainer from '../landing-container';
+import SettingsContainer from '../settings-container';
 import {tokenSet} from '../../action/auth-actions.js';
 import appStoreCreate from '../../lib/app-store-create';
+
 
 let store =  appStoreCreate();
 
@@ -28,11 +30,13 @@ class App extends React.Component {
                 />
               </Link>
               <ul className='navigation-main'>
-                <li className='navigation-link'><Link to='/signup' alt='Sign Up'>Sign Up</Link></li>
-                <li className='navigation-link'><Link to='/login' alt='Log In'>Login</Link></li>
+                <li className='navigation-link'><Link to='/welcome/signup' alt='Sign Up'>Sign Up</Link></li>
+                <li className='navigation-link'><Link to='/welcome/login' alt='Log In'>Login</Link></li>
+                <li className='navigation-link'><Link to='/settings'> settings </Link></li>
               </ul>
             </header>
-            <Route exact path='/:auth' component={LandingContainer} />
+            <Route exact path='/welcome/:auth' component={LandingContainer} />
+            <Route exact path='/settings' component={SettingsContainer} />
           </div>
         </BrowserRouter>
       </div>
