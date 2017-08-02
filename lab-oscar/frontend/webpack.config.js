@@ -40,7 +40,7 @@ module.exports = {
         loader: 'babel-loader',
       },
       {
-        test: /\/scss$/,
+        test: /\.scss$/,
         loader: ExtractPlugin.extract(['css-loader', 'sass-loader']),
       },
       {
