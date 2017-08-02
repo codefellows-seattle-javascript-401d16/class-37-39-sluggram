@@ -2,23 +2,31 @@ import React from 'react';
 import './_landing-container.scss';
 import AuthForm from '../auth-form';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
 import * as util from '../../lib/util.js';
 import {signupRequest, loginRequest} from '../../action/auth-actions.js';
-
 
 class LandingContainer extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-      authorized: null,
-    };
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleSignup = this.handleSignup.bind(this);
   }
 
-  componentWillReceiveProps(props){
-    let {auth} = props.auth;
-    if(auth)
-      this.setState({authorized:'oscar'});
-    console.log('&&&', props);
+  handleLogin(user){
+    return this.props.login(user)
+      .then(() => {
+        this.props.history.push('/dashboard');
+      })
+      .catch(util.logError());
+  }
+
+  handleSignup(user){
+    return this.props.signup(user)
+      .then(() => {
+        this.props.history.push('/dashboard');
+      })
+      .catch(console.error);
   }
 
   render(){
@@ -28,24 +36,29 @@ class LandingContainer extends React.Component {
       : this.props.signup;
     return(
       <div className='user-action-container'>
-        {util.renderIf(this.state.authorized,
-          <h2>Welcome</h2>
+        {util.renderIf(this.props.auth && this.props.profile,
+          <Redirect to='/dashboard' />
         )}
-        {util.renderIf(!this.state.authorized,
-          <div className='user-form'>
-            <AuthForm
-              auth={params.auth}
-              onComplete={handleComplete}
-            />
-          </div>
+
+        {util.renderIf(this.props.auth && !this.props.profile,
+          <Redirect to='/settings' />
         )}
+
+        <div className='user-form'>
+          <AuthForm
+            auth={params.auth}
+            onComplete={handleComplete}
+          />
+        </div>
+
       </div>
     );
   }
 }
 
 let mapStateToProps = (state) => ({
-  auth: state,
+  auth: state.auth,
+  profile: state.profile,
 });
 let mapDispatchToProps = (dispatch) => {
   return {
