@@ -18,10 +18,7 @@ class SettingsContainer extends React.Component {
   handleProfileCreate(profile) {
     return this.props
       .profileCreate(profile)
-      .then(
-        res => console.log('res', res)
-        /*this.props.history.push('/dashboard')*/
-      )
+      .then(this.props.history.push('/dashboard'))
       .catch(console.error)
   }
 
@@ -34,7 +31,10 @@ class SettingsContainer extends React.Component {
     return (
       <div className="settings-container">
         <h2>Settings</h2>
-        <ProfileForm buttonText="submit" onComplete={handleComplete} />
+        <ProfileForm
+          buttonText="submit"
+          onComplete={this.handleProfileCreate}
+        />
       </div>
     )
   }

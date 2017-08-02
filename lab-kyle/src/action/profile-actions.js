@@ -12,8 +12,9 @@ export const profileUpdate = profile => ({
 })
 
 //async
-export const ProfileCreateRequest = profile => (dispatch, getState) => {
+export const profileCreateRequest = profile => (dispatch, getState) => {
   let { auth } = getState()
+
   return superagent
     .post(`${__API_URL__}/profiles`)
     .set('Authorization', `Bearer ${auth}`)

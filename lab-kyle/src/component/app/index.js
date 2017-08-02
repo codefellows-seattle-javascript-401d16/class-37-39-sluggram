@@ -6,6 +6,7 @@ import * as util from '../../lib/util.js'
 import { tokenSet } from '../../action/auth-actions.js'
 import LandingContainer from '../landing-container'
 import SettingsContainer from '../settings-container'
+import DashboardContainer from '../dashboard-container'
 
 class App extends React.Component {
   constructor(props) {
@@ -23,16 +24,18 @@ class App extends React.Component {
         <BrowserRouter>
           <div>
             <header>
-              <h1>UP!</h1>
+              <h1>INSTA!</h1>
               <nav>
                 <ul>
                   <li><Link to="/welcome/signup"> signup </Link> </li>
                   <li><Link to="/welcome/login"> login </Link> </li>
+                  <li><Link to="/dashboard"> dashboard </Link> </li>
                   <li><Link to="/settings"> settings </Link> </li>
                 </ul>
               </nav>
             </header>
             <Route exact path="/welcome/:auth" component={LandingContainer} />
+            <Route exact path="/dashboard" component={DashboardContainer} />
             <Route exact path="/settings" component={SettingsContainer} />
           </div>
         </BrowserRouter>
