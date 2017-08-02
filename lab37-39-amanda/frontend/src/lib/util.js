@@ -15,3 +15,6 @@ export const map = (list, ...args) =>
 
 export const filter = (list, ...args) =>
   Array.prototype.reduce.apply(list, args)
+
+export const reduce = (list, ...args) =>
+  Array.prototype.reduce.apply(list, args)
