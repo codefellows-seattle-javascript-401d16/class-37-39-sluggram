@@ -1,35 +1,53 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { connect } from 'react-redux';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
-import appStoreCreate from '../../lib/app-store-create.js';
-import LandingContainer from '../landing-container';
 
-const store = appStoreCreate();
+import * as util from '../../lib/util.js';
+import { tokenSet } from '../../action/auth-actions.js';
+import LandingContainer from '../landing-container';
+import SettingsContainer from '../settings-container';
+import appStoreCreate from '../../lib/app-store-create.js';
+
 
 class App extends React.Component {
+  componentDidMount() {
+    const token = util.readCookie('Gram-Token');
+    if (token) {
+      this.props.tokenSet(token)
+    }
+  }
+
   render() {
     return (
       <div className="app">
-        <Provider store={store}>
-          <BrowserRouter>
-            <div>
-              <header>
-                <h1> gramgramgram </h1>
-                <nav>
-                  <ul>
-                    <li><Link to="/welcome/signup"> signup </Link> </li>
-                    <li><Link to="/welcome/login"> login </Link> </li>
-                  </ul>
-                </nav>
-              </header>
+        <BrowserRouter>
+          <div>
+            <header>
+              <h2> gramgramgram </h2>
+              <nav>
+                <ul>
+                  <li><Link to="/welcome/signup"> signup </Link> </li>
+                  <li><Link to="/welcome/login"> login </Link> </li>
+                  <li><Link to="/settings"> settings </Link> </li>
+                </ul>
+              </nav>
+            </header>
 
-              <Route path="/welcome/:auth" component={LandingContainer} />
-            </div>
-          </BrowserRouter>
-        </Provider>
+            <Route exact path="/welcome/:auth" component={LandingContainer} />
+            <Route exact path="/settings" component={SettingsContainer} />
+          </div>
+        </BrowserRouter>
       </div>
     );
   }
 }
 
-export default App;
+let mapStateToProps = (state) => ({
+  profile: state.profile,
+})
+
+let mapDispatchToProps = (dispatch) => ({
+  tokenSet: (token) => dispatch(tokenSet(token)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

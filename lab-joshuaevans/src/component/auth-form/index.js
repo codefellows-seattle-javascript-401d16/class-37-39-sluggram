@@ -6,19 +6,21 @@ class AuthForm extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: '',
-      email: '',
       usernameError: null,
       passwordError: null,
       emailError: null,
+      email: '',
+      password: '',
       error: null,
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
+
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
     const { name, value } = e.target;
+
     this.setState({
       [name]: value,
       usernameError: name === 'username' && !value ? 'username can not be empty' : null,
@@ -33,15 +35,18 @@ class AuthForm extends React.Component {
       .then(() => {
         this.setState({ username: '', email: '', password: '' });
       })
-      .catch((err) => {
-        console.error(err)
-        this.setState({ err });
+      .catch((error) => {
+        console.error(error);
+        this.setState({ error });
       });
   }
 
   render() {
     return (
-      <form className="auth-form" onSubmit={this.handleSubmit}>
+      <form
+        onSubmit={this.handleSubmit}
+        className="auth-form"
+      >
 
         {util.renderIf(this.props.auth === 'signup',
           <input
@@ -71,17 +76,20 @@ class AuthForm extends React.Component {
             {this.state.passwordError}
           </span>,
         )}
+
         <input
-          type="text"
+          type="password"
           name="password"
           placeholder="password"
           value={this.state.password}
           onChange={this.handleChange}
         />
 
-        <button type="submit"> {this.props.auth} </button>
-      </form>
+        <button type="submit">
+          {this.props.auth}
+        </button>
 
+      </form>
     );
   }
 }
