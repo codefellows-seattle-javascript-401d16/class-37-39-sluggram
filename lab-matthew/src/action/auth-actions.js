@@ -6,7 +6,7 @@ export const tokenSet = (token) => ({
   payload: token,
 })
 
-export const tokenDelete = () => ({type: 'TOKEN_DELETE'})
+export const logout = () => ({type: 'LOGOUT'})
 
 // async actions
 export const signupRequest = (user) => (dispatch) => {
