@@ -1,7 +1,7 @@
 'use strict';
 
 require('dotenv').config();
-cosnt production = process.env.NODE_ENV === 'production';
+const production = process.env.NODE_ENV === 'production';
 
 const {DefinePlugin, EnvironmentPlugin} = require('webpack');
 const HTMLPlugin = require('html-webpack-plugin');
@@ -43,6 +43,6 @@ module.exports = {
         test: /\.scss$/,
         loader: ExtractPlugin.extract(['css-loader', 'sass-loader']),
       },
-    ]
-  }
-}
+    ],
+  },
+};
