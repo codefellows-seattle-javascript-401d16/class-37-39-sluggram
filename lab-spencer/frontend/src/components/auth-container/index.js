@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {log, logError} from '../../lib/util.js';
+import {log, logError, renderIf} from '../../lib/util.js';
 
 import {userSignUpRequest, userSignInRequest} from '../../action/user-actions.js';
 import AuthForm from '../auth-form';
@@ -11,14 +11,21 @@ class AuthContainer extends React.Component {
   }
 
   render() {
+    let target = this.props.match.params.authTarget;
     return (
       <div className='auth-container'>
+        {renderIf(target === 'signin',
+          <h2>Sign In</h2>
+        )}
+        {renderIf(target === 'signup',
+          <h2>Sign Up</h2>
+        )}
         <AuthForm
-          onComplete={this.props.match.params.authTarget === 'signup'
+          onComplete={target === 'signup'
             ? this.props.userSignUp
             : this.props.userSignIn
           }
-          type={this.props.match.params.authTarget}
+          type={target}
         />
       </div>
     );

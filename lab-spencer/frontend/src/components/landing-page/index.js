@@ -8,6 +8,7 @@ class LandingPage extends React.Component {
   render() {
     return (
       <div>
+        <h1>Nice, you signed up and in</h1>
       </div>
     );
   }
