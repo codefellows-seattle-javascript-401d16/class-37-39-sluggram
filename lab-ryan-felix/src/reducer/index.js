@@ -1,9 +1,7 @@
 import auth from './auth.js';
 
 const initialState = {
-  auth: {
-    token: null,
-  },
+  auth: null,
 };
 
 const reducers = [auth];
