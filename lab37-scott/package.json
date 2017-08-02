@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "watch": "webpack-dev-server --inline --hot",
+    "build": "webpack",
+    "lint": "eslint .",
+    "test": "test --coverage",
+    "test-watch": "test --watchAll"
+  },
   "dependencies": {
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
