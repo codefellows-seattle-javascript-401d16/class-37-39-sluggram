@@ -14,6 +14,11 @@ class SettingsContainer extends React.Component {
     this.handleProfileCreate = this.handleProfileCreate.bind(this);
   }
 
+  componentWillMount() {
+    if(!this.props.auth)
+      this.props.history.push('/auth/login');
+  }
+
   handleProfileCreate(profile) {
     return this.props.profileCreate(profile)
       .then(res => {
@@ -33,24 +38,21 @@ class SettingsContainer extends React.Component {
   render() {
     return (
       <div className='settings-container'>
-        {renderIf(this.props.auth,
-          <Redirect to='/auth/login' />
-        )}
         <h2>Profile Settings</h2>
         <ProfileForm
-          onComplete={this.props.handleProfileCreate}
+          onComplete={this.handleProfileCreate}
         />
       </div>
     );
   }
 }
 
-let mapStateToProps = state => ({
+const mapStateToProps = state => ({
   auth: state.auth,
   profile: state.profile,
 });
 
-let mapDispatchToProps = (dispatch, getState) => ({
+const mapDispatchToProps = (dispatch, getState) => ({
   profileCreate: profile => dispatch(profileCreateRequest(profile)),
   profileUpdate: profile => dispatch(profileUpdateRequest(profile)),
 });

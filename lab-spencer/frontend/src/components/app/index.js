@@ -1,14 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {BrowserRouter, Route} from 'react-router-dom';
-import createAppStore from '../../lib/app-store-create.js';
 import LandingPage from '../landing-page';
 import AuthContainer from '../auth-container';
 import SettingsContainer from '../settings-container';
 import {readCookie} from '../../lib/util.js';
 import {tokenSet} from '../../action/user-actions.js';
-
-const store = createAppStore();
 
 class App extends React.Component {
   componentDidMount() {
@@ -33,6 +30,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  auth: state.auth,
   profile: state.profile,
 });
 

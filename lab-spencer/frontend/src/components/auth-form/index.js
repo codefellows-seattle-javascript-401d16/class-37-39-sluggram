@@ -1,6 +1,5 @@
 import React from 'react';
 import {log, logError, renderIf} from '../../lib/util.js';
-import {Redirect} from 'react-router-dom';
 
 class AuthForm extends React.Component {
   constructor(props) {
@@ -9,7 +8,6 @@ class AuthForm extends React.Component {
       username: '',
       password: '',
       email: '',
-      success: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -24,7 +22,6 @@ class AuthForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.onComplete(this.state);
-    this.setState({ success: true });
   }
 
   render() {
@@ -68,10 +65,6 @@ class AuthForm extends React.Component {
         >
           {this.props.type === 'signup' ? 'Sign Up' : 'Sign In'}
         </button>
-
-        {renderIf(this.state.success && (this.props.type === 'signup' || this.props.type === 'signin'),
-          <Redirect to='/' />
-        )}
       </form>
     );
   }

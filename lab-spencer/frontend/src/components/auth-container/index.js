@@ -2,18 +2,27 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {log, logError, renderIf} from '../../lib/util.js';
 
-import {userSignUpRequest, userSignInRequest} from '../../action/user-actions.js';
+import {
+  userSignUpRequest,
+  userSignInRequest,
+} from '../../action/user-actions.js';
 import AuthForm from '../auth-form';
 
 class AuthContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleSignup = this.handleSignup.bind(this);
+    this.handleUserSignIn = this.handleUserSignIn.bind(this);
+    this.handleUserSignUp = this.handleUserSignUp.bind(this);
   }
 
-  handleSignIn(user) {
+  componentWillMount() {
+    log('auth', this.props.auth);
+    if(this.props.auth)
+      this.props.history.push('/');
+  }
+
+  handleUserSignIn(user) {
     return this.props.userSignIn(user)
       .then(() => {
         this.props.history.push('/');
@@ -23,10 +32,10 @@ class AuthContainer extends React.Component {
       });
   }
 
-  handleSignUp(user) {
+  handleUserSignUp(user) {
     return this.props.userSignUp(user)
       .then(() => {
-        this.props.history.push('/');
+        this.props.history.push('/settings-container');
       })
       .catch(err => {
         logError(err);
@@ -37,9 +46,6 @@ class AuthContainer extends React.Component {
     let target = this.props.match.params.authTarget;
     return (
       <div className='auth-container'>
-        {renderIf(this.props.auth,
-          this.props.history.push('/')
-        )}
         {renderIf(target === 'signin',
           <h2>Sign In</h2>
         )}
@@ -48,8 +54,8 @@ class AuthContainer extends React.Component {
         )}
         <AuthForm
           onComplete={target === 'signup'
-            ? this.props.handleUserSignUp
-            : this.props.handleUserSignIn
+            ? this.handleUserSignUp
+            : this.handleUserSignIn
           }
           type={target}
         />
@@ -63,9 +69,9 @@ const mapStateToProps = state => ({
   profile: state.profile,
 });
 
-const mapDispathToProps = (dispatch, getState) => ({
-  userSignUp: credentials => dispatch(userSignUpRequest(credentials)),
-  userSignIn: credentials => dispatch(userSignInRequest(credentials)),
+const mapDispatchToProps = (dispatch, getState) => ({
+  userSignUp: user => dispatch(userSignUpRequest(user)),
+  userSignIn: user => dispatch(userSignInRequest(user)),
 });
 
-export default connect(mapStateToProps, mapDispathToProps)(AuthContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthContainer);

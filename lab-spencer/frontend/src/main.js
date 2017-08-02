@@ -1,16 +1,18 @@
 import './style/main.scss';
 import React from 'react';
 import ReactDom from 'react-dom';
-import {Provider} from 'react-router-dom';
+import {Provider} from 'react-redux';
 import App from './components/app';
-import createAppStore from './lib/app-store-create';
+import appStoreCreate from './lib/app-store-create.js';
 
-const store = createAppStore();
+let store = appStoreCreate();
 
-let AppContainer = () =>
-  <Provider store={store}>
-    <App />
-  </Provider>;
-
+const AppContainer = () => {
+  return (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+};
 
 ReactDom.render(<AppContainer />, document.getElementById('root'));

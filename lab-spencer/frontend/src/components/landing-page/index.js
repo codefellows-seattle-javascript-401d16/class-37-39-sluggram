@@ -1,22 +1,32 @@
 import React from 'react';
-import {Redirect} from 'react-router-dom';
-import {renderIf} from '../../lib/util.js';
+import {connect} from 'react-redux';
+import {log, logError} from '../../lib/util.js';
 
 class LandingPage extends React.Component {
   constructor(props) {
     super(props);
   }
 
+  componentWillMount() {
+    log('landing', this.props.auth);
+    if(!this.props.auth)
+      this.props.history.push('/auth/signin');
+  }
+
   render() {
     return (
       <div>
-        {renderIf(!this.props.auth,
-          <Redirect to='/auth/signin' />
-        )}
         <h1>Nice, you signed up and in</h1>
       </div>
     );
   }
 }
 
-export default LandingPage;
+const mapStateToProps = state => ({
+  auth: state.auth,
+  profile: state.profile,
+});
+
+const mapDispatchToProps = (dispatch, getState) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);
