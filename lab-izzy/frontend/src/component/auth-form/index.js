@@ -23,8 +23,8 @@ class AuthForm extends React.Component {
 
     this.setState({
       [name]: value,
-      usernameError: name == 'username' && ! value ? 'username can not be empty' : null,
       emailError: name == 'email' && ! value ? 'email can not be empty' : null,
+      usernameError: name == 'username' && ! value ? 'username can not be empty' : null,
       passwordError: name == 'password' && ! value ? 'password can not be empty' : null,
     });
   }
