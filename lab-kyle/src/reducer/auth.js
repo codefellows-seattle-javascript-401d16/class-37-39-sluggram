@@ -4,7 +4,7 @@ export default (state = null, action) => {
   case 'TOKEN_SET':
     return payload
 
-  case 'TOKEN_DELETE':
+  case 'LOGOUT':
     return null
 
   default:

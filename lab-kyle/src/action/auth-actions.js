@@ -3,7 +3,7 @@ import superagent from 'superagent'
 //sync
 export const tokenSet = token => ({ type: 'TOKEN_SET', payload: token })
 
-export const tokenDelete = token => ({ type: 'TOKEN_DELETE' })
+export const logout = token => ({ type: 'LOGOUT' })
 
 //async
 export const signupRequest = user => dispatch => {
