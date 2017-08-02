@@ -5,12 +5,14 @@ import * as util from '../../lib/util.js'
 import {signupRequest, loginRequest} from '../../action/auth-actions.js'
 
 class LandingContainer extends React.Component {
+
   render(){
     let {params} = this.props.match
     console.log('history', this.props.history)
     let handleComplete = params.auth === 'login'
-    ? this.props.login
-    : this.props.signup
+    ? (user) => this.props.login(user).then(()=>
+    this.props.history.push('/dashboard'))
+    : (user) => this.props.signup(user).then(() => this.props.history.push('/dashboard'))
 
     return (
       <div>
