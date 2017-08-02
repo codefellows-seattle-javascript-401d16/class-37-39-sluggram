@@ -2,7 +2,7 @@ import superagent from 'superagent';
 
 export const tokenSet = token => ({type: 'TOKEN_SET', payload: token});
 
-export const tokenDelete = token => ({type: 'TOKEN_DELETE'});
+export const logout = () => ({ type: 'LOGOUT' });
 
 export const userSignUpRequest = user => (dispatch, getState) =>
   superagent.post(`${__API_URL__}/signup`)

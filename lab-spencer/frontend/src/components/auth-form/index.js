@@ -1,6 +1,6 @@
 import React from 'react';
 import {log, logError, renderIf} from '../../lib/util.js';
-import {Link} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
 class AuthForm extends React.Component {
   constructor(props) {
@@ -69,17 +69,8 @@ class AuthForm extends React.Component {
           {this.props.type === 'signup' ? 'Sign Up' : 'Sign In'}
         </button>
 
-        {renderIf(this.state.success && this.props.type === 'signup',
-          <Link onClick={() => this.setState({
-            username: '',
-            password: '',
-            email: '',
-            success: false,
-          })} to='/auth/signin'>Signed up! Click here to sign in!</Link>
-        )}
-
-        {renderIf(this.state.success && this.props.type === 'signin',
-          <Link to='/'>Signed in! Click here!</Link>
+        {renderIf(this.state.success && (this.props.type === 'signup' || this.props.type === 'signin'),
+          <Redirect to='/' />
         )}
       </form>
     );
