@@ -3,6 +3,6 @@ import thunk from './redux-thunk.js'
 import reporter from './redux-reporter.js'
 import {createStore, applyMiddleware} from 'redux'
 
-let appSoreCreate = () => createStore(reducer, applyMiddleware(thunk, reporter))
+let appStoreCreate = () => createStore(reducer, applyMiddleware(thunk, reporter))
 
-export default appSoreCreate
+export default appStoreCreate

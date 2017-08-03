@@ -18,7 +18,6 @@ class LandingContainer extends React.Component{
           auth={params.auth}
           onComplete={handleComplete}
         />
-
       </div>
     )
   }

@@ -1,8 +1,8 @@
 export const log = (...args) =>
-  ___DEBUG___ ? console.log(...args) : undefined
+  __DEBUG__ ? console.log(...args) : undefined
 
 export const logError = (...args) =>
-  ___DEBUG___ ? console.error(...args) : undefined
+  __DEBUG__ ? console.error(...args) : undefined
 
 export const renderIf = (test, component) =>
   test ? component : undefined
