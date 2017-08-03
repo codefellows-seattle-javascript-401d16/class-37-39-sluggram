@@ -27,6 +27,8 @@ export const signupRequest = (user) => (dispatch) => {
         console.log('error: ', err);
         // return err;
       }
+      console.log('break6');
       return res;
-    });
+    })
+    .catch(console.error);
 };

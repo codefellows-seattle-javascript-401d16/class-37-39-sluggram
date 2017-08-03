@@ -1,4 +1,5 @@
 import React from 'react';
+import {renderIf} from '../../../lib/util.js';
 
 class AuthForm extends React.Component{
   constructor(props){
@@ -15,9 +16,9 @@ class AuthForm extends React.Component{
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // componentWillReceiveProps(props){
-  //   if(props.auth) this.setState(props.auth);
-  // }
+  componentDidReceiveProps(props){
+    if(props.auth) this.setState(props.auth);
+  }
 
   handleChange(e){
     //pull the name and value objects off the event
@@ -41,21 +42,24 @@ class AuthForm extends React.Component{
         console.log('break2');
       })
       .catch(error => {
-        console.error(error);
         this.setState({error});
       });
   }
 
   render(){
+    console.log('auth: ', this.props.auth);
     return(
+
       <form className='auth-form' onSubmit={this.handleSubmit}>
-        <input
-          type='text'
-          name='email'
-          placeholder='Email'
-          value={this.state.email}
-          onChange={this.handleChange}
-        />
+        {renderIf(this.props.auth == 'signup',
+          <input
+            type='text'
+            name='email'
+            placeholder='Email'
+            value={this.state.email}
+            onChange={this.handleChange}
+          />
+        )}
         <input
           type='text'
           name='username'

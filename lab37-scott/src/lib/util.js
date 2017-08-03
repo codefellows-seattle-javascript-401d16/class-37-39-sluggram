@@ -28,4 +28,4 @@ export const photoToDataURL = (file) => {
   });
 };
 
-export const renderIf = (test, component) => { test ? component : undefined;};
+export const renderIf = (test, component) => test ? component : undefined;

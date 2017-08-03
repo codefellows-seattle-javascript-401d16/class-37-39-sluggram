@@ -25,13 +25,14 @@ class Landing extends React.Component{
       .then(() => {
         console.log('handleSignup: ', this.props);
         console.log('break 4');
-        return this.props.history.push('/dashboard');
+        // this.props.history.push('/dashboard');
       })
       .catch(console.error);
   }
 
   render(){
     //use the object on props.match called params to get the url params.
+    console.log(this.props.signup instanceof Promise);
     let {params} = this.props.match;
     //make a ternary that sets handlecomplete to either the login or signup handlers
     //based on the auth params in url
