@@ -9,6 +9,9 @@
     "build": "webpack",
     "watch": "webpack-dev-server --inline --hot"
   },
+  "global": {
+    "__API_URL__": false
+  },
   "dependencies": {
     "babel-core": "^6.25.0",
     "babel-jest": "^20.0.3",
