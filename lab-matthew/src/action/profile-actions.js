@@ -1,0 +1,31 @@
+import superagent from 'superagent'
+
+// sync action creators
+
+export const profileCreate = (profile) => ({
+  type: 'PROFILE_CREATE',
+  payload: profile,
+})
+
+export const profileUpdate = (profile) => ({
+  type: 'PROFILE_UPDATE',
+  payload: profile,
+})
+
+// async action creators
+
+export const profileCreateRequest = (profile) => (dispatch, getState) => {
+  let {auth} = getState()
+  console.log('auth', auth)
+  console.log('API_URL', __API_URL__)
+  return superagent.post(`${__API_URL__}/profiles`)
+  .set('Authorization', `Bearer ${auth}`)
+  .field('bio', profile.bio)
+  .attach('avatar', profile.avatar)
+  .then(res => {
+    console.log('res', res)
+    dispatch(profileCreate(res.body))
+    return res
+  })
+  .catch(error => console.log('error', error))
+}
