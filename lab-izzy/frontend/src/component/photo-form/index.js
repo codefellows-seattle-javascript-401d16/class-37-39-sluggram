@@ -7,7 +7,7 @@ class PhotoForm extends React.Component {
 
     this.state = props.photo
       ? {...props.photo, preview: ''}
-      : {caption: '', avatar: null, preview: ''};
+      : {description: '', photoURI: null, preview: ''};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,15 +21,15 @@ class PhotoForm extends React.Component {
   handleChange(e){
     let {type, name} = e.target;
 
-    if(name === 'caption'){
-      this.setState({caption: e.target.value});
+    if(name === 'description'){
+      this.setState({description: e.target.value});
     }
 
-    if(name === 'avatar'){
+    if(name === 'photoURI'){
       let {files} = e.target;
-      let avatar = files[0];
-      this.setState({avatar});
-      util.photoToDataURL(avatar)
+      let photoURI = files[0];
+      this.setState({photoURI});
+      util.photoToDataURL(photoURI)
         .then(preview => this.setState({preview}))
         .catch(console.error);
     }
@@ -38,7 +38,7 @@ class PhotoForm extends React.Component {
   handleSubmit(e){
     e.preventDefault();
     console.log('YAAAAAS');
-    this.props.onComplete(this.state);
+    // this.props.onComplete(this.state);
   }
 
   render(){
@@ -51,14 +51,14 @@ class PhotoForm extends React.Component {
 
         <input
           type='file'
-          name='avatar'
+          name='photoURI'
           onChange={this.handleChange}
         />
 
         <textarea
           type='text'
-          name='caption'
-          value={this.state.caption}
+          name='description'
+          value={this.state.description}
           onChange={this.handleChange}>
         </textarea>
 

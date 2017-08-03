@@ -1,5 +1,5 @@
 import React from 'react';
-import * as util from '../lib/util.js';
+import * as util from '../../lib/util.js';
 
 // form used for both update and create
 class ProfileForm extends React.Component {
@@ -62,7 +62,7 @@ class ProfileForm extends React.Component {
         </textarea>
 
         <button type='submit'> {this.props.buttonName} </button>
-        
+
       </form>
     );
   }

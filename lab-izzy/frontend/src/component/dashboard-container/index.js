@@ -16,7 +16,7 @@ class DashboardContainer extends React.Component {
     return this.props.photoCreate(photo)
       .then(res => {
         // console.log('res', res);
-        this.props.history.push('/gallery');
+        this.props.history.push('/dashboard');
       })
       .catch(console.error);
   }
@@ -26,7 +26,7 @@ class DashboardContainer extends React.Component {
     return this.props.photoUpdate(photo)
       .then(res => {
         // console.log('res', res);
-        this.props.history.push('/gallery');
+        this.props.history.push('/dashboard');
       })
       .catch(console.error);
   }
