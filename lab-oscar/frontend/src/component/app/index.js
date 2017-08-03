@@ -45,17 +45,24 @@ class App extends React.Component {
           <div>
             <header className='header-main'>
               <Link to='/' alt='Home' className='header-logo'>
-                <img src='https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/ok-64.png'
+                <img
+                  src='https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/ok-64.png'
                 />
               </Link>
+              {this.props.profile && this.props.auth ?
+                <img
+                  className='profile-avatar'
+                  src={this.props.profile.avatar} />
+                : null
+              }
               <ul className='navigation-main'>
-                <li className={this.props.auth ? 'navigation-link link-hide' :'navigation-link'}><Link to='/welcome/signup' alt='Sign Up'>Sign Up</Link></li>
-                <li className={this.props.auth ? 'navigation-link link-hide' :'navigation-link'}><Link to='/welcome/login' alt='Log In'>Login</Link></li>
+                <li className={this.props.auth ? 'navigation-link link-hide' :'navigation-link'}><Link to='/account/signup' alt='Sign Up'>Sign Up</Link></li>
+                <li className={this.props.auth ? 'navigation-link link-hide' :'navigation-link'}><Link to='/account/login' alt='Log In'>Login</Link></li>
                 <li className={!this.props.auth ? 'navigation-link link-hide' : 'navigation-link'}><Link to='/settings'> Settings </Link></li>
                 <li className={!this.props.auth ?'navigation-link link-hide' : 'navigation-link'}><a href='#' onClick={this.handleLogOut}>Log Out</a></li>
               </ul>
             </header>
-            <Route exact path='/welcome/:auth' component={LandingContainer} />
+            <Route exact path='/account/:auth' component={LandingContainer} />
             <Route exact path='/settings' component={SettingsContainer} />
             <Route exact path='/dashboard' component={Dashboard} />
             {this.props.auth ? <Redirect to='/dashboard' /> : null}

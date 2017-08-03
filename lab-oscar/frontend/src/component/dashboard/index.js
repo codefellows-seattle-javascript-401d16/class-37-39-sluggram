@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import PhotoForm from '../photo-upload-form';
 import {photoCreateRequest, photoFetchRequest, photoDeleteRequest} from '../../action/photo-actions.js';
 import PhotoList from '../photo-list';
+import {Redirect} from 'react-router-dom';
+import './_dashboard.scss';
 
 class Dashboard extends React.Component {
   constructor(props){
@@ -47,25 +49,32 @@ class Dashboard extends React.Component {
 
     return (
       <div>
-        <h3>Dashboard</h3>
-        <PhotoForm
-          buttonText='Upload Photo'
-          onComplete={this.handlePhotoCreate}
-        />
+        {this.props.auth ?
+          <div>
+            <h3>Dashboard</h3>
+            <PhotoForm
+              buttonText='Upload Photo'
+              onComplete={this.handlePhotoCreate}
+            />
 
-        <ul>
-          {this.props.photo ?
-            this.props.photo.map(photo =>
-              <li key={photo._id}>
-                {photo.description}
-                <img src={photo.url} />
-                <button onClick={()=>{this.handlePhotoDelete(photo);}}>Delete</button>
-              </li>
-            )
-            :
-            null
-          }
-        </ul>
+            <ul>
+              {this.props.photo ?
+                this.props.photo.map(photo =>
+                  <li key={photo._id}>
+                    {photo.description}
+                    <img src={photo.url} />
+                    <button onClick={()=>{this.handlePhotoDelete(photo);}}>Delete</button>
+                  </li>
+                )
+                :
+                null
+              }
+            </ul>
+          </div>
+          :
+
+          <Redirect to='/' />
+        }
       </div>
     );
   }
@@ -73,6 +82,7 @@ class Dashboard extends React.Component {
 
 let mapStateToProps = (state) => ({
   photo: state.photo,
+  auth: state.auth,
 });
 
 let mapDispatchToProps = (dispatch) => ({

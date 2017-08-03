@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ProfileForm from '../profile-form';
 import {profileCreateRequest} from '../../action/profile-actions.js';
+import {Redirect} from 'react-router-dom';
 
 class SettingsContainer extends React.Component {
   constructor(props){
@@ -30,11 +31,17 @@ class SettingsContainer extends React.Component {
 
     return (
       <div className='settings-container'>
-        <h2> Settings </h2>
-        <ProfileForm
-          buttonText='Create Profile'
-          onComplete={this.handleProfileCreate}
-        />
+        {this.props.auth ?
+          <div>
+            <h2> Settings </h2>
+            <ProfileForm
+              buttonText='Create Profile'
+              onComplete={this.handleProfileCreate}
+            />
+          </div>
+          :
+          <Redirect to='/' />
+        }
       </div>
     );
   }
@@ -43,6 +50,7 @@ class SettingsContainer extends React.Component {
 
 let mapStateToProps = (state) => ({
   profile: state.profile,
+  auth: state.auth,
 });
 
 let mapDispatchToProps = (dispatch) => ({

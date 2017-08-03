@@ -55,3 +55,11 @@ a:active {
 .link-hide{
   display: none
 }
+.profile-avatar {
+  border: 2px solid #fff;
+  width: 48px;
+  border-radius: 100%;
+  position: absolute;
+  top: 35px;
+  right: 270px;
+}
