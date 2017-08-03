@@ -23,7 +23,9 @@ class Landing extends React.Component{
   handleSignup(user){
     return this.props.signup(user)
       .then(() => {
-        this.props.history.push('/dashboard');
+        console.log('handleSignup: ', this.props);
+        console.log('break 4');
+        return this.props.history.push('/dashboard');
       })
       .catch(console.error);
   }
@@ -34,14 +36,13 @@ class Landing extends React.Component{
     //make a ternary that sets handlecomplete to either the login or signup handlers
     //based on the auth params in url
     let handleComplete = params.auth === 'login' ? this.handleLogin : this.handleSignup;
-
     return(
       <div className='landing'>
         <main>
           Hey from Landing
           <AuthForm
             auth={params.auth}
-            onComplete={this.props.signup}
+            onComplete={handleComplete}
           />
         </main>
       </div>

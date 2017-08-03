@@ -5,17 +5,22 @@ import {connect} from 'react-redux';
 import Landing from '../landing';
 import Settings from '../setting';
 import Dashboard from '../dashboard';
-import tokenSet from '../../action/auth-action.js';
-import * as util from '../lib/util.js';
+import {tokenSet} from '../../action/auth-action.js';
+import * as util from '../../lib/util.js';
 
 class App extends React.Component{
-//create compoentwillmount that handles the cookie on load from the util file / article code
-//check if there's a token in the cookies on page load. Set the token from the cookies
-//to the state as the auth value.
+  constructor(props){
+    super(props);
+  }
+  //create compoentwillmount that handles the cookie on load from the util file / article code
+  //check if there's a token in the cookies on page load. Set the token from the cookies
+  //to the state as the auth value.
 
   componentDidMount(){
-    let token = util.readCookie('X-SLUGgram-Token')
-    if(token)this.props.tokenSet(token);
+    console.log('hit CDM');
+    let token = util.readCookie('X-Sluggram-Token');
+    console.log('cdm token: ', token);
+    if(token) this.props.tokenSet(token);
   }
 
   render(){

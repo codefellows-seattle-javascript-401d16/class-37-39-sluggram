@@ -15,11 +15,12 @@ class AuthForm extends React.Component{
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillReceiveProps(props){
-    if(props.auth) this.setState(props.auth);
-  }
+  // componentWillReceiveProps(props){
+  //   if(props.auth) this.setState(props.auth);
+  // }
 
   handleChange(e){
+    //pull the name and value objects off the event
     let {name, value} = e.target;
     this.setState({
       [name]: value,
@@ -31,11 +32,16 @@ class AuthForm extends React.Component{
   }
 
   handleSubmit(e){
+    console.log('props submit: ', this.props);
     e.preventDefault();
-    this.props.onComplete(this.props)
-      .then(() => {this.setState(this.props);})
+    console.log('break1');
+    this.props.onComplete(this.state)
+      .then(() => {
+        this.setState({username: '', email: '', password: ''});
+        console.log('break2');
+      })
       .catch(error => {
-        console.log('error: ', error);
+        console.error(error);
         this.setState({error});
       });
   }

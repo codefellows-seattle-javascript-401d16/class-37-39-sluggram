@@ -12,7 +12,8 @@ export const tokenDestroyOnLogout = () => ({
 //start the async requests
 
 export const signupRequest = (user) => (dispatch) => {
-  return superagent.post(`${__API_URL_}/signup`)
+  console.log('hit sign up');
+  return superagent.post(`${__API_URL__}/signup`)
     .withCredentials()
     .send(user)
     .then(res => {
@@ -20,9 +21,11 @@ export const signupRequest = (user) => (dispatch) => {
       dispatch(tokenSet(res.text));
       //put the token in local storage
       try{
+        console.log('break 5');
         localStorage.token = res.text;
       } catch(err){
         console.log('error: ', err);
+        // return err;
       }
       return res;
     });
