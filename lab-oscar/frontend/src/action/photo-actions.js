@@ -5,6 +5,11 @@ export const photoCreate = (photo) => ({
   payload: photo,
 });
 
+export const photoFetch = (photo) => ({
+  type: 'PHOTO_FETCH',
+  payload: photo,
+});
+
 export const photoCreateRequest = (photo) => (dispatch, getState) => {
   let {auth} = getState();
   return superagent.post(`${__API_URL__}/photos`)
@@ -17,7 +22,12 @@ export const photoCreateRequest = (photo) => (dispatch, getState) => {
     });
 };
 
-// export const profileUpdate = (profile) => ({
-//   type: 'PROFILE_UPDATE',
-//   payload: profile,
-// });
+export const photoFetchRequest = (photo) => (dispatch, getState) => {
+  let {auth} = getState();
+  return superagent.get(`${__API_URL__}/photos`)
+    .then(res => {
+      dispatch(photoFetch(res.body.data));
+      console.log('~~~~~~',res );
+      return res;
+    });
+};
