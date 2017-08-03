@@ -7,10 +7,10 @@ export const photoToDataURL = (file) => {
     //add event listeners to file readers to do things
     reader.addEventListener('load', () => {
       //on load, take the result from the reader object and pass in to resolve, check the docs
-      resolve(reader.result);
+      return resolve(reader.result);
     });
     reader.addEventListener('error', () => {
-      reject(reader.error);
+      return reject(reader.error);
     });
     if(file)
       reader.readAsDataURL(file);

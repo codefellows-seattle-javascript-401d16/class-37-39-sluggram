@@ -1,5 +1,5 @@
 export default (state=null, action) => {
-  
+
   let {type, payload} = action;
 
   switch (type) {
@@ -7,7 +7,7 @@ export default (state=null, action) => {
   case 'TOKEN_SET':
     return payload;
 
-  case 'TOKEN_DESTROY':
+  case 'TOKEN_DESTROYONLOGOUT':
     return null;
 
   default: return state;
