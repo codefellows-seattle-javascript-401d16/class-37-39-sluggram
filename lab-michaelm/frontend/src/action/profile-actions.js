@@ -15,6 +15,8 @@ export const profileUpdate = (profile) => ({
 // async action creators
 export const profileCreateRequest = (profile) => (dispatch, getState) => {
   let {auth} = getState();
+  log('profile',profile);
+  log('auth',auth);
   return superagent.post(`${__API_URL__}/profiles`)
     .set('Authorization', `Bearer ${auth}`)
     .field('bio', profile.bio)
@@ -24,6 +26,6 @@ export const profileCreateRequest = (profile) => (dispatch, getState) => {
       return res;
     })
     .catch(err =>
-      logError(err)
+      logError('some sort of  profile error:',err)
     );
 };
