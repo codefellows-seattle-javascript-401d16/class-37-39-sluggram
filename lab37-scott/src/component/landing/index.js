@@ -25,7 +25,7 @@ class Landing extends React.Component{
       .then(() => {
         console.log('handleSignup: ', this.props);
         console.log('break 4');
-        // this.props.history.push('/dashboard');
+        this.props.history.push('/dashboard');
       })
       .catch(console.error);
   }

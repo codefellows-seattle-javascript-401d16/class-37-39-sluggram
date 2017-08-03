@@ -38,7 +38,6 @@ class AuthForm extends React.Component{
     console.log('break1');
     this.props.onComplete(this.state)
       .then(() => {
-        this.setState({username: '', email: '', password: ''});
         console.log('break2');
       })
       .catch(error => {
