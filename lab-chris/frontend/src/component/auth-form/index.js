@@ -87,7 +87,7 @@ class AuthForm extends React.Component {
         <button type='submit'>
           {this.props.auth}
         </button>
-    
+
       </form>
     )
   }
