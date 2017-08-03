@@ -24,6 +24,11 @@ export const readCookie = name => {
   return null;
 };
 
+export const destroyCookie = name => {
+  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+  return;
+};
+
 export const renderIf = (test, component) =>
   test ? component : undefined;
 

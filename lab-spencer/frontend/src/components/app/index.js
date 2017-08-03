@@ -4,14 +4,21 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import LandingPage from '../landing-page';
 import AuthContainer from '../auth-container';
 import SettingsContainer from '../settings-container';
-import {readCookie} from '../../lib/util.js';
-import {tokenSet} from '../../action/user-actions.js';
+import {readCookie, destroyCookie} from '../../lib/util.js';
+import {
+  tokenSet,
+  signOutRequest,
+} from '../../action/user-actions.js';
 
 class App extends React.Component {
   componentDidMount() {
     let token = readCookie('X-Sluggram-Token');
     if(token)
       this.props.tokenSet(token);
+    else {
+      this.props.signOut();
+      destroyCookie('X-Sluggram-Token');
+    }
   }
 
   render() {
@@ -36,6 +43,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch, getState) => ({
   tokenSet: token => dispatch(tokenSet(token)),
+  signOut: () => dispatch(signOutRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

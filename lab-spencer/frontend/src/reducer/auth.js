@@ -3,7 +3,7 @@ export default (state = null, action) => {
   switch(type) {
   case 'TOKEN_SET':
     return payload;
-  case 'LOGOUT':
+  case 'SIGNOUT':
     return null;
   default:
     return state;

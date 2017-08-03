@@ -24,7 +24,7 @@ export default (state = null, action) => {
       throw new Error('USAGE ERROR: Cannot update a profile when state is null');
     validateProfileCreate(payload);
     return {...state, ...payload};
-  case 'LOGOUT':
+  case 'SIGNOUT':
     return null;
   default:
     return state;

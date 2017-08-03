@@ -15,20 +15,12 @@ class SettingsContainer extends React.Component {
   }
 
   componentWillMount() {
-    if(!this.props.auth)
-      this.props.history.push('/auth/login');
+
   }
 
   handleProfileCreate(profile) {
     return this.props.profileCreate(profile)
-      .then(res => {
-        log(res);
-        return;
-      })
-      .catch(err => {
-        logError(err);
-        return;
-      });
+      .catch(logError);
   }
 
   handleProfileUpdate(profile) {
@@ -41,6 +33,8 @@ class SettingsContainer extends React.Component {
         <h2>Profile Settings</h2>
         <ProfileForm
           onComplete={this.handleProfileCreate}
+          buttonText={this.props.profile ? 'Update' : 'Submit'}
+          profile={this.props.profile}
         />
       </div>
     );

@@ -1,25 +1,24 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {log, logError, renderIf} from '../../lib/util.js';
+import {log, logError, renderIf, readCookie} from '../../lib/util.js';
 
 import {
   userSignUpRequest,
   userSignInRequest,
+  tokenSet,
 } from '../../action/user-actions.js';
+
 import AuthForm from '../auth-form';
 
 class AuthContainer extends React.Component {
   constructor(props) {
     super(props);
-
     this.handleUserSignIn = this.handleUserSignIn.bind(this);
     this.handleUserSignUp = this.handleUserSignUp.bind(this);
   }
 
-  componentWillMount() {
-    log('auth', this.props.auth);
-    if(this.props.auth)
-      this.props.history.push('/');
+  componentDidMount() {
+
   }
 
   handleUserSignIn(user) {
@@ -35,7 +34,7 @@ class AuthContainer extends React.Component {
   handleUserSignUp(user) {
     return this.props.userSignUp(user)
       .then(() => {
-        this.props.history.push('/settings-container');
+        this.props.history.push('/');
       })
       .catch(err => {
         logError(err);
