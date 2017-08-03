@@ -21,6 +21,10 @@ export const readCookie = (name) => {
   return null;
 };
 
+export const deleteCookie = (name) =>{
+  document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+};
+
 export const photoToDataURL = (file) => {
   return new Promise((resolve, reject) => {
     let reader = new FileReader();

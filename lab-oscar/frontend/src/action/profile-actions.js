@@ -21,7 +21,13 @@ export const profileCreateRequest = (profile) => (dispatch, getState) => {
     .field('bio', profile.bio)
     .attach('avatar', profile.avatar)
     .then(res => {
+      let cookieProfile = JSON.stringify(Object.assign({}, res.body));
       dispatch(profileCreate(res.body));
+      try {
+        localStorage.profile = JSON.stringify(res.body);
+      } catch (error) {
+        console.log(error);
+      }
       return res;
     });
 };

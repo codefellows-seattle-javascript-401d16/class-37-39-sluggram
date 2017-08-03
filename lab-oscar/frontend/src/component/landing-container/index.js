@@ -12,11 +12,17 @@ class LandingContainer extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
   }
-
+  // componentWillReceiveProps(props){
+  //
+  // }
   handleLogin(user){
     return this.props.login(user)
       .then(() => {
-        this.props.history.push('/dashboard');
+        if(!this.props.profile){
+          this.props.history.push('/settings');
+        } else {
+          this.props.history.push('/dashboard');
+        }
       })
       .catch(util.logError());
   }
@@ -24,7 +30,7 @@ class LandingContainer extends React.Component {
   handleSignup(user){
     return this.props.signup(user)
       .then(() => {
-        this.props.history.push('/dashboard');
+        this.props.history.push('/settings');
       })
       .catch(console.error);
   }
@@ -47,6 +53,7 @@ class LandingContainer extends React.Component {
         <div className='user-form'>
           <AuthForm
             auth={params.auth}
+            name='bio'
             onComplete={handleComplete}
           />
         </div>
