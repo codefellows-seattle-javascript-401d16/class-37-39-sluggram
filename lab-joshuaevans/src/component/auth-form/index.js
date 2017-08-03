@@ -1,4 +1,8 @@
 import React from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import TextField from 'material-ui/TextField';
+import Dialog from 'material-ui/Dialog';
+import RaisedButton from 'material-ui/RaisedButton';
 import * as util from '../../lib/util.js';
 
 class AuthForm extends React.Component {
@@ -12,6 +16,7 @@ class AuthForm extends React.Component {
       email: '',
       password: '',
       error: null,
+      open: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,6 +34,12 @@ class AuthForm extends React.Component {
     });
   }
 
+
+  dialogToggle(e){
+    if(!this.state.open)
+      this.setState({ open: true })
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     this.props.onComplete(this.state)
@@ -43,53 +54,72 @@ class AuthForm extends React.Component {
 
   render() {
     return (
+      <MuiThemeProvider>
+      <Dialog
+          modal={false}
+          open={this.dialogToggle}
+          onRequestClose={this.handleClose}
+      >
       <form
         onSubmit={this.handleSubmit}
         className="auth-form"
       >
 
         {util.renderIf(this.props.auth === 'signup',
-          <input
-            type="text"
-            name="email"
-            placeholder="email"
-            value={this.state.email}
-            onChange={this.handleChange}
-          />)}
+          <MuiThemeProvider>
+            <TextField
+              type="text"
+              name="email"
+              placeholder="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+              style={{display: 'block', margin: '0 auto'}}
+            />
+          </MuiThemeProvider>)}
 
         {util.renderIf(this.state.usernameError,
           <span className="tooltip">
             {this.state.usernameError}
           </span>,
         )}
-
-        <input
-          type="text"
-          name="username"
-          placeholder="username"
-          value={this.state.username}
-          onChange={this.handleChange}
-        />
+        <MuiThemeProvider>
+          <TextField
+            type="text"
+            name="username"
+            placeholder="username"
+            value={this.state.username}
+            onChange={this.handleChange}
+            style={{display: 'block', margin: '0 auto'}}
+          />
+        </MuiThemeProvider>
 
         {util.renderIf(this.state.passwordError,
           <span className="tooltip">
             {this.state.passwordError}
           </span>,
         )}
+        <MuiThemeProvider>
+          <TextField
+            type="password"
+            name="password"
+            placeholder="password"
+            value={this.state.password}
+            onChange={this.handleChange}
+            style={{display: 'block', margin: '0 auto'}}
+          />
+        </MuiThemeProvider>
 
-        <input
-          type="password"
-          name="password"
-          placeholder="password"
-          value={this.state.password}
-          onChange={this.handleChange}
-        />
-
-        <button type="submit">
-          {this.props.auth}
-        </button>
+        <MuiThemeProvider>
+          <RaisedButton
+            type="submit"
+            label={this.props.auth}
+            style={{display: 'block', margin: '0 auto'}}
+          />
+        </MuiThemeProvider>
 
       </form>
+      </Dialog>
+      </MuiThemeProvider>
     );
   }
 }
