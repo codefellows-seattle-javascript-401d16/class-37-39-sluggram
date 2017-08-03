@@ -6,7 +6,7 @@ import LandingContainer from '../landing-container'
 
 let store = appStoreCreate()
 
-class App extends React.component {
+class App extends React.Component {
   render() {
     return(
       <div className='app'>
