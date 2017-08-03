@@ -7,6 +7,7 @@ class SettingsContainer extends React.Component {
   constructor(props){
     super(props);
     this.handleProfileCreate = this.handleProfileCreate.bind(this);
+    this.handleProfileUpdate = this.handleProfileUpdate.bind(this);
   }
 
   handleProfileCreate(profile){
