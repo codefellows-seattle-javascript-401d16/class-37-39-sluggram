@@ -29,8 +29,7 @@ class Landing extends React.Component{
   }
 
   render(){
-    //use match to get the url params. set it as params
-    console.log('match: ', this.props.match);
+    //use the object on props.match called params to get the url params.
     let {params} = this.props.match;
     //make a ternary that sets handlecomplete to either the login or signup handlers
     //based on the auth params in url
@@ -50,9 +49,13 @@ class Landing extends React.Component{
   }
 }
 
-let mapStateToProps = (state) => ({});
+let mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
 let mapDispatchToProps = (dispatch) => ({
   signup: (user) => dispatch(authAction.signupRequest(user)),
+  login: (user) => dispatch(authAction.loginRequest(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);

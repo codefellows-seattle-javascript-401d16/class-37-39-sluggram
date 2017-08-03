@@ -64,7 +64,7 @@ class AuthForm extends React.Component{
           value={this.state.password}
           onChange={this.handleChange}
         />
-        <button type='submit'>{this.props.buttonText}</button>
+        <button type='submit'>{this.props.auth}</button>
       </form>
     );
   }
