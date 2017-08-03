@@ -1,19 +1,29 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PhotoForm from '../photo-upload-form';
-import {photoCreateRequest, photoFetchRequest} from '../../action/photo-actions.js';
+import {photoCreateRequest, photoFetchRequest, photoDeleteRequest} from '../../action/photo-actions.js';
 import PhotoList from '../photo-list';
 
 class Dashboard extends React.Component {
   constructor(props){
     super(props);
+    this.props.photoFetchRequest();
     this.state = {
       viewPhotos: true,
     };
     this.handlePhotoCreate = this.handlePhotoCreate.bind(this);
     this.handlePhotoFetch = this.handlePhotoFetch.bind(this);
+    this.handlePhotoDelete = this.handlePhotoDelete.bind(this);
   }
 
+  componentWillReceiveProps(props){
+
+  }
+
+  handlePhotoDelete(photo) {
+    return this.props.photoDeleteRequest(photo)
+    // console.log('testing');
+  }
   handlePhotoFetch(photo) {
     return this.props.photoFetchRequest(photo)
       .then(res => {
@@ -25,7 +35,7 @@ class Dashboard extends React.Component {
   handlePhotoCreate(photo){
     return this.props.photoCreate(photo)
       .then(res => {
-        this.handlePhotoFetch(res.body);
+        this.props.photoFetchRequest();
       })
       .catch(console.error);
   }
@@ -42,9 +52,20 @@ class Dashboard extends React.Component {
           buttonText='Upload Photo'
           onComplete={this.handlePhotoCreate}
         />
-        <PhotoList
-          onLoad={this.handlePhotoFetch}
-        />
+
+        <ul>
+          {this.props.photo ?
+            this.props.photo.map(photo =>
+              <li key={photo._id}>
+                {photo.description}
+                <img src={photo.url} />
+                <button onClick={()=>{this.handlePhotoDelete(photo);}}>Delete</button>
+              </li>
+            )
+            :
+            null
+          }
+        </ul>
       </div>
     );
   }
@@ -57,6 +78,7 @@ let mapStateToProps = (state) => ({
 let mapDispatchToProps = (dispatch) => ({
   photoCreate: (photo) => dispatch(photoCreateRequest(photo)),
   photoFetchRequest: (photo) => dispatch(photoFetchRequest(photo)),
+  photoDeleteRequest: (photo) => dispatch(photoDeleteRequest(photo)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

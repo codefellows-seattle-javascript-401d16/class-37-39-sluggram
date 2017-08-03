@@ -49,10 +49,10 @@ class App extends React.Component {
                 />
               </Link>
               <ul className='navigation-main'>
-                <li className='navigation-link'><Link to='/welcome/signup' alt='Sign Up'>Sign Up</Link></li>
-                <li className='navigation-link'><Link to='/welcome/login' alt='Log In'>Login</Link></li>
-                <li className='navigation-link'><Link to='/settings'> settings </Link></li>
-                <li className='navigation-link'><a href='#' onClick={this.handleLogOut}>Log Out</a></li>
+                <li className={this.props.auth ? 'navigation-link link-hide' :'navigation-link'}><Link to='/welcome/signup' alt='Sign Up'>Sign Up</Link></li>
+                <li className={this.props.auth ? 'navigation-link link-hide' :'navigation-link'}><Link to='/welcome/login' alt='Log In'>Login</Link></li>
+                <li className={!this.props.auth ? 'navigation-link link-hide' : 'navigation-link'}><Link to='/settings'> Settings </Link></li>
+                <li className={!this.props.auth ?'navigation-link link-hide' : 'navigation-link'}><a href='#' onClick={this.handleLogOut}>Log Out</a></li>
               </ul>
             </header>
             <Route exact path='/welcome/:auth' component={LandingContainer} />

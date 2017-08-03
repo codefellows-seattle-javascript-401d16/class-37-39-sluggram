@@ -10,6 +10,11 @@ export const photoFetch = (photo) => ({
   payload: photo,
 });
 
+export const photoDelete = (photo) => ({
+  type: 'PHOTO_DELETE',
+  payload: photo,
+});
+
 export const photoCreateRequest = (photo) => (dispatch, getState) => {
   let {auth} = getState();
   return superagent.post(`${__API_URL__}/photos`)
@@ -27,7 +32,18 @@ export const photoFetchRequest = (photo) => (dispatch, getState) => {
   return superagent.get(`${__API_URL__}/photos`)
     .then(res => {
       dispatch(photoFetch(res.body.data));
-      console.log('~~~~~~',res );
+
       return res;
     });
+};
+
+export const photoDeleteRequest = (photo) => (dispatch, getState) => {
+  let {auth} = getState();
+  return superagent.delete(`${__API_URL__}/photos/${photo._id}`)
+    .set('Authorization', `Bearer ${auth}`)
+    .then(res => {
+      console.log('request', res);
+      dispatch(photoDelete(photo));
+    });
+
 };
