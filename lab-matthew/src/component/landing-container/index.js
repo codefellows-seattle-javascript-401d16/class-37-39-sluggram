@@ -15,10 +15,14 @@ class LandingContainer extends React.Component {
     this.handleSignup = this.handleSignup.bind(this)
   }
 
+
   handleLogin(user){
     return this.props.login(user)
     .then(() => {
-      this.props.history.push('/dashboard')
+      if(!this.props.profile)
+        this.props.history.push('/settings')
+      if(this.props.profile)
+        this.props.history.push('/dashboard')
     })
     .catch(console.error)
   }
@@ -26,7 +30,7 @@ class LandingContainer extends React.Component {
   handleSignup(user){
     return this.props.signup(user)
     .then(() => {
-      this.props.history.push('/dashboard')
+      this.props.history.push('/settings')
     })
     .catch(console.error)
   }
