@@ -24,11 +24,12 @@ class App extends React.Component{
     return(
       <div className='app'>
           <BrowserRouter>
-            <div>
+            <div id="content-splash">
               <header>
-                <h1> Are you still readin this? </h1>
+                <img src="../style/assets/foodie-logo.png"></img>
+                <h2> Instagram for food and ONLY food </h2>
                 <nav>
-                  <ul>
+                  <ul id="login-info">
                     <li><Link to='/welcome/signup'> signup </Link></li>
                     <li><Link to='/welcome/login'> login </Link></li>
                     <li><Link to='/settings'> settings </Link></li>
