@@ -16,37 +16,43 @@ class LandingContainer extends React.Component {
   handleLogin(user){
     return this.props.login(user)
       .then(() => {
-        this.props.history.push('./dashboard');
-      });
+        this.props.history.push('/dashboard');
+      })
+      .catch(console.error);
   }
 
   handleSignup(user){
     return this.props.signup(user)
       .then(() => {
         this.props.history.push('/dashboard');
-      });
+      })
+      .catch(console.error);
   }
+
   render() {
 
     let {params} = this.props.match;
     console.log('history', this.props.history);
     let handleComplete = params.auth === 'login'
-      ? this.props.login
-      : this.props.signup;
+      ? this.handleLogin
+      : this.handleSignup;
 
     return (
 
       <div>
         {util.renderIf(this.props.auth && this.props.profile,
-          <Redirect to='/dashboard'>
+          <Redirect to='/dashboard' />
         )}
+
         {util.renderIf(this.props.auth && !this.props.profile,
-          <Redirect to='/settings'>
+          <Redirect to='/settings' />
         )}
+
         <AuthForm
           auth={params.auth}
           onComplete={handleComplete}
         />
+
       </div>
     );
   }
@@ -56,6 +62,7 @@ let mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
 });
+
 let mapDispatchToProps = (dispatch) => {
   return {
     login: (user) => dispatch(loginRequest(user)),

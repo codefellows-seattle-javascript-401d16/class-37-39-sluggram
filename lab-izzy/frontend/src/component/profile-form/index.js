@@ -2,7 +2,6 @@ import React from 'react';
 import * as util from '../lib/util.js';
 
 // form used for both update and create
-
 class ProfileForm extends React.Component {
   constructor(props){
     super(props);
@@ -21,9 +20,11 @@ class ProfileForm extends React.Component {
 
   handleChange(e){
     let {type, name} = e.target;
+
     if(name === 'bio'){
       this.setState({bio: e.target.value});
     }
+
     if(name === 'avatar'){
       let {files} = e.target;
       let avatar = files[0];
@@ -54,11 +55,14 @@ class ProfileForm extends React.Component {
         />
 
         <textarea
+          type='text'
           name='bio'
           value={this.state.bio}
           onChange={this.handleChange}>
         </textarea>
+
         <button type='submit'> {this.props.buttonName} </button>
+        
       </form>
     );
   }

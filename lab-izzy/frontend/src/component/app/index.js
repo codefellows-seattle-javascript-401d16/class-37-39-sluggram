@@ -8,10 +8,8 @@ import SettingsContainer from '../settings-container';
 import appStoreCreate from '../../lib/app-store-create.js';
 import {BrowserRouter, Route, Link} from 'react-router-dom';
 
-let store = appStoreCreate();
-
 class App extends React.Component {
-  componentWillMount(){
+  componentDidMount(){
     let token = util.readCookie('X-Sluggram-Token');
     if(token)
       this.props.tokenSet(token);
@@ -48,4 +46,4 @@ let mapDispatchToProps = (dispatch) => ({
   tokenSet: (token) => dispatch(tokenSet(token)),
 });
 
-export default connect (mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

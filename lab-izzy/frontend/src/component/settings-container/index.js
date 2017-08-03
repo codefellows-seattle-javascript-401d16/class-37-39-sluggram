@@ -8,18 +8,29 @@ class SettingsContainer extends React.Component {
     super(props);
 
     this.handleProfileCreate = this.handleProfileCreate.bind(this);
+    this.handleProfileUpdate = this.handleProfileUpdate.bind(this);
   }
 
   handleProfileCreate(profile){
     return this.props.profileCreate(profile)
       .then(res => {
-        console.log('res', res);
-        // this.props.history.push('/dashboard');
+        // console.log('res', res);
+        this.props.history.push('/dashboard');
       })
       .catch(console.error);
   }
+
+  handleProfileUpdate(profile){
+    return this.props.profileUpdate(profile)
+      .then(res => {
+        // console.log('res', res);
+        this.props.history.push('/dashboard');
+      })
+      .catch(console.error);
+  }
+
   render() {
-    let handleComplete = this.props.profileCreate
+    let handleComplete = this.props.profile
       ? this.handleProfileCreate
       : this.handleProfileUpdate;
 
