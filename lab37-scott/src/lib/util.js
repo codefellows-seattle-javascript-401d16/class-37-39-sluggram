@@ -27,3 +27,5 @@ export const photoToDataURL = (file) => {
     return reject(new Error('usage error: requires file input'));
   });
 };
+
+export const renderIf = (test, component) => { test ? component : undefined;};

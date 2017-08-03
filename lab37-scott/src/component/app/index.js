@@ -17,7 +17,6 @@ class App extends React.Component{
   //to the state as the auth value.
 
   componentDidMount(){
-    console.log('hit CDM');
     let token = util.readCookie('X-Sluggram-Token');
     console.log('cdm token: ', token);
     if(token) this.props.tokenSet(token);
