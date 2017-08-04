@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import ProfileForm from '../profile-form';
 import {profileCreateRequest} from '../../action/profile-actions.js';
 import {Redirect} from 'react-router-dom';
+import MainNavigation from '../main-navigation';
 
 class SettingsContainer extends React.Component {
   constructor(props){
@@ -30,7 +31,8 @@ class SettingsContainer extends React.Component {
       : this.handleProfileUpdate;
 
     return (
-      <div className='settings-container'>
+      <div className='dashboard'>
+        <MainNavigation />
         {this.props.auth ?
           <div>
             <h2> Settings </h2>

@@ -35,6 +35,7 @@ export const loginRequest = (user) => (dispatch) => {
         localStorage.token = res.text;
       } catch (error) {
         console.log(error);
+  
       }
       return res;
     });

@@ -1,0 +1,35 @@
+.photo-upload-form {
+  border: 1px solid #e5e7ea;
+  margin-top: 10px;
+  height: 120px;
+}
+.form-container {
+  display: inline-block;
+  width: 800px;
+  border: 1px solid red;
+
+}
+.photo-upload-form input[type=file] {
+  height: 30px;
+}
+.photo-upload-form textarea{
+  height: 30px;
+}
+.photo-upload-form button {
+  height: 30px;
+}
+.profile-preview {
+  display: inline-block;
+  width: 200px;
+  height: 120px;
+  /* margin: 20px; */
+  margin-left: 20px;
+  margin-right: 20px;
+  float: left;
+}
+.profile-preview img {
+  width: 100px;
+  height: 100px;
+  /* margin: 0 auto; */
+  padding-left: 50px;
+}
