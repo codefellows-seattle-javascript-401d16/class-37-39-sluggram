@@ -1,3 +1,4 @@
+@import "../../styles/_main.scss";
 body {
   margin: 0;
   padding: 0;
@@ -38,7 +39,7 @@ ul {
   height: 80px;
   line-height: 85px;
   font-size: .9em;
-  font-family: sans-serif;
+  font-family: $font-main;
 }
 a:link {
   text-decoration: none;
@@ -62,4 +63,16 @@ a:active {
   position: absolute;
   top: 35px;
   right: 270px;
+}
+.fa-cog{
+  color: #fff;
+  font-size: 1.5em;
+  position: relative;
+  top: 2px;
+}
+.fa-sign-out{
+  color: #fff;
+  font-size: 1.5em;
+  position: relative;
+  top: 2px;
 }

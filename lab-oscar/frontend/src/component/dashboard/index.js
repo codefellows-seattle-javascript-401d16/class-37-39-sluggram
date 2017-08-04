@@ -5,6 +5,7 @@ import {photoCreateRequest, photoFetchRequest, photoDeleteRequest} from '../../a
 import PhotoList from '../photo-list';
 import {Redirect} from 'react-router-dom';
 import './_dashboard.scss';
+import MainNavigation from '../MainNavigation'
 
 class Dashboard extends React.Component {
   constructor(props){
@@ -18,13 +19,8 @@ class Dashboard extends React.Component {
     this.handlePhotoDelete = this.handlePhotoDelete.bind(this);
   }
 
-  componentWillReceiveProps(props){
-
-  }
-
   handlePhotoDelete(photo) {
-    return this.props.photoDeleteRequest(photo)
-    // console.log('testing');
+    return this.props.photoDeleteRequest(photo);
   }
   handlePhotoFetch(photo) {
     return this.props.photoFetchRequest(photo)
@@ -48,10 +44,11 @@ class Dashboard extends React.Component {
       : this.handlePhotoUpdate;
 
     return (
-      <div>
+      <div className='dashboard'>
+        <MainNavigation />
         {this.props.auth ?
           <div>
-            <h3>Dashboard</h3>
+            <p>Dashboard</p>
             <PhotoForm
               buttonText='Upload Photo'
               onComplete={this.handlePhotoCreate}
