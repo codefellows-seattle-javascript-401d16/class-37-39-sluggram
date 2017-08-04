@@ -5,6 +5,7 @@ export const tokenSet = (token) => ({
   payload: token,
 });
 
+export const logout = () => ({type: 'LOGOUT'});
 export const tokenDelete = () => ({ type: 'TOKEN_DELETE' });
 
 export const signupRequest = (user) => (dispatch) => {
@@ -28,6 +29,11 @@ export const loginRequest = (user) => (dispatch) => {
     .auth(user.username, user.password)
     .then(res => {
       dispatch(tokenSet(res.text));
+      try {
+        localStorage.token = res.text;
+      } catch (error) {
+        console.error(error);
+      }
       return res;
     });
 };
