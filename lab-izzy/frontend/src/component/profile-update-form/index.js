@@ -2,7 +2,7 @@ import React from 'react';
 import * as util from '../../lib/util.js';
 
 // form used for both update and create
-class ProfileForm extends React.Component {
+class ProfileUpdateForm extends React.Component {
   constructor(props){
     super(props);
     this.state = props.profile                 // passed in only if updating
@@ -43,7 +43,7 @@ class ProfileForm extends React.Component {
   render() {
     return(
       <form
-        className='profile-form'
+        className='profile-update-form'
         onSubmit={this.handleSubmit}>
 
         <img src={this.state.preview}/>
@@ -68,4 +68,4 @@ class ProfileForm extends React.Component {
   }
 }
 
-export default ProfileForm;
+export default ProfileUpdateForm;
