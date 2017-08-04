@@ -29,7 +29,10 @@ class ProfileForm extends React.Component{
       let avatar = files[0];
       this.setState({avatar});
       util.photoToDataURL(avatar)
-        .then(preview => this.setState({preview}))
+        .then(preview => {
+          console.log('preview: ', {preview});
+          this.setState({preview});
+        })
         .catch(console.error);
     }
   }
@@ -42,7 +45,7 @@ class ProfileForm extends React.Component{
   render(){
     return(
       <form className='profile-form' onSubmit={this.handleSubmit}>
-        <img src={this.state.avatar} />
+        <img src={this.state.preview} height='100' width='100'/>
         <input
           type='file'
           name='avatar'

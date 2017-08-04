@@ -47,6 +47,7 @@ class App extends React.Component{
 
 let mapStateToProps = (state) => ({
   profile: state.profile,
+  auth: state.auth,
 });
 
 let mapDispatchToProps = (dispatch) => ({

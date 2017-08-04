@@ -11,7 +11,9 @@ class Settings extends React.Component{
   }
 
   handleProfileCreate(profile){
-    //return profile create from the props
+    //return profile create from the props which invokes profilecreate request
+    return this.props.profileCreate(profile)
+      .catch(console.error);
   }
 
   render(){
@@ -20,7 +22,7 @@ class Settings extends React.Component{
         <h3>Hello from settings</h3>
         <ProfileForm
           buttonText='Create Profile'
-          //put oncomplete here.
+          onComplete={this.handleProfileCreate}
         />
       </div>
     );
@@ -29,7 +31,7 @@ class Settings extends React.Component{
 
 let mapStateToProps = (state) => ({});
 let mapDispatchToProps = (dispatch) => ({
-  profileCreate: (profile) => dispatch(profileActions.profileCreate(profile)),
+  profileCreate: (profile) => dispatch(profileActions.profileCreateRequest(profile)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

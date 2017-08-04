@@ -17,14 +17,15 @@ export const photoToDataURL = (file) => {
     //add event listeners to file readers to do things
     reader.addEventListener('load', () => {
       //on load, take the result from the reader object and pass in to resolve, check the docs
-      console.log('reader.result: ', reader.result);
-      return resolve(reader.result);
+      resolve(reader.result);
     });
     reader.addEventListener('error', () => {
-      return reject(reader.error);
+      reject(reader.error);
     });
-    if(file)
-      reader.readAsDataURL(file);
+    if(file) {
+      console.log('break8: ', file);
+      return reader.readAsDataURL(file);
+    }
     return reject(new Error('usage error: requires file input'));
   });
 };

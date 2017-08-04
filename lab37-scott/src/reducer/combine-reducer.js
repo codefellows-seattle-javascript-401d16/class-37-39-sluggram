@@ -4,4 +4,5 @@ import profile from './profile.js';
 
 export default combineReducers({
   authReducer,
+  profile,
 });
