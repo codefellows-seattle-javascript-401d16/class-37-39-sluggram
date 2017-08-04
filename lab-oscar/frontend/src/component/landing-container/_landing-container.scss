@@ -1,0 +1,39 @@
+.user-action-container {
+  border: 1px solid #a0ce5a;
+  background: #d9f9a9;
+  width: 30%;
+  position: absolute;
+  top: 100px;
+  right: 0;
+  height: 35%;
+}
+.user-form {
+  height: 100%;
+}
+.user-form input{
+  display: block;
+  width: 95%;
+  height: 35px;
+  margin: 0 auto;
+  margin-bottom: 5px;
+  border: 0;
+  border-bottom: 1px solid #b6b7b5;
+  font-size: 1em;
+  background: #d9f9a9;
+}
+.user-form button {
+  display: block;
+  width: 100px;
+  height: 40px;
+  margin: 0 auto;
+  margin-bottom: 5px;
+  background: #b0e069;
+  border-color: #a2ef8d;
+  border-style: none;
+  font-size: 1em;
+}
+
+input:focus {
+  outline: 0;
+  border-bottom: 1.5px solid #50a00b;
+}

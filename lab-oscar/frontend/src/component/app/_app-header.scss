@@ -1,0 +1,83 @@
+@import "../../styles/_main.scss";
+.header-main {
+  position: relative;
+  background: #212226;
+  height: 100px;
+  display: block;
+}
+.header-logo {
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  left: 20px;
+  top: 28px;
+  float: left;
+  transform: translateX(0);
+}
+.navigation-main {
+  position: absolute;
+  /* float: right; */
+  right: 0;
+  /* top: 0; */
+  height: 100px;
+  width: 18%;
+  margin: 0;
+}
+ul {
+  list-style: none;
+}
+.navigation-link {
+  display: inline-block;
+  width: 125px;
+  height: 80px;
+  font-size: .9em;
+  line-height: 95px;
+  font-family: $font-main;
+}
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  color: #fff;
+}
+a:hover {
+  color: #ea8b54;
+}
+a:active {
+  color: #c47140;
+}
+.link-hide{
+  display: none
+}
+.profile-avatar {
+  border: 2px solid #fff;
+  width: 45px;
+  height: 48px;
+  border-radius: 100%;
+  position: absolute;
+  top: 25px;
+  right: 270px;
+}
+.fa-cog{
+  color: #fff;
+  font-size: 1.5em;
+  position: relative;
+  top: 3px;
+  height: auto;
+  width: auto;
+}
+.fa-sign-out{
+  color: #fff;
+  font-size: 1.5em;
+  position: relative;
+  top: 3px;
+  height: auto;
+  width: auto;
+}
+.link-reset{
+  border: 1px solid #000;
+  height: 80px;
+  width: 120px;
+  display: inline-block;
+  width: auto;
+}

@@ -1,0 +1,12 @@
+.main-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #3C8DBC;
+  width: 230px;
+  min-height: 100%;
+  -webkit-transition: -webkit-transform .3s ease-in-out,width .3s ease-in-out;
+  -moz-transition: -moz-transform .3s ease-in-out,width .3s ease-in-out;
+  -o-transition: -o-transform .3s ease-in-out,width .3s ease-in-out;
+  transition: transform .3s ease-in-out,width .3s ease-in-out;
+}
