@@ -32,8 +32,10 @@ class Landing extends React.Component{
 
   render(){
     //use the object on props.match called params to get the url params.
-    console.log(this.props.signup instanceof Promise);
+    console.log('landingprops: ',this.props);
+    console.log('landingstate: ',this.state);
     let {params} = this.props.match;
+    console.log('landingparams: ',params.auth);
     //make a ternary that sets handlecomplete to either the login or signup handlers
     //based on the auth params in url
     let handleComplete = params.auth === 'login' ? this.handleLogin : this.handleSignup;
@@ -52,6 +54,7 @@ class Landing extends React.Component{
 }
 
 let mapStateToProps = (state) => ({
+  profile: state.profile,
   auth: state.auth,
 });
 

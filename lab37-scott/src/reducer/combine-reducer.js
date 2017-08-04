@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import authReducer from './auth-reducer.js';
-import profile from './profile.js';
+import auth from './auth-reducer.js';
+import profile from './profile-reducer.js';
 
 export default combineReducers({
-  authReducer,
+  auth,
   profile,
 });

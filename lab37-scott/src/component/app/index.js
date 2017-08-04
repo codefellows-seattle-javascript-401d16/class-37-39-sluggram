@@ -20,6 +20,7 @@ class App extends React.Component{
     let token = util.readCookie('X-Sluggram-Token');
     console.log('cdm token: ', token);
     if(token) this.props.tokenSet(token);
+    console.log('app auth:', this.props.auth);
   }
 
   render(){

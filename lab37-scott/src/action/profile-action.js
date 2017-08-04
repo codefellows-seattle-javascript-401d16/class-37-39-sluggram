@@ -15,8 +15,10 @@ export const profileUpdate = (profile) => ({
 
 //async ajax calls. make sure user has token to auth create profile.
 export const profileCreateRequest = (profile) => (dispatch, getState) => {
+  console.log('profreq PROF: ', profile);
   //pull the token off the auth state
   let {auth} = getState();
+  console.log('auth', {auth});
   //use auth.token and send in as bearer auth
   return superagent.post(`${__API_URL__}/profiles`)
     .set('Authorization', `Bearer ${auth}`)

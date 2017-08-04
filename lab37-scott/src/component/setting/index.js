@@ -29,7 +29,9 @@ class Settings extends React.Component{
   }
 }
 
-let mapStateToProps = (state) => ({});
+let mapStateToProps = (state) => ({
+  profile: state.profile,
+});
 let mapDispatchToProps = (dispatch) => ({
   profileCreate: (profile) => dispatch(profileActions.profileCreateRequest(profile)),
 });

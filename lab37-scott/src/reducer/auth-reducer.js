@@ -1,7 +1,7 @@
 export default (state=null, action) => {
 
   let {type, payload} = action;
-
+  console.log('payload: ', payload);
   switch (type) {
 
   case 'TOKEN_SET':
