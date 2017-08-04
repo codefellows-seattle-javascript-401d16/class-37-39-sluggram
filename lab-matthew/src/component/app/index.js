@@ -16,8 +16,11 @@ class App extends React.Component{
     let token = util.readCookie('X-Sluggram-Token')
     if(token){
       this.props.tokenSet(token)
-
     }
+  }
+
+  handleLogout() {
+
   }
 
   render(){
@@ -51,6 +54,7 @@ let mapStateToProps = (state) => ({
 })
 let mapDispatchToProps = (dispatch) => ({
   tokenSet: (token) => dispatch(tokenSet(token)),
+  tokenDelete: (token) => dispatch(tokenDelete(token)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
