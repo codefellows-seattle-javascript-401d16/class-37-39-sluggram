@@ -1,13 +1,14 @@
 import React from 'react';
 import * as util from '../../lib/util.js';
+import './_photo-form.scss';
 
 class PhotoForm extends React.Component {
   constructor(props){
     console.log('*****',props );
     super(props);
     this.state = {
-      photURI : this.props.photoURI? this.props.photURI : '',
-      description: this.props.description ? this.props.description : '',
+      photURI : this.props.photo? this.props.photo.photURI : '',
+      description: this.props.photo ? this.props.photo.description : '',
       preview: '',
     };
 
@@ -43,28 +44,39 @@ class PhotoForm extends React.Component {
   }
 
   render(){
+    console.log('^^^^',this.state);
     return(
-      <form
-        onSubmit={this.handleSubmit}
-      >
-        <img src={this.state.preview} />
-
-        <input
-          type='file'
-          name='photoURI'
-          onChange={this.handleChange}
-        />
-
-        <textarea
-          type='text'
-          name='description'
-          value={this.state.description}
-          onChange={this.handleChange}
+      <div className='photo-upload-form'>
+        <div className='profile-preview'>
+          {this.state.preview != ''?
+            <img src={this.state.preview} />
+            : null }
+        </div>
+        <div className='form-container'>
+        <form
+          onSubmit={this.handleSubmit}
         >
-        </textarea>
+          {!this.props.photo ?
+            <input
+              type='file'
+              name='photoURI'
+              onChange={this.handleChange}
+            />
+            :
+            null
+          }
+          <textarea
+            type='text'
+            name='description'
+            value={this.state.description}
+            onChange={this.handleChange}
+          >
+          </textarea>
 
-        <button type='submit'> {this.props.buttonText}</button>
-      </form>
+          <button type='submit'> {this.props.buttonText}</button>
+        </form>
+      </div>
+      </div>
     );
   }
 }

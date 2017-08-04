@@ -1,11 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PhotoForm from '../photo-upload-form';
-import {photoCreateRequest, photoFetchRequest, photoDeleteRequest} from '../../action/photo-actions.js';
+import {photoCreateRequest, photoFetchRequest,
+  photoDeleteRequest,photoUpdateRequest} from '../../action/photo-actions.js';
 import PhotoList from '../photo-list';
 import {Redirect} from 'react-router-dom';
 import './_dashboard.scss';
-import MainNavigation from '../MainNavigation'
+import MainNavigation from '../main-navigation';
+import DashWidget from '../dashwidget';
 
 class Dashboard extends React.Component {
   constructor(props){
@@ -47,27 +49,41 @@ class Dashboard extends React.Component {
       <div className='dashboard'>
         <MainNavigation />
         {this.props.auth ?
-          <div>
-            <p>Dashboard</p>
+          <div className='dashboard-content'>
+            <p className='dashboard-title'>Dashboard</p>
+            <DashWidget />
+
             <PhotoForm
               buttonText='Upload Photo'
               onComplete={this.handlePhotoCreate}
             />
 
             <ul>
+
               {this.props.photo ?
                 this.props.photo.map(photo =>
-                  <li key={photo._id}>
-                    {photo.description}
-                    <img src={photo.url} />
-                    <button onClick={()=>{this.handlePhotoDelete(photo);}}>Delete</button>
-                  </li>
+                  <div key={photo._id}>
+                    <li>
+                      {photo.description}
+                      <img src={photo.url} />
+                      <button onClick={()=>{this.handlePhotoDelete(photo);}}>Delete</button>
+                    </li>
+
+                    <PhotoForm
+                      photo={photo}
+                      buttonText='Update Desc'
+                      onComplete={(data)=>{
+                        data._id = photo._id;
+                        this.props.photoUpdateRequest(data);}}
+                    />
+                  </div>
                 )
                 :
                 null
               }
             </ul>
           </div>
+
           :
 
           <Redirect to='/' />
@@ -86,6 +102,7 @@ let mapDispatchToProps = (dispatch) => ({
   photoCreate: (photo) => dispatch(photoCreateRequest(photo)),
   photoFetchRequest: (photo) => dispatch(photoFetchRequest(photo)),
   photoDeleteRequest: (photo) => dispatch(photoDeleteRequest(photo)),
+  photoUpdateRequest: (photo) => dispatch(photoUpdateRequest(photo)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

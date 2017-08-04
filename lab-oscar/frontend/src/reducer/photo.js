@@ -6,7 +6,9 @@ export default (state=null, action) => {
   case 'PHOTO_FETCH':
     return payload;
   case 'PHOTO_DELETE':
-    return state = state.filter(photo => photo._id !== payload._id)
+    return state = state.filter(photo => photo._id !== payload._id);
+  case 'PHOTO_UPDATE':
+    return state = state.map(photo => photo._id === payload._id ? payload : photo);
   default:
     return state;
   }
