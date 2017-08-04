@@ -1,5 +1,5 @@
 import React from 'react';
-import ProfileForm from './profile-form.js';
+import ProfileForm from '../profile';
 import {connect} from 'react-redux';
 import * as profileActions from '../../action/profile-action.js';
 

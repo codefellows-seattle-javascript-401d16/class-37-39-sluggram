@@ -21,21 +21,22 @@ class ProfileForm extends React.Component{
 
   handleChange(e){
     let {type, name} = e.target;
+
     if(name === 'bio') this.setState({bio: e.target.value});
+    //handle avatar input, send to PTDU promise. return the
     if(name === 'avatar'){
       let {files} = e.target;
       let avatar = files[0];
       this.setState({avatar});
       util.photoToDataURL(avatar)
-        .then(preview => {
-
-        });
+        .then(preview => this.setState({preview}))
+        .catch(console.error);
     }
   }
 
   handleSubmit(e){
     e.preventDefault();
-
+    this.props.onComplete(this.state);
   }
 
   render(){
@@ -54,7 +55,7 @@ class ProfileForm extends React.Component{
           onChange={this.handleChange}
         >
         </textarea>
-
+        <button type='submit'>{this.props.buttonText}</button>
       </form>
     );
   }

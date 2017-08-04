@@ -17,6 +17,7 @@ export const photoToDataURL = (file) => {
     //add event listeners to file readers to do things
     reader.addEventListener('load', () => {
       //on load, take the result from the reader object and pass in to resolve, check the docs
+      console.log('reader.result: ', reader.result);
       return resolve(reader.result);
     });
     reader.addEventListener('error', () => {

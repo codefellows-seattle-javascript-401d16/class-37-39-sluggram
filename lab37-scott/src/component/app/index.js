@@ -38,7 +38,7 @@ class App extends React.Component{
           </header>
           <Route exact path='/welcome/:auth' component={Landing} />
           <Route exact path='/settings' component={Settings} />
-          <Route exact path='/dashboard/me' component={Dashboard} />
+          <Route exact path='/dashboard' component={Dashboard} />
         </div>
       </BrowserRouter>
     );
