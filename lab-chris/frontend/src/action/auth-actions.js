@@ -1,6 +1,5 @@
 import superagent from 'superagent'
 
-// sync actions for updating store
 export const tokenSet = (token) => ({
   type: 'TOKEN_SET',
   payload: token,
@@ -8,7 +7,6 @@ export const tokenSet = (token) => ({
 
 export const logout = () => ({ type: 'LOGOUT' })
 
-// async actions
 export const signupRequest =  (user) => (dispatch) => {
   return superagent.post(`${__API_URL__}/signup`)
     .withCredentials()
