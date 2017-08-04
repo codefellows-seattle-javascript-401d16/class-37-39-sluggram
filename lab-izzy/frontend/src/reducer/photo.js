@@ -4,23 +4,27 @@ let validatePhotoCreate = (photo) => {
   }
 };
 
-export default (state = null, action) => {
+export default (state = [], action) => {
   let {type, payload} = action;
   switch(type){
+
   case 'PHOTO_CREATE':
     validatePhotoCreate(payload);
-    return payload;
+    return [...state, payload];
+
   case 'PHOTO_UPDATE':
-    if(!state)
-      throw new Error('USAGE ERROR: can not update when photo is null');
     validatePhotoCreate(payload);
-    return {...state, ...payload};
+    return state.map(photo =>
+      photo.id == payload._id ? payload : photo);
+
   case 'PHOTO_FETCH':
     validatePhotoCreate(payload);
     return payload;
+
   case 'PHOTO_DELETE':
     validatePhotoCreate(payload);
-    return state = state.filter(photo => photo._id !== payload._id);
+    return state.filter(photo => photo._id !== payload._id);
+
   default:
     return state;
   }

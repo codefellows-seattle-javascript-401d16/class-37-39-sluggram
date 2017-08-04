@@ -1,7 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PhotoForm from '../photo-form';
-import {photoCreateRequest} from '../../action/photo-actions.js';
+import * as util from '../../lib/util.js';
+import PhotoUpdateForm from '../photo-update-form';
+import {
+  photoCreateRequest,
+  photoUpdateRequest,
+} from '../../action/photo-actions.js';
 
 class DashboardContainer extends React.Component {
   constructor(props){
@@ -12,22 +17,14 @@ class DashboardContainer extends React.Component {
   }
 
   handlePhotoCreate(photo){
-    // console.log('photo', photo);
+    console.log('photo', photo);
     return this.props.photoCreate(photo)
-      .then(res => {
-        // console.log('res', res);
-        this.props.history.push('/dashboard');
-      })
       .catch(console.error);
   }
 
   handlePhotoUpdate(photo){
-    // console.log('photo', photo);
+    console.log('photo', photo);
     return this.props.photoUpdate(photo)
-      .then(res => {
-        // console.log('res', res);
-        this.props.history.push('/dashboard');
-      })
       .catch(console.error);
   }
 
@@ -37,24 +34,36 @@ class DashboardContainer extends React.Component {
       : this.handlePhotoUpdate;
 
     return(
-      <div className='dashboard-container'>
-        <h2> Gallery </h2>
+      <form
+        className='dashboard-container'
+        onSubmit={this.handleSubmit}>
 
-        <PhotoForm
-          buttonName='add photo'
-          onComplete={this.handlePhotoCreate}
-        />
-      </div>
+        <h2> Dashboard </h2>
+
+        {util.renderIf(!this.state.photo,
+          <PhotoForm
+            buttonName='add photo'
+            onComplete={this.handlePhotoCreate}
+          />)}
+
+        {util.renderIf(this.state.photo,
+          <PhotoUpdateForm
+            buttonName='update photo'
+            onComplete={this.handlePhotoUpdate}
+          />)}
+
+      </form>
     );
   }
 }
 
 let mapStateToProps = (state) => ({
-  photo: state.photo,
+  photos: state.photos,
 });
 
 let mapDispatchToProps = (dispatch) => ({
   photoCreate: (photo) => dispatch(photoCreateRequest(photo)),
+  photoUpdate: (photo) => dispatch(photoUpdateRequest(photo)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);
