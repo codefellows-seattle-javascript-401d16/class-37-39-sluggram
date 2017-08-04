@@ -80,7 +80,7 @@ class AuthForm extends React.Component {
         <input
           type='password'
           name='password'
-          placeholder='placeholder'
+          placeholder='password'
           value={this.state.password}
           onChange={this.handleChange}
         />
