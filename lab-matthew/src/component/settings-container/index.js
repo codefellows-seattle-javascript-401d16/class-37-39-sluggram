@@ -6,6 +6,7 @@ import {profileCreateRequest} from '../../action/profile-actions.js'
 class SettingsContainer extends React.Component {
   constructor(props){
     super(props)
+
     this.handleProfileCreate = this.handleProfileCreate.bind(this)
   }
 
@@ -20,7 +21,6 @@ class SettingsContainer extends React.Component {
   }
 
   handleProfileUpdate(){
-
   }
 
   render(){
@@ -33,7 +33,7 @@ class SettingsContainer extends React.Component {
         <h2> settings </h2>
 
         <ProfileForm
-        buttonText='create profile'
+          buttonText='create profile'
           onComplete={this.handleProfileCreate}
           />
       </div>

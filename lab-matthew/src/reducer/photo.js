@@ -5,8 +5,10 @@ export default (state=[], action) => {
     return [...state, payload]
   case 'PHOTO_UPDATE':
     return [...state, ...payload]
+  case 'PHOTO_FETCH':
+    return [...state, ...payload]
   case 'PHOTO_DELETE':
-    return null
+    return state = state.filter(photo => photo._id !== payload._id)
   default:
     return state
   }

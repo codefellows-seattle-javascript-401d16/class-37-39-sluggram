@@ -12,10 +12,6 @@ class ProfileForm extends React.Component{
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidUpdate(){
-    // console.log('PROFILE FORM STATE', this.state)
-  }
-
   componentWillReceiveProps(props){
     if(props.profile)
       this.setSate(props.profile)
@@ -33,7 +29,10 @@ class ProfileForm extends React.Component{
       let avatar = files[0]
       this.setState({avatar})
       util.photoToDataURL(avatar)
-      .then(preview => this.setState({preview}))
+      .then(preview => {
+        this.setState({preview})
+      }
+      )
       .catch(console.error)
     }
   }
