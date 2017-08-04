@@ -38,7 +38,7 @@ class PhotoForm extends React.Component {
   handleSubmit(e){
     e.preventDefault();
     console.log('YAAAAAS');
-    // this.props.onComplete(this.state);
+    this.props.onComplete(this.state);
   }
 
   render(){

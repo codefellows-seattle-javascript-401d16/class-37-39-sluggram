@@ -20,9 +20,10 @@ class SettingsContainer extends React.Component {
   }
 
   handleProfileCreate(profile){
+    console.log('profile', profile);
     return this.props.profileCreate(profile)
       .then(res => {
-        // console.log('res', res);
+        console.log('res', res);
         this.props.history.push('/dashboard');
       })
       .catch(console.error);
@@ -43,12 +44,12 @@ class SettingsContainer extends React.Component {
       : this.handleProfileUpdate;
 
     return(
-      <form
+      <div
         className='settings-container'
         onSubmit={this.handleSubmit}>
 
         <h2> Settings, Yo! </h2>
-        
+
         {util.renderIf(!this.state.profile,
           <ProfileForm
             buttonName='create profile'
@@ -59,7 +60,7 @@ class SettingsContainer extends React.Component {
             buttonName='update profile'
             onComplete={this.handleProfileUpdate}
           />)}
-      </form>
+      </div>
     );
   }
 }

@@ -24,7 +24,7 @@ export const photoCreateRequest = (photo) => (dispatch, getState) => {
   let {auth} = getState();
   return superagent.post(`${__API_URL__}/photos`)
     .set('Authorization', `Bearer ${auth}`)
-    .field('description', photo.description)
+    .field('photo', photo)
     .attach('photoURI', photo.photoURI)
     .then(res => {
       dispatch(photoCreate(res.body));

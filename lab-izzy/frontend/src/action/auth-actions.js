@@ -13,11 +13,6 @@ export const signupRequest = (user) => (dispatch) => {
     .send(user)
     .then(res => {
       dispatch(tokenSet(res.text));
-      try {
-        localStorage.token = res.text;
-      } catch (error) {
-        console.log(error);
-      }
       return res;
     });
 };

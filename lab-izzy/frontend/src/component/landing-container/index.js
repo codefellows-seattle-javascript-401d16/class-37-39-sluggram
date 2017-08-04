@@ -30,7 +30,7 @@ class LandingContainer extends React.Component {
   }
 
   render() {
-
+    console.log('this.props.auth', this.props.auth);
     let {params} = this.props.match;
     console.log('history', this.props.history);
     let handleComplete = params.auth === 'login'

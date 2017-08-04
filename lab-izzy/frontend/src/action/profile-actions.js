@@ -14,11 +14,13 @@ export const profileUpdate = (profile) => ({
 // async action creators
 export const profileCreateRequest = (profile) => (dispatch, getState) => {
   let {auth} = getState();
+  console.log(auth,'auth');
   return superagent.post(`${__API_URL__}/profiles`)
     .set('Authorization', `Bearer ${auth}`)
     .field('bio', profile.bio)
     .attach('avatar', profile.avatar)
     .then(res => {
+      console.log(res.body, 'res.body');
       dispatch(profileCreate(res.body));
       return res;
     });
