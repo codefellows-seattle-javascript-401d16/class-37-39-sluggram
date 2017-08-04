@@ -22,7 +22,7 @@ class App extends React.Component {
         <BrowserRouter>
           <div>
             <header>
-              <h1> cool swee awesome yeeee </h1>
+              <h1> Welcome to Photo Share </h1>
               <nav>
                 <ul>
                   <li>
