@@ -8,6 +8,7 @@ import * as util from '../../lib/util.js';
 import { tokenSet } from '../../action/auth-actions.js';
 import LandingContainer from '../landing-container';
 import SettingsContainer from '../settings-container';
+import DashboardContainer from '../dashboard-container';
 import appStoreCreate from '../../lib/app-store-create.js';
 
 import Paper from 'material-ui/Paper';
@@ -17,7 +18,6 @@ import Divider from 'material-ui/Divider';
 
 
 class App extends React.Component {
-
   componentDidMount() {
     const token = util.readCookie('Gram-Token');
     if (token) {
@@ -33,7 +33,7 @@ class App extends React.Component {
             <header>
               <MuiThemeProvider>
                 <Paper style={{ margin: '18px 22px 18px 0' }}>
-                  <Menu style={{textAlign: 'center', fontWeight: 'bold'}}>
+                  <Menu style={{ textAlign: 'center', fontWeight: 'bold' }}>
                     <MenuItem primaryText="Gram Gram Gram" style={{ margin: '0 auto' }} />
                   </Menu>
                 </Paper>
@@ -49,7 +49,6 @@ class App extends React.Component {
                       >
                         <MenuItem
                           primaryText="Signup"
-                          onTouchTap={this.dialogToggle}
                         />
                       </Link>
                       <Link
@@ -76,6 +75,7 @@ class App extends React.Component {
 
             <Route exact path="/welcome/:auth" component={LandingContainer} />
             <Route exact path="/settings" component={SettingsContainer} />
+            <Route exact path="/dashboard" component={DashboardContainer} />
           </div>
         </BrowserRouter>
       </div>
@@ -89,7 +89,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   tokenSet: token => dispatch(tokenSet(token)),
-  dialogToggle: () => dispatch(this.dialogToggle()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

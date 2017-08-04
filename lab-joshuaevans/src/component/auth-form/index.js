@@ -1,7 +1,6 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
-import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as util from '../../lib/util.js';
 
@@ -16,11 +15,11 @@ class AuthForm extends React.Component {
       email: '',
       password: '',
       error: null,
-      open: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   handleChange(e) {
@@ -34,10 +33,10 @@ class AuthForm extends React.Component {
     });
   }
 
-
-  dialogToggle(e){
-    if(!this.state.open)
-      this.setState({ open: true })
+  handleClose() {
+    if (this.state.open) {
+      this.setState({ open: false });
+    }
   }
 
   handleSubmit(e) {
@@ -55,70 +54,63 @@ class AuthForm extends React.Component {
   render() {
     return (
       <MuiThemeProvider>
-      <Dialog
-          modal={false}
-          open={this.dialogToggle}
-          onRequestClose={this.handleClose}
-      >
-      <form
-        onSubmit={this.handleSubmit}
-        className="auth-form"
-      >
+        <form
+          onSubmit={this.handleSubmit}
+          className="auth-form"
+        >
+          {util.renderIf(this.props.auth === 'signup',
+            <MuiThemeProvider>
+              <TextField
+                type="text"
+                name="email"
+                placeholder="email"
+                value={this.state.email}
+                onChange={this.handleChange}
+                style={{ display: 'block', margin: '0 auto' }}
+              />
+            </MuiThemeProvider>)}
 
-        {util.renderIf(this.props.auth === 'signup',
+          {util.renderIf(this.state.usernameError,
+            <span className="tooltip">
+              {this.state.usernameError}
+            </span>,
+          )}
           <MuiThemeProvider>
             <TextField
               type="text"
-              name="email"
-              placeholder="email"
-              value={this.state.email}
+              name="username"
+              placeholder="username"
+              value={this.state.username}
               onChange={this.handleChange}
-              style={{display: 'block', margin: '0 auto'}}
+              style={{ display: 'block', margin: '0 auto' }}
             />
-          </MuiThemeProvider>)}
+          </MuiThemeProvider>
 
-        {util.renderIf(this.state.usernameError,
-          <span className="tooltip">
-            {this.state.usernameError}
-          </span>,
-        )}
-        <MuiThemeProvider>
-          <TextField
-            type="text"
-            name="username"
-            placeholder="username"
-            value={this.state.username}
-            onChange={this.handleChange}
-            style={{display: 'block', margin: '0 auto'}}
-          />
-        </MuiThemeProvider>
+          {util.renderIf(this.state.passwordError,
+            <span className="tooltip">
+              {this.state.passwordError}
+            </span>,
+          )}
+          <MuiThemeProvider>
+            <TextField
+              type="password"
+              name="password"
+              placeholder="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+              style={{ display: 'block', margin: '0 auto' }}
+            />
+          </MuiThemeProvider>
 
-        {util.renderIf(this.state.passwordError,
-          <span className="tooltip">
-            {this.state.passwordError}
-          </span>,
-        )}
-        <MuiThemeProvider>
-          <TextField
-            type="password"
-            name="password"
-            placeholder="password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            style={{display: 'block', margin: '0 auto'}}
-          />
-        </MuiThemeProvider>
+          <MuiThemeProvider>
+            <RaisedButton
+              type="submit"
+              label={this.props.auth}
+              style={{ display: 'block', margin: '0 auto' }}
+            />
+          </MuiThemeProvider>
 
-        <MuiThemeProvider>
-          <RaisedButton
-            type="submit"
-            label={this.props.auth}
-            style={{display: 'block', margin: '0 auto'}}
-          />
-        </MuiThemeProvider>
-
-      </form>
-      </Dialog>
+        </form>
       </MuiThemeProvider>
     );
   }

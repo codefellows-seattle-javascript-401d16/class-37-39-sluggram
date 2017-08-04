@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ProfileForm from '../profile-form';
 import { profileCreateRequest } from '../../action/profile-actions.js';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+
 
 class SettingsContainer extends React.Component {
   constructor(props) {
@@ -28,8 +31,6 @@ class SettingsContainer extends React.Component {
 
     return (
       <div className="settings-container">
-        <h2> settings </h2>
-
         <ProfileForm
           buttonText="create profile"
           onComplete={this.handleProfileCreate}
