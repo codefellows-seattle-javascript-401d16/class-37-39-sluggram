@@ -41,19 +41,23 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractPlugin.extract(['css-loader', 'sass-loader']),
+        loader: ExtractPlugin.extract(['css-loader','resolve-url-loader', 'sass-loader?sourceMap']),
       },
       {
-        test: /\.(woff|woff2|ttf|eot|glyph\.svg)$/,
+        test: /\.(woff|woff2|ttf|eot|svg).*/,
         use: [
           {
             loader: 'url-loader',
             options: {
               limit: 10000,
-              name: 'font/[name].[ext]',
+              name: 'font/[name].[hash].[ext]',
             },
           },
         ],
+      },
+      {
+        test: /\.icon.svg/,
+        loader: 'raw-loader',
       },
       {
         test: /\.(jpg|jpeg|gif|png|tiff|svg)$/,
