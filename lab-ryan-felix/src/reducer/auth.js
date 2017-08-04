@@ -1,4 +1,4 @@
-import { SET_TOKEN, DELETE_TOKEN } from '../action/actions.js';
+import { SET_TOKEN, DELETE_TOKEN, LOGOUT } from '../action/actions.js';
 
 const reducer = {
   [SET_TOKEN]: (state, { type, payload }) => ({
@@ -11,6 +11,10 @@ const reducer = {
     auth: {
       token: null,
     },
+  }),
+
+  [LOGOUT]: () => ({
+    auth: null,
   }),
 };
 

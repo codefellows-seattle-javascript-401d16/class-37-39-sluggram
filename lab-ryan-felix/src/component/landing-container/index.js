@@ -12,6 +12,7 @@ const validateMatch = (match) => (
 class LandingContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.invalidMatch = !validateMatch(props.match.params.auth);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
   }
@@ -36,11 +37,14 @@ class LandingContainer extends React.Component {
       : this.handleSignup;
     return (
       <div className="landing-container">
+        { renderIf(this.invalidMatch,
+          <Redirect to='/' />
+        )}
         { renderIf(this.props.auth && this.props.profile,
           <Redirect to='/dashboard' />
         )}
         { renderIf(this.props.auth && !this.props.profile,
-          <Redirect to='/settings' />
+          <Redirect to='/profile' />
         )}
         <h2>Log In / Sign Up</h2>
         <AuthForm
