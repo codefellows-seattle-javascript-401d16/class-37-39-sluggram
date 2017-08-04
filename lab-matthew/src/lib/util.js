@@ -26,7 +26,7 @@ export const readCookie = (name) => {
 }
 
 export const deleteCookie = (name) => {
-  document.cookie =  'X-Sluggram-Token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+  document.cookie = 'X-Sluggram-Token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;'
 }
 
 export const log = (...args) =>

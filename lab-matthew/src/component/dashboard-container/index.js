@@ -28,7 +28,6 @@ class DashboardContainer extends React.Component {
   }
 
   handlePhotoCreate(photo){
-    // console.log('handlePhotoCreate photo', photo)
     return this.props.photoCreate(photo)
     .then(res => {
       // this.props.history.push('/dashboard')
@@ -37,7 +36,6 @@ class DashboardContainer extends React.Component {
   }
 
   handlePhotoDelete(photo){
-    // console.log('handlePhotoDelete', photo)
     return this.props.photoDelete(photo)
     .then(res => {
       console.log('photoDelete res', res)
@@ -45,8 +43,6 @@ class DashboardContainer extends React.Component {
   }
 
   render(){
-    console.log('this.state.photos', this.state.photos)
-    console.log('this.props', this.props)
     return(
       <div className='dashboard-container'>
         <h2> You are logged in! </h2>

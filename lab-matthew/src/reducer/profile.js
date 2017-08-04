@@ -9,6 +9,8 @@ export default (state=null, action) => {
   case 'PROFILE_CREATE':
     validateProfileCreate(payload)
     return payload
+  case 'PROFILE_FETCH':
+    return payload
   case 'PROFILE_UPDATE':
     if(!state)
       throw new Error('USAGE ERROR: can not update when profile is null')

@@ -58,3 +58,13 @@ export const photoDeleteRequest = (photo) => (dispatch, getState) => {
     return res
   })
 }
+
+export const photoUpdateRequest = (photo) => (dispatch, getState) => {
+  let {auth} = getState()
+  return superagent.put(`${__API_URL__}/photos${photo._id}`)
+  .set('Authorization', `Bearer ${auth}`)
+  .then(res => {
+    dispatch(photoUpdate(photo))
+    return res
+  })
+}

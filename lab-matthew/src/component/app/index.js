@@ -3,14 +3,38 @@ import {connect} from 'react-redux'
 import {BrowserRouter, Route, Link} from 'react-router-dom'
 
 import * as util from '../../lib/util.js'
-import {tokenSet} from '../../action/auth-actions'
 import LandingContainer from '../landing-container'
 import SettingsContainer from '../settings-container'
 import DashboardContainer from '../dashboard-container'
 import appStoreCreate from '../../lib/app-store-create.js'
+import {profileCreate, profileFetch} from '../../action/profile-actions'
+import {tokenSet, tokenDelete} from '../../action/auth-actions'
 
 
 class App extends React.Component{
+  constructor(props){
+    super(props)
+
+    this.handleLogout = this.handleLogout.bind(this)
+  }
+
+  componentWillMount(){
+    let token = util.readCookie('X-Sluggram-Token')
+    if(token){
+      this.props.tokenSet(token)
+    }
+    try{
+      let profile = JSON.parse(localStorage.profile)
+      if(profile){
+        this.props.profileCreate(profile)
+
+      // if(!this.props.profile)
+      //   this.props.profile = profileFetch(profile)
+      }
+    }catch(error){
+      console.log('ERROR getting profile from localStorage: ', error)
+    }
+  }
 
   componentDidMount(){
     let token = util.readCookie('X-Sluggram-Token')
@@ -19,8 +43,15 @@ class App extends React.Component{
     }
   }
 
-  handleLogout() {
-
+  handleLogout(e) {
+    e.preventDefault()
+    util.deleteCookie('X-Sluggram-Token')
+    this.props.tokenDelete()
+    // this.props.history.push('/welcome/login')
+    this.setState = {
+      auth: null,
+      profile: null,
+    }
   }
 
   render(){
@@ -35,6 +66,8 @@ class App extends React.Component{
                     <li><Link to='/welcome/signup'> signup </Link></li>
                     <li><Link to='/welcome/login'> login </Link></li>
                     <li><Link to='/settings'> settings </Link></li>
+                    <li><a href='#' onClick={this.handleLogout}>
+                    logout </a></li>
                   </ul>
                 </nav>
               </header>
@@ -51,10 +84,12 @@ class App extends React.Component{
 
 let mapStateToProps = (state) => ({
   profile: state.profile,
+  auth: state.auth,
 })
 let mapDispatchToProps = (dispatch) => ({
   tokenSet: (token) => dispatch(tokenSet(token)),
-  tokenDelete: (token) => dispatch(tokenDelete(token)),
+  tokenDelete: () => dispatch(tokenDelete()),
+  profileCreate: (profile) => dispatch(profileCreate(profile)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

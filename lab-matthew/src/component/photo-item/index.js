@@ -19,12 +19,6 @@ class PhotoItem extends React.Component {
         <img src={this.props.photoURL} />
         <button onClick={() => this.props.photoDelete(image)}> delete photo </button>
 
-        <PhotoForm
-          buttonText = 'update photo'
-          onComplete={this.props.photoCreate}
-          photo={image}
-          />
-
       </div>
     )
   }
