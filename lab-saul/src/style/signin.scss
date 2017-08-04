@@ -1,0 +1,26 @@
+$background: './assets/foodiebr.jpg';
+
+body {
+  background-image: url('./assets/foodiebr.jpg');
+  background-size: cover;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  height: 100vh;
+  width: 100vw;
+}
+
+#login-info {
+  width: 60%;
+  color: yellow;
+  // padding-left: calc()
+  margin-top: 35%;
+  border: 2px solid red;
+}
+
+#content-splash {
+  width: 50%;
+  margin-left: calc(50% - 50px);
+  margin-top: calc(40% - 50px);
+  margin-top: a;
+  border: 2px solid white;
+}
