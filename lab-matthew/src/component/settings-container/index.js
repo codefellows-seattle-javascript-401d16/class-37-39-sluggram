@@ -32,8 +32,15 @@ class SettingsContainer extends React.Component {
       <div className='settings-container'>
         <h2> settings </h2>
 
+        <img src={this.props.profile.avatar} />
+
         <ProfileForm
           buttonText='create profile'
+          onComplete={this.handleProfileCreate}
+          />
+
+        <ProfileForm
+          buttonText='update profile'
           onComplete={this.handleProfileCreate}
           />
       </div>
