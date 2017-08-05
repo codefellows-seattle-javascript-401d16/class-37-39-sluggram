@@ -10,6 +10,12 @@
     "test": "test --coverage",
     "test-watch": "test --watchAll"
   },
+  "jest": {
+    "globals": {
+      "__DEBUG__": true,
+      "__API_URL__": "http://localhost:7777"
+    }
+  } ,
   "dependencies": {
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
@@ -41,6 +47,7 @@
     "eslint-plugin-react": "^7.1.0",
     "jest": "^20.0.4",
     "react-test-renderer": "^15.6.1",
-    "superagent": "^3.5.2"
+    "superagent": "^3.5.2",
+    "superagent-mocker": "^0.5.2"
   }
 }

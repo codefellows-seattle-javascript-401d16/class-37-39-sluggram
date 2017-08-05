@@ -17,9 +17,12 @@ class Settings extends React.Component{
   }
 
   render(){
+    console.log('settings props: ', this.props);
     return(
       <div className='settings'>
         <h3>Hello from settings</h3>
+        Current Avatar =
+        <img src={this.props.profile.avatar} height='100' width='100' />
         <ProfileForm
           buttonText='Create Profile'
           onComplete={this.handleProfileCreate}

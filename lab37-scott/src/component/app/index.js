@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import Landing from '../landing';
 import Settings from '../setting';
 import Dashboard from '../dashboard';
-import {tokenSet} from '../../action/auth-action.js';
+import * as authAction from '../../action/auth-action.js';
 import * as util from '../../lib/util.js';
 
 class App extends React.Component{
@@ -31,6 +31,9 @@ class App extends React.Component{
               Hello App
             <nav>
               <ul>
+                {util.renderIf(this.props.auth,
+                  <li><Link to='/welcome'><button onClick={() => this.props.tokenDestroy()}> Log Out </button></Link></li>
+                )}
                 <li><Link to='/welcome/signup'> Signup </Link></li>
                 <li><Link to='/welcome/login'> Login </Link></li>
                 <li><Link to='/settings'> Settings </Link></li>
@@ -52,7 +55,8 @@ let mapStateToProps = (state) => ({
 });
 
 let mapDispatchToProps = (dispatch) => ({
-  tokenSet: (token) => dispatch(tokenSet(token)),
+  tokenSet: (token) => dispatch(authAction.tokenSet(token)),
+  tokenDestroy: (token) => dispatch(authAction.tokenDestroyOnLogout(token)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
