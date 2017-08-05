@@ -8,13 +8,9 @@ import DashboardContainer from '../dashboard-container';
 
 import appStoreCreate from '../../lib/app-store-create.js';
 import {BrowserRouter, Route, Link} from 'react-router-dom';
+import {profileFetchRequest} from '../../action/profile-actions.js';
 
 class App extends React.Component {
-  componentDidMount(){
-    let token = util.readCookie('X-Sluggram-Token');
-    if(token)
-      this.props.tokenSet(token);
-  }
   render(){
     return(
       <div className='app'>
@@ -22,14 +18,6 @@ class App extends React.Component {
           <div>
             <header>
               <h1> izstagram </h1>
-              <nav>
-                <ul>
-                  <li><Link to='/settings'> Settings </Link></li>
-                  <li><Link to='/welcome/login'> Login </Link></li>
-                  <li><Link to='/welcome/logout'> Logout </Link></li>
-                  <li><Link to='/welcome/signup'> Sign Up! </Link></li>
-                </ul>
-              </nav>
             </header>
 
             <Route exact path='/settings' component={SettingsContainer} />
@@ -47,6 +35,7 @@ let mapStateToProps = (state) => ({
 });
 let mapDispatchToProps = (dispatch) => ({
   tokenSet: (token) => dispatch(tokenSet(token)),
+  profileFetch: () => dispatch(profileFetchRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -5,6 +5,7 @@ import * as util from '../../lib/util.js';
 class ProfileForm extends React.Component {
   constructor(props){
     super(props);
+
     this.state = props.profile                 // passed in only if updating
       ? {...props.profile, preview: ''}        // initial state on update
       : {bio: '', avatar: null, preview: ''};  // initial state for creating a profile
@@ -37,7 +38,7 @@ class ProfileForm extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    this.props.onComplete(this.state);
+    return this.props.onComplete(this.state);
   }
 
   render() {
@@ -46,7 +47,7 @@ class ProfileForm extends React.Component {
         className='profile-form'
         onSubmit={this.handleSubmit}>
 
-        <img src={this.state.preview}/>
+        <img src={ this.state.preview || this.state.avatar } />
 
         <input
           type='file'

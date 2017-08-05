@@ -24,15 +24,13 @@ class LandingContainer extends React.Component {
   handleSignup(user){
     return this.props.signup(user)
       .then(() => {
-        this.props.history.push('/dashboard');
+        this.props.history.push('/settings');
       })
       .catch(console.error);
   }
 
   render() {
-    console.log('this.props.auth', this.props.auth);
     let {params} = this.props.match;
-    console.log('history', this.props.history);
     let handleComplete = params.auth === 'login'
       ? this.handleLogin
       : this.handleSignup;

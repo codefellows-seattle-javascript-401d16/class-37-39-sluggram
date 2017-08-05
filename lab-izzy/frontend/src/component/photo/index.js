@@ -2,15 +2,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PhotoForm from '../photo-form';
 import * as util from '../../lib/util.js';
-
 import * as photoActions from '../../action/photo-actions.js';
 
 class Photo extends React.Component{
   constructor(props){
     super(props);
+
     this.state = {
       editing: false,
     };
+
     this.handleDelete = this.handleDelete.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
   }

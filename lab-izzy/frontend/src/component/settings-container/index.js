@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ProfileForm from '../profile-form';
 import * as util from '../../lib/util.js';
-import ProfileUpdateForm from '../profile-update-form';
+// import ProfileUpdateForm from '../profile-update-form';
 import {
   profileCreateRequest,
   profileUpdateRequest,
@@ -11,30 +11,21 @@ import {
 class SettingsContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      profile: props.profile ? props.profile : undefined,
-    };
 
     this.handleProfileCreate = this.handleProfileCreate.bind(this);
     this.handleProfileUpdate = this.handleProfileUpdate.bind(this);
   }
 
   handleProfileCreate(profile){
-    console.log('profile', profile);
     return this.props.profileCreate(profile)
-      .then(res => {
-        console.log('res', res);
-        this.props.history.push('/dashboard');
+      .then(() => {
+        this.history.push('/dashboard');
       })
       .catch(console.error);
   }
 
   handleProfileUpdate(profile){
     return this.props.profileUpdate(profile)
-      .then(res => {
-        // console.log('res', res);
-        this.props.history.push('/dashboard');
-      })
       .catch(console.error);
   }
 
@@ -44,22 +35,15 @@ class SettingsContainer extends React.Component {
       : this.handleProfileUpdate;
 
     return(
-      <div
-        className='settings-container'
-        onSubmit={this.handleSubmit}>
+      <div className='settings-container'>
 
         <h2> Settings, Yo! </h2>
 
-        {util.renderIf(!this.state.profile,
-          <ProfileForm
-            buttonName='create profile'
-            onComplete={this.handleProfileCreate}
-          />)}
-        {util.renderIf(this.state.profile,
-          <ProfileUpdateForm
-            buttonName='update profile'
-            onComplete={this.handleProfileUpdate}
-          />)}
+        <ProfileForm
+          profile={this.props.profile}
+          buttonName='create user profile'
+          onComplete={handleComplete}
+        />
       </div>
     );
   }
