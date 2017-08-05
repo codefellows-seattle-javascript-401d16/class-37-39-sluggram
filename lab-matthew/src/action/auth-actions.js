@@ -1,4 +1,5 @@
 import superagent from 'superagent'
+import * as profileActions from './profile-actions'
 
 // sync actions for updating the store
 export const tokenSet = (token) => ({
@@ -33,6 +34,8 @@ export const loginRequest = (user) => (dispatch) => {
   .auth(user.username, user.password)
   .then(res => {
     dispatch(tokenSet(res.text))
+
+    dispatch(profileActions.profileFetchRequest(res.text))
     return res
   })
 }
