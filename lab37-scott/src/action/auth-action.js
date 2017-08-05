@@ -1,13 +1,15 @@
 import superagent from 'superagent';
+import * as util from '../lib/util.js';
 
 export const tokenSet = (token) => ({
   type: 'TOKEN_SET',
   payload: token,
 });
 
-export const tokenDestroyOnLogout = () => ({
-  type: 'TOKEN_DESTROYONLOGOUT',
-});
+export const tokenDestroyOnLogout = () => {
+  util.deleteCookie('X-Sluggram-Token');
+  return {type: 'TOKEN_DESTROYONLOGOUT'};
+};
 
 //start the async requests
 

@@ -10,6 +10,11 @@ export const readCookie = (name) => {
   return null;
 };
 
+export const deleteCookie = (name) => {
+  document.cookie = 'X-Sluggram-Token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+};
+
+
 export const photoToDataURL = (file) => {
   // return a promise that returns an object with then and catch
   return new Promise((resolve, reject) => {

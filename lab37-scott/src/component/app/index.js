@@ -32,11 +32,13 @@ class App extends React.Component{
             <nav>
               <ul>
                 {util.renderIf(this.props.auth,
-                  <li><Link to='/welcome'><button onClick={() => this.props.tokenDestroy()}> Log Out </button></Link></li>
+                  <div className='logged-in'>
+                    <li><a href='/welcome' onClick={() => this.props.tokenDestroy()}> Log Out </a></li>
+                    <li><Link to='/settings'> Settings </Link></li>
+                  </div>
                 )}
                 <li><Link to='/welcome/signup'> Signup </Link></li>
                 <li><Link to='/welcome/login'> Login </Link></li>
-                <li><Link to='/settings'> Settings </Link></li>
               </ul>
             </nav>
           </header>
