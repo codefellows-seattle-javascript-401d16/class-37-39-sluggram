@@ -51,3 +51,22 @@ export const profileGetRequest = (token) => (dispatch, getState) => {
       dispatch(profileSet(res.body));
     });
 };
+
+export const profileUpdateRequest = (profile) => (dispatch, getState) => {
+  console.log('profREQ UP profile: ', profile);
+  //pull the token off the auth state
+  let {auth} = getState();
+  console.log('auth', {auth});
+  //use auth.token and send in as bearer auth
+  return superagent.put(`${__API_URL__}/profiles/${profile._id}`)
+    .set('Authorization', `Bearer ${auth}`)
+    // .attach('avatar', profile.avatar)
+    .field('bio', profile.bio)
+    .then(res => {
+      console.log('resbody: ', res.body);
+      //create the profile that sets the state
+      dispatch(profileUpdate(res.body));
+      //return the res back to the handle profile create
+      return res.body;
+    });
+};

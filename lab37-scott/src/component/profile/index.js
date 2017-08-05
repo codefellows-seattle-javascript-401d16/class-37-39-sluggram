@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import * as util from '../../lib/util.js';
 
 class ProfileForm extends React.Component{
@@ -39,6 +40,7 @@ class ProfileForm extends React.Component{
 
   handleSubmit(e){
     e.preventDefault();
+    console.log('HS state: ', this.state);
     this.props.onComplete(this.state);
   }
 
@@ -65,4 +67,10 @@ class ProfileForm extends React.Component{
 
 }
 
-export default ProfileForm;
+
+let mapStateToProps = (state) => ({
+  profile: state.profile,
+});
+let mapDispatchToProps = (dispatch) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileForm);

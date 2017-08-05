@@ -3,7 +3,7 @@ let profileValidator = (profile) => {
     throw new Error('validation error: profile needs all fields');
 };
 
-export default (state=[], action) => {
+export default (state={}, action) => {
   let {type, payload} = action;
   switch(type){
   case 'PROFILE_CREATE':
@@ -11,7 +11,6 @@ export default (state=[], action) => {
     return payload;
 
   case 'PROFILE_SET':
-    console.log('PSR payload: ', payload);
     return payload;
 
   case 'PROFILE_UPDATE':

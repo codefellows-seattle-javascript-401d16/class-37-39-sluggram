@@ -6,16 +6,6 @@ class Dashboard extends React.Component{
     super(props);
   }
 
-  componentDidMount(store){
-    console.log('DID mnt state: ', this.state);
-    console.log('DID mnt props: ', this.props);
-  }
-
-  componentWillMount(store){
-    console.log('WILL mnt state: ', this.state);
-    console.log('WILL mnt props: ', this.props);
-  }
-
   render(){
     console.log('dash props: ', this.props);
     return(

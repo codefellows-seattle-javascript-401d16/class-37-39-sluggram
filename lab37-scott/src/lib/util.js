@@ -36,3 +36,4 @@ export const photoToDataURL = (file) => {
 };
 
 export const renderIf = (test, component) => test ? component : undefined;
+export const renderEither = (test, component, component2) => test ? component : component2;
