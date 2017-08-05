@@ -20,7 +20,6 @@ class DashboardContainer extends React.Component {
   componentWillMount(){
     return this.props.photoFetch()
     .then(res => {
-      // console.log('componentWillMount res.body', res.body)
       this.setState({
         photos: res.body.data,
       })
@@ -43,9 +42,12 @@ class DashboardContainer extends React.Component {
   }
 
   render(){
+    console.log('__DASHBOARD-PRE-RENDER-RETURN__', this.props.state)
     return(
       <div className='dashboard-container'>
         <h2> You are logged in! </h2>
+
+        <img src={this.props.state.profile.avatar} />
 
         <PhotoForm
           buttonText = 'post photo'
@@ -54,16 +56,11 @@ class DashboardContainer extends React.Component {
 
           {util.renderIf(this.props.photos.length > 0,
             this.props.photos.map(item =>
-
-
               <PhotoItem
                 key={item._id}
                 image={item}
-                photoURL={item.url}
                 photoDelete={this.handlePhotoDelete}
-                photoCreate={this.handlePhotoCreate}
                 />
-
             )
           )}
 

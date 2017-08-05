@@ -1,17 +1,19 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import ProfileForm from '../profile-form'
-import {profileCreateRequest} from '../../action/profile-actions.js'
+import * as util from '../../lib/util.js'
+import {profileCreateRequest, profileUpdateRequest} from '../../action/profile-actions.js'
 
 class SettingsContainer extends React.Component {
   constructor(props){
     super(props)
 
     this.handleProfileCreate = this.handleProfileCreate.bind(this)
+    this.handleProfileUpdate = this.handleProfileUpdate.bind(this)
   }
 
   handleProfileCreate(profile){
-    console.log('profile', profile)
+    console.log('settings handleProfileCreate profile', profile)
     return this.props.profileCreate(profile)
     .then(res => {
       console.log('res', res)
@@ -20,10 +22,18 @@ class SettingsContainer extends React.Component {
     .catch(console.error)
   }
 
-  handleProfileUpdate(){
+  handleProfileUpdate(profile){
+    console.log('_SETTINGS-CONTAINER__ handleProfileUpdate this.props.profile', this.props.profile)
+    return this.props.profileUpdate(profile)
+    .then(res => {
+      console.log('profileUpdate res', res)
+    })
+    .catch(console.error)
   }
 
   render(){
+    console.log('__SETTINGS-CONTAINER-PRE-RENDER-RETURN__', this.props)
+
     let handleComplete = this.props.profile
     ? this.handleProfileCreate
     : this.handleProfileUpdate
@@ -34,6 +44,7 @@ class SettingsContainer extends React.Component {
 
         <img src={this.props.profile.avatar} />
 
+
         <ProfileForm
           buttonText='create profile'
           onComplete={this.handleProfileCreate}
@@ -41,7 +52,7 @@ class SettingsContainer extends React.Component {
 
         <ProfileForm
           buttonText='update profile'
-          onComplete={this.handleProfileCreate}
+          onComplete={this.handleProfileUpdate}
           />
       </div>
     )
@@ -53,6 +64,7 @@ let mapStateToProps = (state) => ({
 })
 let mapDispatchToProps = (dispatch) => ({
   profileCreate: (profile) => dispatch(profileCreateRequest(profile)),
+  profileUpdate: (profile) => dispatch(profileUpdateRequest(profile)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsContainer)

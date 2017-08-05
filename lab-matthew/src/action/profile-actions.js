@@ -41,6 +41,28 @@ export const profileCreateRequest = (profile) => (dispatch, getState) => {
   // .catch(error => console.log('error', error))
 }
 
+export const profileUpdateRequest = ((profile) => (dispatch, getState) => {
+  let {auth} = getState()
+  let profileID = getState().profile._id
+  console.log('__PROFILE-ACTIONS__ getState', profileID)
+
+  return superagent.put(`${__API_URL__}/profiles/${profileID}`)
+  .set('Authorization', `Bearer ${auth}`)
+  .field('bio', profile.bio)
+  .attach('avatar', profile.avatar)
+  .then(res => {
+    let cookieProfile = JSON.stringify(Object.assign({}, res.body))
+    dispatch(profileUpdate(res.body))
+
+    try{
+      localStorage.profile = JSON.stringify(res.body)
+    } catch (error) {
+      console.log('FAILED to store updated profile info into localstorage', error)
+    }
+    return res
+  })
+})
+
 export const profileFetchRequest = (token) => (dispatch, getState) => {
   console.log('profileFetchRequest token', token)
   return superagent.get(`${__API_URL__}/profiles/me`)

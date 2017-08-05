@@ -19,6 +19,7 @@ class App extends React.Component{
   }
 
   componentWillMount(){
+    console.log('__APP-COMPONENT-WILL-MOUNT__', this.props)
     let token = util.readCookie('X-Sluggram-Token')
     if(token){
       this.props.tokenSet(token)
