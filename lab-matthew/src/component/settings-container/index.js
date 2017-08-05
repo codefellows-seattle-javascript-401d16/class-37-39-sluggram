@@ -42,9 +42,7 @@ class SettingsContainer extends React.Component {
       <div className='settings-container'>
         <h2> settings </h2>
 
-        {util.renderIf(this.props.profile.avatar,
-        <img src={this.props.profile.avatar} />
-        )}
+      
 
         <ProfileForm
           buttonText='create profile'
