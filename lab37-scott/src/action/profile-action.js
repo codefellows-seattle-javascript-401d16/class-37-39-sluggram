@@ -60,7 +60,7 @@ export const profileUpdateRequest = (profile) => (dispatch, getState) => {
   //use auth.token and send in as bearer auth
   return superagent.put(`${__API_URL__}/profiles/${profile._id}`)
     .set('Authorization', `Bearer ${auth}`)
-    // .attach('avatar', profile.avatar)
+    .attach('avatar', profile.avatar)
     .field('bio', profile.bio)
     .then(res => {
       console.log('resbody: ', res.body);
