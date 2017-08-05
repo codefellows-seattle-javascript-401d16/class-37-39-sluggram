@@ -44,16 +44,18 @@ class SettingsContainer extends React.Component {
 
         <img src={this.props.profile.avatar} />
 
+        {util.renderEither(!this.props.profile,
+          <ProfileForm
+            buttonText='create profile'
+            onComplete={this.handleProfileCreate}
+            />
+        ,
 
-        <ProfileForm
-          buttonText='create profile'
-          onComplete={this.handleProfileCreate}
-          />
-
-        <ProfileForm
-          buttonText='update profile'
-          onComplete={this.handleProfileUpdate}
-          />
+          <ProfileForm
+            buttonText='update profile'
+            onComplete={this.handleProfileUpdate}
+            />
+        )}
       </div>
     )
   }

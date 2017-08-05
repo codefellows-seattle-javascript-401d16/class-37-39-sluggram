@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {BrowserRouter, Route, Link} from 'react-router-dom'
 
+import Nav from '../nav-container'
 import * as util from '../../lib/util.js'
 import LandingContainer from '../landing-container'
 import SettingsContainer from '../settings-container'
@@ -46,6 +47,7 @@ class App extends React.Component{
 
   handleLogout(e) {
     // e.preventDefault()
+    // localStorage.clear()
     this.props.logout()
     // this.props.history.push('/welcome')
     this.setState = {
@@ -59,6 +61,7 @@ class App extends React.Component{
       <div className='app'>
           <BrowserRouter>
             <div>
+              <Route path='*' component={Nav} />
               <header>
                 <h1> Are you still readin this? </h1>
                 <nav>
