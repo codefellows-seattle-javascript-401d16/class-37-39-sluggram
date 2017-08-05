@@ -42,20 +42,19 @@ class SettingsContainer extends React.Component {
       <div className='settings-container'>
         <h2> settings </h2>
 
+        {util.renderIf(this.props.profile.avatar,
         <img src={this.props.profile.avatar} />
-
-        {util.renderEither(!this.props.profile,
-          <ProfileForm
-            buttonText='create profile'
-            onComplete={this.handleProfileCreate}
-            />
-        ,
-
-          <ProfileForm
-            buttonText='update profile'
-            onComplete={this.handleProfileUpdate}
-            />
         )}
+
+        <ProfileForm
+          buttonText='create profile'
+          onComplete={this.handleProfileCreate}
+          />
+
+        <ProfileForm
+          buttonText='update profile'
+          onComplete={this.handleProfileUpdate}
+          />
       </div>
     )
   }

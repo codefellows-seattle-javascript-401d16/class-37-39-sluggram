@@ -16,7 +16,7 @@ class PhotoItem extends React.Component {
       <div className='photo-item'>
         <h2> photo item </h2>
 
-        <img src={this.props.image.url} />
+        
 
         {util.renderIf(this.props.image.owner === this.props.state.profile.owner,
           <button onClick={() => this.props.photoDelete(image)}> delete photo </button>
