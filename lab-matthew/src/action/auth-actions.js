@@ -1,4 +1,6 @@
 import superagent from 'superagent'
+import * as util from '../lib/util.js'
+import * as profileActions from './profile-actions'
 
 // sync actions for updating the store
 export const tokenSet = (token) => ({
@@ -6,9 +8,12 @@ export const tokenSet = (token) => ({
   payload: token,
 })
 
-export const tokenDelete = () => ({
-  type: 'TOKEN_DELETE',
-})
+export const logout = () => {
+  util.deleteCookie('X-Sluggram-Token')
+  return {
+    type: 'LOGOUT',
+  }
+}
 
 // async actions
 export const signupRequest = (user) => (dispatch) => {
@@ -33,6 +38,8 @@ export const loginRequest = (user) => (dispatch) => {
   .auth(user.username, user.password)
   .then(res => {
     dispatch(tokenSet(res.text))
+
+    dispatch(profileActions.profileFetchRequest(res.text))
     return res
   })
 }

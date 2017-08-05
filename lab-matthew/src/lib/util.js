@@ -38,6 +38,9 @@ export const logError = (...args) =>
 export const renderIf = (test, component) =>
   test ? component : undefined
 
+export const renderEither = (test, component1, component2) =>
+  test ? component1 : component2
+
 export const classToggler = (config) =>
   Object.keys(config).filter(key => config[key]).join(' ')
 

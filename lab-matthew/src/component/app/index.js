@@ -8,7 +8,7 @@ import SettingsContainer from '../settings-container'
 import DashboardContainer from '../dashboard-container'
 import appStoreCreate from '../../lib/app-store-create.js'
 import {profileCreate, profileFetch} from '../../action/profile-actions'
-import {tokenSet, tokenDelete} from '../../action/auth-actions'
+import {tokenSet, logout} from '../../action/auth-actions'
 
 
 class App extends React.Component{
@@ -19,6 +19,7 @@ class App extends React.Component{
   }
 
   componentWillMount(){
+    console.log('__APP-COMPONENT-WILL-MOUNT__', this.props)
     let token = util.readCookie('X-Sluggram-Token')
     if(token){
       this.props.tokenSet(token)
@@ -44,10 +45,9 @@ class App extends React.Component{
   }
 
   handleLogout(e) {
-    e.preventDefault()
-    util.deleteCookie('X-Sluggram-Token')
-    this.props.tokenDelete()
-    // this.props.history.push('/welcome/login')
+    // e.preventDefault()
+    this.props.logout()
+    // this.props.history.push('/welcome')
     this.setState = {
       auth: null,
       profile: null,
@@ -63,11 +63,19 @@ class App extends React.Component{
                 <h1> Are you still readin this? </h1>
                 <nav>
                   <ul>
-                    <li><Link to='/welcome/signup'> signup </Link></li>
-                    <li><Link to='/welcome/login'> login </Link></li>
-                    <li><Link to='/settings'> settings </Link></li>
-                    <li><a href='#' onClick={this.handleLogout}>
-                    logout </a></li>
+                    {util.renderIf(this.props.auth,
+                      <div>
+                        <li><Link to='/settings'> settings </Link></li>
+                        <li><a href='/welcome' onClick={() => this.handleLogout()}>
+                        logout </a></li>
+                      </div>
+                    )}
+                    {util.renderIf(!this.props.auth,
+                      <div>
+                        <li><Link to='/welcome/signup'> signup </Link></li>
+                        <li><Link to='/welcome/login'> login </Link></li>
+                      </div>
+                    )}
                   </ul>
                 </nav>
               </header>
@@ -87,8 +95,8 @@ let mapStateToProps = (state) => ({
   auth: state.auth,
 })
 let mapDispatchToProps = (dispatch) => ({
+  logout: () => dispatch(logout()),
   tokenSet: (token) => dispatch(tokenSet(token)),
-  tokenDelete: () => dispatch(tokenDelete()),
   profileCreate: (profile) => dispatch(profileCreate(profile)),
 })
 

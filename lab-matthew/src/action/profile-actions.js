@@ -12,8 +12,9 @@ export const profileUpdate = (profile) => ({
   payload: profile,
 })
 
-export const profileFetch = () => ({
+export const profileFetch = (profile) => ({
   type: 'PROFILE_FETCH',
+  payload: profile,
 })
 
 // async action creators
@@ -40,9 +41,32 @@ export const profileCreateRequest = (profile) => (dispatch, getState) => {
   // .catch(error => console.log('error', error))
 }
 
-export const profileFetchRequest = (user) => (dispatch, getState) => {
+export const profileUpdateRequest = ((profile) => (dispatch, getState) => {
   let {auth} = getState()
-  return superagent.get(`${__API_URL__}/profiles:${user._id}`)
+  let profileID = getState().profile._id
+  console.log('__PROFILE-ACTIONS__ getState', profileID)
+
+  return superagent.put(`${__API_URL__}/profiles/${profileID}`)
+  .set('Authorization', `Bearer ${auth}`)
+  .field('bio', profile.bio)
+  .attach('avatar', profile.avatar)
+  .then(res => {
+    let cookieProfile = JSON.stringify(Object.assign({}, res.body))
+    dispatch(profileUpdate(res.body))
+
+    try{
+      localStorage.profile = JSON.stringify(res.body)
+    } catch (error) {
+      console.log('FAILED to store updated profile info into localstorage', error)
+    }
+    return res
+  })
+})
+
+export const profileFetchRequest = (token) => (dispatch, getState) => {
+  console.log('profileFetchRequest token', token)
+  return superagent.get(`${__API_URL__}/profiles/me`)
+  .set('Authorization', `Bearer ${token}`)
   .then(res => {
     console.log('profileFetchRequest', res.body)
     dispatch(profileFetch(res.body))
