@@ -7,6 +7,13 @@ export const profileCreate = (profile) => ({
 
 });
 
+export const profileSet = (profile) => {
+  console.log('profile set profile: ', profile);
+  return {type: 'PROFILE_SET',
+    payload: profile,
+  };
+};
+
 export const profileUpdate = (profile) => ({
   type: 'PROFILE_UPDATE',
   payload: profile,
@@ -31,5 +38,16 @@ export const profileCreateRequest = (profile) => (dispatch, getState) => {
       //return the res back to the handle profile create
       return res.body;
     });
+};
 
+//get the profile just after login. It's invoked on the auth-action login
+export const profileGetRequest = (token) => (dispatch, getState) => {
+  console.log('prof get req token: ', token);
+  let auth = token;
+  return superagent.get(`${__API_URL__}/profiles/me`)
+    .set('Authorization', `Bearer ${auth}`)
+    .then(res => {
+      console.log('PGR resbody: ', res.body);
+      dispatch(profileSet(res.body));
+    });
 };

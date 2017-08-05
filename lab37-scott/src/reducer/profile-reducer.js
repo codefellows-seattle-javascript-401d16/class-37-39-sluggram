@@ -5,10 +5,13 @@ let profileValidator = (profile) => {
 
 export default (state=[], action) => {
   let {type, payload} = action;
-
   switch(type){
   case 'PROFILE_CREATE':
     profileValidator(payload);
+    return payload;
+
+  case 'PROFILE_SET':
+    console.log('PSR payload: ', payload);
     return payload;
 
   case 'PROFILE_UPDATE':

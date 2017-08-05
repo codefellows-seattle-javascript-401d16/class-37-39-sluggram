@@ -1,5 +1,6 @@
 import superagent from 'superagent';
 import * as util from '../lib/util.js';
+import * as profileAction from './profile-action.js';
 
 export const tokenSet = (token) => ({
   type: 'TOKEN_SET',
@@ -42,6 +43,8 @@ export const loginRequest = (user) => (dispatch) => {
     .then(res => {
       console.log('login token:', res.text);
       dispatch(tokenSet(res.text));
+      //put dispatch profile get. pass the token in.
+      dispatch(profileAction.profileGetRequest(res.text));
       return res;
     });
 };
