@@ -99,67 +99,106 @@ class AuthForm extends React.Component {
 
     this.setState({
       [name]: value,
-      usernameError: name == 'username' && !value ? 'username cannot be empty' : null,
-      emailError: name === 'email' && !value ? 'email cannot be empty' : null,
-      passwordError: name === 'password' && !value ? 'password cannot be empty': null,
     })
+
+    if(this.props.auth === 'signup' && name === 'username'){
+      this.usernameCheckAvailable(value)
+    }
+  }
+
+  usernameCheckAvailable(username){
+    return superagent.get(`${__API_URL__}/username/${username}`)
+      .then(() => this.setState({usernameAvailable: true}))
+      .catch(() => this.setState({usernameAvailable: false}))
   }
 
   handleSubmit(e){
     e.preventDefault()
-    this.props.onComplete(this.state)
-      .then(() => {
-        this.setState({username: '', email: '', password: ''})
-      })
-      .catch(error => {
-        console.error(error)
-        this.setState({error})
-      })
+    if(!this.state.error){
+      this.props.onComplete(this.state)
+        .then(() => {
+          this.setState({username: '', email: '', password: ''})
+        })
+        .catch(error => {
+          console.error(error)
+          this.setState({
+            error,
+            submitted: true,
+          })
+        })
+    }
+    this.setState(state => ({
+      submitted: true,
+      usernameError: state.usernameError || state.username ? null : 'required',
+      emailError: state.emailError || state.email ? null : 'required',
+      passwordError: state.passwordError || state.password ? null : 'required',
+    }))
   }
 
   render(){
+
+    let {
+      focused,
+      submitted,
+      username,
+      emailError,
+      passwordError,
+      usernameError,
+      usernameAvailable,
+    } = this.state
+
     return(
       <form
-        className='auth-form'
         onSubmit={this.handleSubmit}
-      >
+        className={util.classToggler({
+          'auth-form' : true,
+          'error': this.state.error && this.state.submitted,
+        })}>
+
 
         {util.renderIf(this.props.auth ==='signup',
-          <input
-            type='text'
-            name='email'
-            placeholder='email'
-            value={this.state.email}
-            onChange={this.handleChange}
-          />
+          <div>
+            <Tooltip message={emailError} show={focused === 'email' || submitted} />
+            <input
+              type='text'
+              name='email'
+              placeholder='email'
+              value={this.state.email}
+              onChange={this.handleChange}
+              onFocus={this.handleFocus}
+              onBlur={this.handleBlur}
+            />
+          </div>
         )}
 
-        {util.renderIf(this.props.usernameError,
-          <span className='tool-tip'>
-            {this.state.usernameError}
-          </span>
-        )}
-
+        <Tooltip message={usernameError} show={focused === 'username' || submitted} />
         <input
+          className={util.classToggler({error: usernameError || !usernameAvailable})}
           type='text'
           name='username'
           placeholder='username'
           value={this.state.username}
           onChange={this.handleChange}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
         />
 
-        {util.renderIf(this.props.passwordError,
-          <span className='tool-tip'>
-            {this.state.passwordError}
-          </span>
+        {util.renderIf(username,
+          <p className='unsername-unavailable'>
+            {username} {usernameAvailable ? 'available' : 'not available'}
+          </p>
         )}
 
+        <Tooltip message={passwordError} show={focused === 'password' || submitted} />
         <input
+          className={util.classToggler({passwordError})}
           type='password'
           name='password'
           placeholder='password'
           value={this.state.password}
           onChange={this.handleChange}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
         />
 
         <button type='submit'>
