@@ -14,9 +14,11 @@ class PhotoForm extends React.Component{
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+
+
   handleChange(e){
     let {name, files} = e.target;
-    if (name === 'description') this.setState({description: e.target.value});
+    if(name === 'description') this.setState({description: e.target.value});
     if(name === 'photoURL'){
       let photoURL = files[0];
       this.setState({photoURL});
@@ -36,21 +38,21 @@ class PhotoForm extends React.Component{
   render(){
     return(
       <div className='photo-form-div'>
-        
+
         <p>Photo Preview: </p>
         <img src={this.state.preview} height='100' width='100' />
         <form className='photo-form' onSubmit={this.handleSubmit}>
           <input
             type='file'
             name='photoURL'
-            placeholder='Photo'
             onChange={this.handleChange}
           />
           <input
             type='text'
             name='description'
             placeholder='Description'
-            onChange={this.hanldeChange}
+            value={this.state.description}
+            onChange={this.handleChange}
           />
           <button type='submit'>{this.props.buttonText}</button>
         </form>

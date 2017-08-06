@@ -43,14 +43,12 @@ class ProfileForm extends React.Component{
   }
 
   render(){
-    console.log('update form state: ', this.state);
     return(
       <form className='profile-form' onSubmit={this.handleSubmit}>
         <img src={this.state.preview} height='100' width='100'/>
         <input
           type='file'
           name='avatar'
-          placeholder='Upload Avatar'
           onChange={this.handleChange}
         />
         <textarea

@@ -25,11 +25,11 @@ class Dashboard extends React.Component{
         <h4>Post a new photo</h4>
         <PhotoForm
           buttonText='Post Photo'
-          onComplete={this.handleComplete}
+          onComplete={this.handlePhotoCreate}
         />
         <br></br>
         <h4> Everyones photos! </h4>
-        {this.props.photos}
+        <img src={this.props.photos} height='100' width='100' />
       </div>
     );
   }

@@ -33,12 +33,9 @@ class AuthForm extends React.Component{
   }
 
   handleSubmit(e){
-    console.log('props submit: ', this.props);
     e.preventDefault();
-    console.log('break1');
     this.props.onComplete(this.state)
       .then(() => {
-        console.log('break2');
       })
       .catch(error => {
         this.setState({error});

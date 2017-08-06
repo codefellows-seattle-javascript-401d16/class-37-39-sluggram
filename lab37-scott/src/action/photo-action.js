@@ -22,3 +22,17 @@ export const photoDestroy = (photo) => ({
 });
 
 //put async superagent actions here.
+export const photoCreateRequest = (photo) => (dispatch, getState) => {
+  console.log('PCR photo: ', photo);
+  let {auth} = getState();
+  console.log('PCR auth: ', {auth});
+  return superagent.post(`${__API_URL__}/photos`)
+    .set('Authorization', `Bearer ${auth}`)
+    .attach('photo', photo.photoURL)
+    .field('description', photo.description)
+    .then(res => {
+      console.log('PCR res: ', res.body);
+      dispatch(photoCreate(res.body));
+      return res;
+    });
+};
