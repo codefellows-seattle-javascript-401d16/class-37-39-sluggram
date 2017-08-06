@@ -1,7 +1,7 @@
 SLUGGRAM
 ===
-db: yarn db-on
-server: node index.js
+1- db: yarn db-on
+2- server: node index.js
 
 .env:
 API_URL='http://localhost:7777'

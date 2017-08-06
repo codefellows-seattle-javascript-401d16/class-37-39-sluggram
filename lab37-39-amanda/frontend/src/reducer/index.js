@@ -1,5 +1,4 @@
-// require('babel-register')
-// require('./scr/main.js')
+import {combineReducers} from 'redux'
 import auth from './auth.js'
 import profile from './profile.js'
 
