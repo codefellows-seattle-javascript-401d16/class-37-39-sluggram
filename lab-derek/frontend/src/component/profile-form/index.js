@@ -58,9 +58,11 @@ class ProfileForm extends React.Component{
           value={this.state.bio}
           onChange={this.handleChange}
         />
+
+        <button type='submit'> {this.props.buttonText} </button>
       </form>
     );
   }
 }
 
-export default ProfileForm
+export default ProfileForm;

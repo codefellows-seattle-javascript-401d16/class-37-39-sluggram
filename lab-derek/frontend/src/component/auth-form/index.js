@@ -20,7 +20,6 @@ class AuthForm extends React.Component {
 
   handleChange(e){
     let {name, value} = e.target;
-
     this.setState({
       [name]: value,
       usernameError: name == 'username' && !value ? 'username required' : null,
@@ -33,6 +32,7 @@ class AuthForm extends React.Component {
     e.preventDefault();
     this.props.onComplete(this.state)
       .then(() => {
+        console.log('hitting here');
         this.setState({username: '', email: '', password: ''});
       })
       .catch(error => {
