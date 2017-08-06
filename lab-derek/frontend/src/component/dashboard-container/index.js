@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import PhotoForm from '../photo-form';
 import PhotoItem from '../photo-item';
 import * as util from '../../lib/util.js';
-import * as photoActions from '../../action/photo-actions.js';
+import * as photoActions from '../../actions/photo-actions.js';
 
 class Dashboard extends React.Component {
 
