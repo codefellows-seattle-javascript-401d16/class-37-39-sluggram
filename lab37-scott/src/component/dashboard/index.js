@@ -10,6 +10,12 @@ class Dashboard extends React.Component{
     this.handlePhotoCreate = this.handlePhotoCreate.bind(this);
   }
 
+  componentDidMount(){
+    let allPhotos = this.props.photos.map(photo => {
+
+    });
+  }
+
   handlePhotoCreate(photo){
     return this.props.photoCreate(photo)
       .catch(console.error);
@@ -29,7 +35,13 @@ class Dashboard extends React.Component{
         />
         <br></br>
         <h4> Everyones photos! </h4>
-        <img src={this.props.photos} height='100' width='100' />
+        {this.props.photos.map(photo => {
+          return <div key={photo._id}>
+            <img src={photo.url} height='100' width='100' />
+            <h6>{photo.description}</h6>
+          </div>;
+        })}
+
       </div>
     );
   }
