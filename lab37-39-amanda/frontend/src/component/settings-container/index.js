@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import ProfileForm from '../profile-form'
-import {profileCreateRequest} from '../../action/profile-actions.js'
+import {userProfileCreateRequest, userProfileUpdateRequest} from '../../action/profile-actions.js'
 
 class SettingsContainer extends React.Component {
   constructor(props){
@@ -10,21 +10,22 @@ class SettingsContainer extends React.Component {
     this.handleProfileUpdate = this.handleProfileUpdate.bind(this)
   }
 
-  handleProfileCreate(profile){
-    console.log('profile', profile)
-    return this.props.profileCreate(profile)
+  handleProfileCreate(userProfile){
+    console.log('profile', userProfile)
+    return this.props.userProfileCreate(userProfile)
       .then(res => {
         console.log('res', res)
-        // this.props.history.push('/dashboard')
       })
       .catch(console.error)
   }
 
-  handleProfileUpdate(){
+  handleProfileUpdate(profile){
+    return this.props.userProfileUpdate(profile)
+      .catch(console.error)
   }
 
   render(){
-    let handleComplete = this.props.profile
+    let handleComplete = this.props.userProfile
       ? this.handleProfileCreate
       : this.handleProfileUpdate
 
@@ -33,19 +34,21 @@ class SettingsContainer extends React.Component {
         <h2> settings </h2>
 
         <ProfileForm
-          buttonText='create profile'
-          onComplete={this.handleProfileCreate} />
+          profile={this.props.userProfile}
+          buttonText='create user profile'
+          onComplete={handleComplete} />
       </div>
     )
   }
 }
 
 let mapStateToProps = (state) => ({
-  profile: state.profile,
+  userProfile: state.userProfile,
 })
 
 let mapDispatchToProps = (dispatch) => ({
-  profileCreate: (profile) => dispatch(profileCreateRequest(profile)),
+  userProfileCreate: (userProfile) => dispatch(userProfileCreateRequest(userProfile)),
+  userProfileUpdate: (userProfile) => dispatch(userProfileCreateRequest(userProfile)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsContainer)
