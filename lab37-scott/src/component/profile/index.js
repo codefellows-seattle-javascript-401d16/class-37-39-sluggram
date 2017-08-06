@@ -21,7 +21,7 @@ class ProfileForm extends React.Component{
   }
 
   handleChange(e){
-    let {type, name} = e.target;
+    let {name} = e.target;
 
     if(name === 'bio') this.setState({bio: e.target.value});
     //handle avatar input, send to PTDU promise. return the
@@ -31,7 +31,6 @@ class ProfileForm extends React.Component{
       this.setState({avatar});
       util.photoToDataURL(avatar)
         .then(preview => {
-          console.log('preview: ', {preview});
           this.setState({preview});
         })
         .catch(console.error);
@@ -40,7 +39,6 @@ class ProfileForm extends React.Component{
 
   handleSubmit(e){
     e.preventDefault();
-    console.log('HS state: ', this.state);
     this.props.onComplete(this.state);
   }
 
