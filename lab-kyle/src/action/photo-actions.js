@@ -6,17 +6,23 @@ export const photoSubmit = photo => ({
   payload: photo,
 })
 
+export const photoDelete = photo => ({
+  type: 'PHOTO_DELETE',
+  payload: photo,
+})
+
 //async
 export const photoSubmitRequest = photo => (dispatch, getState) => {
-  let { auth } = getState()
+  let { auth, profile } = getState()
   console.log('photoSubmitRequest', photo)
   return superagent
     .post(`${__API_URL__}/photos`)
     .set('Authorization', `Bearer ${auth}`)
     .field('description', photo.description)
-    .attach('url', photo.url)
+    .field('profile', profile)
+    .attach('photo', photo.url)
     .then(res => {
-      console.log('photoSubmitRequest', res)
+      console.log('photoSubmitResponse', res)
       dispatch(photoSubmit(res.body))
       return res
     })

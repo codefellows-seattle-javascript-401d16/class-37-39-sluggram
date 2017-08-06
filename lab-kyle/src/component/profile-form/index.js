@@ -16,9 +16,9 @@ class ProfileForm extends React.Component {
   }
 
   handleChange(e) {
-    let { type, name } = e.target
+    let { value, name } = e.target
 
-    if (name === 'bio') this.setState({ bio: e.target.value })
+    if (name === 'bio') this.setState({ bio: value })
 
     if (name === 'avatar') {
       let { files } = e.target
