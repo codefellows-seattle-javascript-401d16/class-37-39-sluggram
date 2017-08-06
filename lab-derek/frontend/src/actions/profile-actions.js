@@ -23,6 +23,7 @@ export const profileCreateRequest = (profile) => (dispatch, getState) => {
     .field('bio', profile.bio)
     .attach('avatar', profile.avatar)
     .then(res => {
+      console.log('___profileCreateRequest getState', getState());
       let CookieProfile = JSON.stringify(Object.assign({}, res.body));
       dispatch(profileCreate(res.body));
 
@@ -37,10 +38,9 @@ export const profileCreateRequest = (profile) => (dispatch, getState) => {
 
 export const profileUpdateRequest = (profile) => (dispatch, getState) => {
   let {auth} = getState();
-  let profileID = getState().profile._id;
-  console.log('__PROFILE_ACTIONS__ getState', profileID);
+  console.log('__PROFILE_ACTIONS__ getState', getState());
 
-  return superagent.put(`${__API_URL__}/profiles/${profileID}`)
+  return superagent.post(`${__API_URL__}/profiles`)
     .set('Authorization', `Bearer ${auth}`)
     .field('bio', profile.bio)
     .attach('avatar', profile.avatar)

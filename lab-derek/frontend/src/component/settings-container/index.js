@@ -37,10 +37,19 @@ class SettingsContainer extends React.Component{
       <div className='settings-container'>
         <h2> settings </h2>
 
-        <ProfileForm
-          buttonText='create profile'
-          onComplete={this.handleProfileCreate}
-        />
+        {util.renderIf(!localStorage.profile,
+          <ProfileForm
+            buttonText='create profile'
+            onComplete={this.handleProfileCreate}
+          />
+        )}
+
+        {util.renderIf(localStorage.profile,
+          <ProfileForm
+            buttonText='update profile'
+            onComplete={this.handleProfileUpdate}
+          />
+        )}
 
       </div>
     );
