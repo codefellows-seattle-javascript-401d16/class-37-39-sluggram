@@ -6,8 +6,8 @@ export const photoCreate = (photo) => ({
 });
 
 //set any posted photos in the db to the state -> display to dash
-export const photoSet = (photos) => ({
-  type: 'PHOTO_SET',
+export const photoFetch = (photos) => ({
+  type: 'PHOTO_FETCH',
   payload: photos,
 });
 
@@ -23,16 +23,27 @@ export const photoDestroy = (photo) => ({
 
 //put async superagent actions here.
 export const photoCreateRequest = (photo) => (dispatch, getState) => {
-  console.log('PCR photo: ', photo);
   let {auth} = getState();
-  console.log('PCR auth: ', {auth});
   return superagent.post(`${__API_URL__}/photos`)
     .set('Authorization', `Bearer ${auth}`)
     .attach('photo', photo.photoURL)
     .field('description', photo.description)
     .then(res => {
-      console.log('PCR res: ', res.body);
       dispatch(photoCreate(res.body));
       return res;
     });
+};
+
+export const photosFetchRequest = () => (dispatch, getState) => {
+  let {auth} = getState();
+  console.log('PCR auth: ', {auth});
+
+  return superagent.get(`${__API_URL__}/photos`)
+    .set('Authorization', `Bearer ${auth}`)
+    .then(res => {
+      console.log('PSR res: ', res.body);
+      dispatch(photoFetch(res.body.data));
+      return res;
+    });
+
 };

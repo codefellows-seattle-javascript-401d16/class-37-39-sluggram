@@ -11,9 +11,9 @@ class Dashboard extends React.Component{
   }
 
   componentDidMount(){
-    let allPhotos = this.props.photos.map(photo => {
-
-    });
+    console.log('hit it');
+    this.props.photosFetch()
+      .catch(console.error);
   }
 
   handlePhotoCreate(photo){
@@ -54,6 +54,7 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => ({
   photoCreate: (photo) => dispatch(photoAction.photoCreateRequest(photo)),
+  photosFetch: (photo) => dispatch(photoAction.photosFetchRequest(photo)),
 });
 
 

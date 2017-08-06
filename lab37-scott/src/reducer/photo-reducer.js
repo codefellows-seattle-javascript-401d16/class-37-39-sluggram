@@ -5,7 +5,8 @@ export default (state=[], action) => {
   case 'PHOTO_CREATE':
     return [payload, ...state];
 
-  case 'PHOTO_SET':
+  case 'PHOTO_FETCH':
+    console.log('photo reducer: ', payload);
     return payload;
 
   case 'PHOTO_UPDATE':
