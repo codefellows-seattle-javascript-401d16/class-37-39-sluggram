@@ -1,3 +1,4 @@
+// import './_auth-form.scss'
 import React from 'react'
 import superagent from 'superagent'
 import {isEmail, isAlphanumeric, isAscii} from 'validator'
@@ -10,20 +11,20 @@ class AuthForm extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      email:'',
-      password: '',
+      email: '',
       username: '',
+      password: '',
       emailError: null,
       usernameError: null,
       usernameAvailable: true,
       passwordError: null,
       focused: null,
-      error: null,
-      submitted: null,
+      error: false,
+      submitted: false,
     }
 
     this.validateInput = this.validateInput.bind(this)
-    this.handleChange= this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
@@ -43,11 +44,11 @@ class AuthForm extends React.Component {
       let errorName = `${name}Error`
       errors[errorName] = error
     }
-
     let deleteError = (name) => {
       let errorName = `${name}Error`
       errors[errorName] = null
     }
+
     if(name === 'email')
       if(!value)
         setError(name, `${name} can not be empty`)
@@ -60,9 +61,7 @@ class AuthForm extends React.Component {
       if(!value)
         setError(name, `${name} can not be empty`)
       else if(!isAlphanumeric(value))
-        setError(name, `username may only containg letters and numbers`)
-      // else if(value.length < 6)
-      //   setError(name, `username must be 6 characters`)
+        setError(name, `username may only contain letters and numbers`)
       else deleteError(name)
     }
 
@@ -70,9 +69,7 @@ class AuthForm extends React.Component {
       if(!value)
         setError(name, `${name} can not be empty`)
       else if(!isAscii(value))
-        setError(name, `password may only contain nomral characters`)
-      // else if(value.length < 6)
-      //   setError(name, `username must be 6 characters`)
+        setError(name, `password may only contain normal characters`)
       else deleteError(name)
     }
 
@@ -83,7 +80,7 @@ class AuthForm extends React.Component {
   }
 
   handleFocus(e){
-    this.setState({ focused: e.target.name})
+    this.setState({ focused: e.target.name })
   }
 
   handleBlur(e){
@@ -95,7 +92,7 @@ class AuthForm extends React.Component {
 
   handleChange(e){
     let {name, value} = e.target
-    this.vadidateInput({...e})
+    this.validateInput({...e})
 
     this.setState({
       [name]: value,
@@ -107,7 +104,7 @@ class AuthForm extends React.Component {
   }
 
   usernameCheckAvailable(username){
-    return superagent.get(`${__API_URL__}/username/${username}`)
+    return superagent.get(`${__API_URL__}/usernames/${username}`)
       .then(() => this.setState({usernameAvailable: true}))
       .catch(() => this.setState({usernameAvailable: false}))
   }
@@ -136,7 +133,6 @@ class AuthForm extends React.Component {
   }
 
   render(){
-
     let {
       focused,
       submitted,
@@ -147,19 +143,19 @@ class AuthForm extends React.Component {
       usernameAvailable,
     } = this.state
 
-    return(
+    return (
       <form
         onSubmit={this.handleSubmit}
         className={util.classToggler({
-          'auth-form' : true,
+          'auth-form': true,
           'error': this.state.error && this.state.submitted,
         })}>
 
-
-        {util.renderIf(this.props.auth ==='signup',
+        {util.renderIf(this.props.auth === 'signup',
           <div>
             <Tooltip message={emailError} show={focused === 'email' || submitted} />
             <input
+              className={util.classToggler({error: emailError})}
               type='text'
               name='email'
               placeholder='email'
@@ -171,7 +167,7 @@ class AuthForm extends React.Component {
           </div>
         )}
 
-        <Tooltip message={usernameError} show={focused === 'username' || submitted} />
+        <Tooltip message={usernameError} show={focused === 'username' || submitted}/>
         <input
           className={util.classToggler({error: usernameError || !usernameAvailable})}
           type='text'
@@ -182,14 +178,14 @@ class AuthForm extends React.Component {
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
         />
-
         {util.renderIf(username,
-          <p className='unsername-unavailable'>
-            {username} {usernameAvailable ? 'available' : 'not available'}
+          <p className='username-available'>
+            {username} {usernameAvailable ? 'available': 'not available'}
           </p>
         )}
 
-        <Tooltip message={passwordError} show={focused === 'password' || submitted} />
+
+        <Tooltip message={passwordError} show={ focused === 'password' || submitted}/>
         <input
           className={util.classToggler({passwordError})}
           type='password'
@@ -206,7 +202,6 @@ class AuthForm extends React.Component {
         </button>
 
       </form>
-
     )
   }
 }

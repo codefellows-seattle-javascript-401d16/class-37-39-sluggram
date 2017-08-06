@@ -13,7 +13,6 @@ export const photoToDataURL = (file) => {
   })
 }
 
-// from
 export const readCookie = (name) => {
   var nameEQ = name + '='
   var ca = document.cookie.split(';')

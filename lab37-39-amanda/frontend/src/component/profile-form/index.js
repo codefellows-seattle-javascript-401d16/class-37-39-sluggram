@@ -46,7 +46,7 @@ class ProfileFrom extends React.Component {
         className='profile-form'
         onSubmit={this.handleSubmit} >
 
-        <img src={this.state.preview} />
+        <img src={this.state.preview || this.state.avatar} />
 
         <input
           type='file'
