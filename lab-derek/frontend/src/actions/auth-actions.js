@@ -5,6 +5,8 @@ export const tokenSet = (token) => ({
   payload: token,
 })
 
+// export const logout = () => ({type: 'LOGOUT'});
+
 export const tokenDelete = () => ({
   type: 'TOKEN_DELETE',
 })
@@ -17,8 +19,8 @@ export const signupRequest = (user) => (dispatch) => {
     dispatch(tokenSet(res.text));
     try {
       localStorage.token = res.text;
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
     return res;
   })

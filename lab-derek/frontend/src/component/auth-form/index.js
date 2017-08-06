@@ -23,9 +23,9 @@ class AuthForm extends React.Component {
 
     this.setState({
       [name]: value,
-      usernameError: name == 'username' && !value ? 'username cannot be empty' : null,
-      emailError: name == 'email' && !value ? 'email cannot be empty': null,
-      passwordError: name == 'password' && !value ? 'password cannot be empty': null,
+      usernameError: name == 'username' && !value ? 'username required' : null,
+      emailError: name == 'email' && !value ? 'email required': null,
+      passwordError: name == 'password' && !value ? 'password required': null,
     });
   }
 
@@ -60,6 +60,20 @@ class AuthForm extends React.Component {
         {util.renderIf(this.state.usernameError,
           <span className='tooltip'>
             {this.state.usernameError}
+          </span>
+        )}
+
+        <input
+          type='text'
+          name='username'
+          placeholder='username'
+          value={this.state.username}
+          onChange={this.handleChange}
+        />
+
+        {util.renderIf(this.state.passwordError,
+          <span className='tooltip'>
+            {this.state.passwordError}
           </span>
         )}
 

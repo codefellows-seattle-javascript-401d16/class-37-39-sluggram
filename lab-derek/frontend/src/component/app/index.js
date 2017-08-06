@@ -4,6 +4,8 @@ import {BrowserRouter, Route, Link} from 'react-router-dom';
 
 import appStoreCreate from '../../lib/app-store-create.js';
 import LandingContainer from '../landing-container';
+// import SettingsContainer from '../settings-container';
+// import DashboardContainer from '../dashboard-container';
 
 const store = appStoreCreate();
 
@@ -32,7 +34,7 @@ class App extends React.Component{
                 </nav>
               </header>
               <main>
-                <Route exact path='/' component={LandingContainer}></Route>
+                <Route exact path='/welcome/:auth' component={LandingContainer}></Route>
               </main>
             </div>
           </BrowserRouter>
