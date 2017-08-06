@@ -44,8 +44,9 @@ class AuthForm extends React.Component {
   render(){
     return(
       <form
+        className='auth-form'
         onSubmit={this.handleSubmit}
-        className='auth-form'>
+      >
 
         {util.renderIf(this.props.auth ==='signup',
           <input

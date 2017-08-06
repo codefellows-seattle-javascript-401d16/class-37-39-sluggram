@@ -1,15 +1,20 @@
+//home page
 import React from 'react'
 import {connect} from 'react-redux'
 import {BrowserRouter, Route, Link} from 'react-router-dom'
 
 import * as util from '../../lib/util.js'
 import {tokenSet} from '../../action/auth-actions'
+import {userProfileFetchRequest} from '../../action/profile-actions.js'
 import appStoreCreate from '../../lib/app-store-create.js'
 import SettingsContainer from '../settings-container'
 import LandingContainer from '../landing-container'
 
 
 class App extends React.Component {
+  componentDidMount() {
+
+  }
 
   render() {
     return(
@@ -41,6 +46,7 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => ({
   tokenSet: (token) => dispatch(tokenSet(token)),
+  userProfileFetch: () => dispatch(userProfileFetchRequest()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
