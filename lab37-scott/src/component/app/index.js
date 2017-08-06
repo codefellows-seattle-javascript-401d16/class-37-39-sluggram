@@ -31,14 +31,17 @@ class App extends React.Component{
               Hello App
             <nav>
               <ul>
-                {util.renderIf(this.props.auth,
+                {util.renderEither(this.props.auth,
                   <div className='logged-in'>
                     <li><a href='/welcome' onClick={() => this.props.tokenDestroy()}> Log Out </a></li>
                     <li><Link to='/settings'> Settings </Link></li>
+                    <li><Link to='/dashboard'> Dashboard </Link></li>
+                  </div>,
+                  <div className='logged-out'>
+                    <li><Link to='/welcome/signup'> Signup </Link></li>
+                    <li><Link to='/welcome/login'> Login </Link></li>
                   </div>
                 )}
-                <li><Link to='/welcome/signup'> Signup </Link></li>
-                <li><Link to='/welcome/login'> Login </Link></li>
               </ul>
             </nav>
           </header>
