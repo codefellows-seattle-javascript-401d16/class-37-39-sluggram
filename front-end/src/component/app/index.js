@@ -2,6 +2,8 @@ import React from 'react'
 import {BrowserRouter, Route, Link} from 'react-router-dom'
 import {Provider} from 'react-redux'
 import appStoreCreate from '../../lib/app-store-create.js'
+import LandingContainer from '../landing-container/index.js'
+
 
 class App extends React.Component {
 
@@ -14,7 +16,7 @@ class App extends React.Component {
           <BrowserRouter>
             <div>
               <header>
-                <h1> cool swee awesome yeeee </h1>
+                <h1> SUHHHH DUDE </h1>
                 <nav>
                 <ul>
                   <li><Link to='/welcome/signup'> signup </Link></li>
@@ -23,7 +25,7 @@ class App extends React.Component {
                 </nav>
               </header>
 
-              {/*}<Route path='/welcome/:auth' component={LandingContainer} />*/}
+              <Route path='/welcome/:auth' component={LandingContainer} />
             </div>
           </BrowserRouter>
         </Provider>

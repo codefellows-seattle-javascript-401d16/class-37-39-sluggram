@@ -1,13 +1,13 @@
 import React from 'react'
-import react-dom from 'react-dom'
 import {connect} from 'react-redux'
-import {signupRequest, loginRequest} from '../action/auth-actions.js'
-
+import {signupRequest, loginRequest} from '../../action/auth-actions.js'
+import * as util from '../../lib/util.js'
 import AuthForm from '../auth-form'
 
 
 class LandingContainer extends React.Component {
   render(){
+    {console.log(this.props.match)}
     let {params} = this.props.match
     let handleComplete
     let title
@@ -18,6 +18,7 @@ class LandingContainer extends React.Component {
       handleComplete = this.props.signup
       title = 'YOU HAVE TO SIGN UP'
     }
+    console.log('history',this.props.history,'handleComplete',handleComplete);
 
     return(
       <div>
@@ -27,7 +28,7 @@ class LandingContainer extends React.Component {
           onComplete={handleComplete}
           />
 
-        </div>
+      </div>
     )
   }
 }
@@ -36,7 +37,7 @@ let mapStateToProps = () => ({})
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    signup: (user) => dispatch(signupRequest(user))
+    signup: (user) => dispatch(signupRequest(user)),
     login: (user) => dispatch(loginRequest(user))
   }
 }
