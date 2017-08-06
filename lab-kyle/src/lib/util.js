@@ -24,6 +24,21 @@ export const readCookie = name => {
   return null
 }
 
+export const createCookie = (name, value, days) => {
+  if (days) {
+    let date = new Date()
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000)
+    let expires = '; expires=' + date.toGMTString()
+  } else {
+    let expires = ''
+    document.cookie = name + '=' + value + expires + '; path=/'
+  }
+}
+
+export const deleteCookie = name => {
+  createCookie(name, '', -1)
+}
+
 export const log = (...args) => (__DEBUG__ ? console.log(...args) : undefined)
 
 export const logError = (...args) =>

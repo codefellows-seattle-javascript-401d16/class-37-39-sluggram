@@ -1,9 +1,13 @@
 import superagent from 'superagent'
+import * as util from '../lib/util.js'
 
 //sync
 export const tokenSet = token => ({ type: 'TOKEN_SET', payload: token })
 
-export const logout = token => ({ type: 'LOGOUT' })
+export const logout = () => {
+  util.deleteCookie('X-Sluggram-Token')
+  return { type: 'LOGOUT' }
+}
 
 //async
 export const signupRequest = user => dispatch => {

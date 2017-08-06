@@ -15,9 +15,7 @@ export default (state = null, action) => {
 
   switch (type) {
   case 'PROFILE_CREATE':
-    console.log('profile.js', payload)
     validateProfileCreate(payload)
-    localStorage.setItem('profile', JSON.stringify(payload))
     return payload
 
   case 'PROFILE_UPDATE':

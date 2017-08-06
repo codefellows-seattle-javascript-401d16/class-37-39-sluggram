@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import ProfileForm from '../profile-form'
+import * as util from '../../lib/util.js'
 import {
   profileCreateRequest,
   profileUpdateRequest,
@@ -12,7 +13,7 @@ class SettingsContainer extends React.Component {
     super(props)
 
     this.handleProfileCreate = this.handleProfileCreate.bind(this)
-    this.handleProfileUpdte = this.handleProfileUpdate.bind(this)
+    this.handleProfileUpdate = this.handleProfileUpdate.bind(this)
   }
 
   handleProfileCreate(profile) {
@@ -22,18 +23,26 @@ class SettingsContainer extends React.Component {
       .catch(console.error)
   }
 
-  handleProfileUpdate(profile) {}
+  handleProfileUpdate(profile) {
+    console.log('handleProfileUpdate', profile)
+    return this.props.profileUpdate(profile).catch(console.error)
+  }
 
   render() {
     let handleComplete = !this.props.profile
       ? this.handleProfileCreate
-      : this.handProfileUpdate
+      : this.handleProfileUpdate
     return (
       <div className="settings-container">
         <h2>Settings</h2>
+        {util.renderIf(
+          this.props.profile.avatar,
+          <img src={this.props.profile.avatar} />
+        )}
         <ProfileForm
+          profile={this.props.profile}
           buttonText="submit"
-          onComplete={this.handleProfileCreate}
+          onComplete={handleComplete}
         />
       </div>
     )
@@ -43,6 +52,7 @@ class SettingsContainer extends React.Component {
 let mapStateToProps = state => ({ profile: state.profile })
 let mapDispatchToProps = dispatch => ({
   profileCreate: profile => dispatch(profileCreateRequest(profile)),
+  profileUpdate: profile => dispatch(profileUpdateRequest(profile)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsContainer)

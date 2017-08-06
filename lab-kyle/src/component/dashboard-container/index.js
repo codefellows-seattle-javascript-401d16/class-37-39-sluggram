@@ -8,24 +8,21 @@ import { photoSubmitRequest } from '../../action/photo-actions.js'
 class DashboardContainer extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      bio: '',
+      avatar: null,
+    }
 
     this.handlePhotoSubmit = this.handlePhotoSubmit.bind(this)
   }
 
   componentWillMount() {
-    let profile
-    console.log(
-      'dashboard will mount',
-      JSON.parse(localStorage.getItem('profile'))
-    )
-    if (!this.props.profile && localStorage.profile) {
-      try {
-        profile = JSON.parse(localStorage.getItem('profile'))
-        this.props.profile.setState({ profile: profile })
-      } catch (err) {
-        console.error(err)
-      }
-    }
+    console.log('dashboard will mount', this.props.profile)
+    let { bio, avatar } = this.props.profile
+
+    this.props.profile
+      ? this.setState({ bio: bio, avatar: avatar })
+      : this.props.history.push('/settings')
   }
 
   handlePhotoSubmit(photo) {
@@ -33,9 +30,12 @@ class DashboardContainer extends React.Component {
   }
 
   render() {
+    console.log('render', this.state)
     return (
       <div className="dashboard-container">
         <h2>Dashboard</h2>
+        <img src={this.state.avatar} />
+        <p>{this.state.bio}</p>
         <PhotoForm onComplete={this.handlePhotoSubmit} />
         {util.renderIf(
           this.props.photos,
@@ -52,7 +52,7 @@ class DashboardContainer extends React.Component {
 
 let mapStateToProps = state => ({
   photos: state.photos,
-  profile: state.profile ? state.profile : {},
+  profile: state.profile ? state.profile : null,
 })
 let mapDispatchToProps = dispatch => ({
   photoSubmit: photo => dispatch(photoSubmitRequest(photo)),

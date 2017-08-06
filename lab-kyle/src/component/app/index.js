@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import { BrowserRouter, Route, Link } from 'react-router-dom'
 
 import * as util from '../../lib/util.js'
-import { tokenSet } from '../../action/auth-actions.js'
+
+import Nav from '../nav'
 import LandingContainer from '../landing-container'
 import SettingsContainer from '../settings-container'
 import DashboardContainer from '../dashboard-container'
+import { tokenSet } from '../../action/auth-actions.js'
 
 class App extends React.Component {
   constructor(props) {
@@ -15,7 +17,10 @@ class App extends React.Component {
 
   componentDidMount() {
     let token = util.readCookie('X-Sluggram-Token')
-    if (token) this.props.tokenSet(token)
+    if (token) {
+      this.props.tokenSet(token)
+      return this.history.push('/dashboard')
+    }
   }
 
   render() {
@@ -25,15 +30,8 @@ class App extends React.Component {
           <div>
             <header>
               <h1>INSTA!</h1>
-              <nav>
-                <ul>
-                  <li><Link to="/welcome/signup"> signup </Link> </li>
-                  <li><Link to="/welcome/login"> login </Link> </li>
-                  <li><Link to="/dashboard"> dashboard </Link> </li>
-                  <li><Link to="/settings"> settings </Link> </li>
-                </ul>
-              </nav>
             </header>
+            <Route path="*" component={Nav} />
             <Route exact path="/welcome/:auth" component={LandingContainer} />
             <Route exact path="/dashboard" component={DashboardContainer} />
             <Route exact path="/settings" component={SettingsContainer} />
