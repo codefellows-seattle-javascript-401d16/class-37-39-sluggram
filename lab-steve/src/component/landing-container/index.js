@@ -17,19 +17,22 @@ class LandingContainer extends React.Component {
     return this.props.login(user)
       .then (() => {
         this.props.history.push('/dashboard');
-      });
+      })
+      .catch(console.error);
   }
 
   handleSignup(user) {
     return this.props.signup(user)
       .then (() => {
         this.props.history.push('/dashboard');
-      });
+      })
+      .catch(console.error);
   }
 
   render() {
+    console.log('this.props.match: ', this.props.match);
     let {params} = this.props.match;
-    console.log('history', this.props.history);
+    console.log('history: ', this.props.history);
     let handleComplete = params.auth === 'login'
       // ? this.props.loginRequest
       ? this.props.login
@@ -37,8 +40,11 @@ class LandingContainer extends React.Component {
 
     return (
       <div>
-        {util.renderIf(this.props.auth,
+        {util.renderIf(this.props.auth && this.props.profile,
           <Redirect to='/dashboard' />
+        )}
+        {util.renderIf(this.props.auth && !this.props.profile,
+          <Redirect to='/settings' />
         )}
         <AuthForm
           auth={params.auth}
