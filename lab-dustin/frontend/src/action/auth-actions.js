@@ -9,10 +9,16 @@ export const tokenDelete = () => ({type: 'TOKEN_DELETE'});
 
 export const signupRequest = (user) => (dispatch) => {
   return superagent.post(`${__API_URL__}/signup`)
-    
+    .withCredentials()
     .send(user)
     .then(res => {
       dispatch(tokenSet(res.text));
+
+      try {
+        localStorage.token = res.text;
+      } catch(error) {
+        console.log('ERROR on signup', error);
+      }
       return res;
     });
 };

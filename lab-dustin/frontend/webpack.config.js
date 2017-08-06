@@ -1,7 +1,8 @@
 'use-strict';
 
 require('dotenv').config();
-const production = process.env.NEDO_ENV === 'production';
+require('dotenv').config({path: `${__dirname}/.env`});
+const production = process.env.NODE_ENV === 'production';
 
 const {DefinePlugin, EnvironmentPlugin} =require('webpack');
 const HTMLPlugin = require('html-webpack-plugin');
@@ -14,7 +15,7 @@ let plugins = [
   new ExtractPlugin('bundle-[hash].css'),
   new HTMLPlugin({template: `${__dirname}/src/index.html`}),
   new DefinePlugin({
-    __DEBUG___: JSON.stringify(!production),
+    __DEBUG__: JSON.stringify(!production),
     __API_URL__: JSON.stringify(process.env.API_URL),
   }),
 ];
