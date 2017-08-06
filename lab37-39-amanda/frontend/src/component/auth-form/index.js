@@ -27,16 +27,16 @@ class AuthForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
-    this.usernameCheckAvailable = this.usernameCheckAvailable.bind(this)
+    this.usernameCheckAvailable = debounce(50)(this.usernameCheckAvailable.bind(this))
   }
 
   validateInput(e){
     let {name, value} = e.target
 
     let errors = {
-      emailError : this.state.emailError,
+      emailError: this.state.emailError,
       passwordError: this.state.passwordError,
-      usernameError: this.usernameError,
+      usernameError: this.state.usernameError,
     }
 
     let setError = (name, error) => {
@@ -61,8 +61,8 @@ class AuthForm extends React.Component {
         setError(name, `${name} can not be empty`)
       else if(!isAlphanumeric(value))
         setError(name, `username may only containg letters and numbers`)
-      else if(value.length < 6)
-        setError(name, `username must be 6 characters`)
+      // else if(value.length < 6)
+      //   setError(name, `username must be 6 characters`)
       else deleteError(name)
     }
 
@@ -71,8 +71,8 @@ class AuthForm extends React.Component {
         setError(name, `${name} can not be empty`)
       else if(!isAscii(value))
         setError(name, `password may only contain nomral characters`)
-      else if(value.length < 6)
-        setError(name, `username must be 6 characters`)
+      // else if(value.length < 6)
+      //   setError(name, `username must be 6 characters`)
       else deleteError(name)
     }
 
