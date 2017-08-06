@@ -24,6 +24,10 @@ export const readCookie = (name) => {
   return null;
 };
 
+export const deleteCookie = (name) => {
+  document.cookie.split(';').forEach(function(c) { document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/'); });
+};
+
 export const log = (...args) =>
   __DEBUG__ ? console.log(...args) : undefined;
 

@@ -32,7 +32,7 @@ class SettingsContainer extends React.Component {
 
     return (
       <div className='settings-container'>
-        <h2> settings </h2>
+        <h2> Settings </h2>
 
         <ProfileForm
           buttonText='create profile'

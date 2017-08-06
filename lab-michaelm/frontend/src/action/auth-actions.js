@@ -7,7 +7,13 @@ export const tokenSet = (token) => ({
   payload: token,
 });
 
-export const logout = () => ({ type: 'LOGOUT' });
+export const tokenDelete = () => ({
+  type: 'TOKEN_DELETE',
+});
+
+export const logout = () => ({
+  type: 'LOGOUT',
+});
 
 // async actions
 export const signupRequest =  (user) => (dispatch) => {
@@ -22,7 +28,8 @@ export const signupRequest =  (user) => (dispatch) => {
         logError(error);
       }
       return res;
-    });
+    })
+    .catch(logError());
 };
 
 export const loginRequest = (user) => (dispatch) => {
@@ -31,9 +38,12 @@ export const loginRequest = (user) => (dispatch) => {
     .auth(user.username, user.password)
     .then(res => {
       dispatch(tokenSet(res.text));
+      try {
+        localStorage.token = res.text;
+      } catch (err) {
+        logError(err);
+      }
       return res;
     })
-    .catch(err =>
-      logError(err)
-    );
+    .catch(logError());
 };

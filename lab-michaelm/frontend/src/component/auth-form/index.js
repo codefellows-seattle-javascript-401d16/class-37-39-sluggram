@@ -55,12 +55,6 @@ class AuthForm extends React.Component {
             onChange={this.handleChange}
           />)}
 
-        {util.renderIf(this.state.usernameError,
-          <span className='tooltip'>
-            {this.state.usernameError}
-          </span>
-        )}
-
         <input
           type='text'
           name='username'
@@ -68,12 +62,6 @@ class AuthForm extends React.Component {
           value={this.state.username}
           onChange={this.handleChange}
         />
-
-        {util.renderIf(this.state.passwordError,
-          <span className='tooltip'>
-            {this.state.passwordError}
-          </span>
-        )}
 
         <input
           type='password'

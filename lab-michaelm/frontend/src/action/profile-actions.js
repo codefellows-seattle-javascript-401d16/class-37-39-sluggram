@@ -2,6 +2,7 @@ import superagent from 'superagent';
 import {logError,log} from '../lib/util.js';
 
 // sync action creators
+
 export const profileCreate = (profile) => ({
   type: 'PROFILE_CREATE',
   payload: profile,
@@ -15,8 +16,6 @@ export const profileUpdate = (profile) => ({
 // async action creators
 export const profileCreateRequest = (profile) => (dispatch, getState) => {
   let {auth} = getState();
-  log('profile',profile);
-  log('auth',auth);
   return superagent.post(`${__API_URL__}/profiles`)
     .set('Authorization', `Bearer ${auth}`)
     .field('bio', profile.bio)
@@ -26,6 +25,6 @@ export const profileCreateRequest = (profile) => (dispatch, getState) => {
       return res;
     })
     .catch(err =>
-      logError('some sort of  profile error:',err)
+      logError('__POST TO /profiles ERROR:__',err)
     );
 };

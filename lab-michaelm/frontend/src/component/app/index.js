@@ -4,10 +4,10 @@ import {BrowserRouter, Route, Link} from 'react-router-dom';
 
 import * as util from '../../lib/util.js';
 import LandingContainer from '../landing-container';
-import {tokenSet} from '../../action/auth-actions.js';
 import SettingsContainer from '../settings-container';
 import DashboardContainer from '../dashboard-container';
 import appStoreCreate from '../../lib/app-store-create.js';
+import {tokenSet,tokenDelete} from '../../action/auth-actions.js';
 
 let store =  appStoreCreate();
 
@@ -17,7 +17,16 @@ class App extends React.Component {
     if(token) {
       this.props.tokenSet(token);
     }
+    this.handleLogout = this.handleLogout.bind(this);
   }
+
+  handleLogout(e) {
+    e.preventDefault();
+    util.deleteCookie('X-Sluggram-Token');
+    localStorage.removeItem('token');
+    localStorage.removeItem('loglevel');
+  }
+
   render(){
     return (
       <div className='app'>
@@ -29,6 +38,7 @@ class App extends React.Component {
                 <ul>
                   <li><Link to='/welcome/signup'> Signup </Link> </li>
                   <li><Link to='/welcome/login'> Login </Link> </li>
+                  <li><a href='/welcome/login' onClick={this.handleLogout}> Logout </a></li>
                   <li><Link to='/settings'> Settings </Link> </li>
                 </ul>
               </nav>
