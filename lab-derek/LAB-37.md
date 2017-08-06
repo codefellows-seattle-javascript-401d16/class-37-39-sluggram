@@ -36,9 +36,9 @@
 
 #### Feature Tasks
 * DONE: Create a frontend that follows react redux best pratices
-* TODO: Create a landing page that enables a user to singup or login
+* DONE: Create a landing page that enables a user to singup or login
 * DONE: Redirect the user to the dashboard page on signup or login
-* TODO: Store the users token in a cookie or localstorage on sign in
+* DONE: Store the users token in a cookie or localstorage on sign in
 
 #### Test
 * TODO: Test your redux reducers
