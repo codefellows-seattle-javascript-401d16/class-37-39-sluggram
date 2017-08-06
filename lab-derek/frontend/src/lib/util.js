@@ -19,3 +19,22 @@ export const filter = (year, ...args) =>
 
 export const reduce = (year, ...args) =>
   Array.prototype.reduce.apply(year, args);
+
+export const photoToDataURL = (file) => {
+  return new Promise((resolve, reject) => {
+    let reader = new FileReader();
+    reader.addEventListener('load', () => {
+      resolve(reader.result);
+    });
+    reader.addEventListener('error', () => {
+      reject(reader.error);
+    });
+    if(file)
+      return reader.readAsDataURL(file);
+    return reject(new Error('USAGE ERROR: requires file'));
+  });
+};
+
+//export const readCookie
+
+//export const deleteCookie
