@@ -5,10 +5,9 @@ class ProfileForm extends React.Component {
   constructor(props){
     super(props)
 
-    this.state = props.profile                  // passed in only if updateing
-      ? {...props.profile, preview: ''}         // inital state on update
-      : { bio: '', avatar: null, preview: '' }  // inital state for createing a profile
-
+    this.state = props.profile
+      ? {...props.profile, preview: ''}
+      : { bio: '', avatar: null, preview: '' }  
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
