@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Link} from 'react-router-dom';
 
 import * as util from '../../lib/util.js';
 import {tokenSet} from '../../action/auth-actions.js';
+import {tokenDelete} from '../../action/photo-actions.js';
 import appStoreCreate from '../../lib/app-store-create.js';
 import LandingContainer from '../landing-container';
 import DashboardContainer from '../dashboard-container';
@@ -49,6 +50,7 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => ({
   tokenSet : (token) => dispatch(tokenSet(token)),
+  tokenDelete: (token) => dispatch(tokenDelete(token)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
