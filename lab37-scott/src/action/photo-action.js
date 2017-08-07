@@ -16,8 +16,8 @@ export const photoUpdate = (photo) => ({
   payload: photo,
 });
 
-export const photoDestroy = (photo) => ({
-  type: 'PHOTO_DESTROY',
+export const photoDelete = (photo) => ({
+  type: 'PHOTO_DELETE',
   payload: photo,
 });
 
@@ -47,18 +47,26 @@ export const photosFetchRequest = () => (dispatch, getState) => {
 };
 
 export const photoUpdateRequest = (photo) => (dispatch, getState) => {
-  console.log('PUR photo: ', photo);
   let {auth} = getState();
-  console.log('PUR auth: ', {auth});
 
   return superagent.put(`${__API_URL__}/photos/${photo._id}`)
     .set('Authorization', `Bearer ${auth}`)
     .attach('photo', photo.photoURL)
     .field('description', photo.description)
     .then(res => {
-      console.log('PUR res: ', res.body);
       dispatch(photoUpdate(res.body));
       return res;
     });
+};
 
+export const photoDeleteRequest = (photo) => (dispatch, getState) => {
+  console.log('PDR photo: ', photo);
+  let {auth} = getState();
+  console.log('PDR auth: ', {auth});
+  return superagent.delete(`${__API_URL__}/photos/${photo._id}`)
+    .set('Authorization', `Bearer ${auth}`)
+    .then(res => {
+      console.log('PUR res: ', res.body);
+      dispatch(photoDelete(photo));
+    });
 };

@@ -9,13 +9,13 @@ export default (state=[], action) => {
     return payload;
 
   case 'PHOTO_UPDATE':
-    console.log('photo reducer: ', payload);
     return state.map(photo => {
       return photo._id === payload._id ? payload : photo;
     });
 
-  case 'PHOTO_DESTROY':
-    return state.map(photo => {
+  case 'PHOTO_DELETE':
+    console.log('photo reducer: ', payload);
+    return state.filter(photo => {
       return photo._id !== payload._id;
     });
 
