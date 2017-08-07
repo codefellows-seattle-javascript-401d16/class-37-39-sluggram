@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PhotoForm from '../photo-form';
 import * as photoAction from '../../../action/photo-action.js';
+import * as util from '../../../lib/util.js';
 
 class PhotoItem extends React.Component{
   constructor(props){
@@ -28,15 +29,28 @@ class PhotoItem extends React.Component{
   render(){
     return(
       <div className='photo-item' >
-        Hello from photo item
-        <PhotoForm
-          buttonText='Edit Photo'
-          photo={this.props.photo}
-          onComplete={this.handlePhotoUpdate}
-        />
         <img src={this.props.photo.url} height='100' width='100' />
         <h6>{this.props.photo.description}</h6>
-        <button onClick={(photo) => this.handlePhotoDelete(this.props.photo)}>Delete Photo</button>
+        {util.renderEither(this.state.editing,
+
+          <PhotoForm
+            buttonText='Edit Photo'
+            photo={this.props.photo}
+            onComplete={this.handlePhotoUpdate}
+          />,
+
+          <div className='photo-item-edit-false'>
+            <i className="fa fa-pencil-square-o" aria-hidden="true"
+              onClick={() => this.setState({editing: true})}>
+              Edit Photo
+            </i>
+
+            <i className="fa fa-trash" aria-hidden="true"
+              onClick={(photo) => this.handlePhotoDelete(this.props.photo)}>
+               Delete Photo
+            </i>
+          </div>
+        )}
       </div>
     );
   }

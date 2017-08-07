@@ -33,7 +33,8 @@ class PhotoForm extends React.Component{
 
   handleSubmit(e){
     e.preventDefault();
-    this.props.onComplete(this.state);
+    this.props.onComplete(this.state)
+      .then(() => this.setState({photoURL: null, description: '', preview: ''}));
   }
 
   render(){
