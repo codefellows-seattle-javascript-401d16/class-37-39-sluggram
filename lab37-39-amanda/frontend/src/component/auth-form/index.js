@@ -1,3 +1,4 @@
+// import './_auth-form.scss'
 import React from 'react'
 import superagent from 'superagent'
 import {isEmail, isAlphanumeric, isAscii} from 'validator'
@@ -10,44 +11,44 @@ class AuthForm extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      email:'',
-      password: '',
+      email: '',
       username: '',
+      password: '',
       emailError: null,
       usernameError: null,
       usernameAvailable: true,
       passwordError: null,
       focused: null,
-      error: null,
-      submitted: null,
+      error: false,
+      submitted: false,
     }
 
     this.validateInput = this.validateInput.bind(this)
-    this.handleChange= this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
-    this.usernameCheckAvailable = this.usernameCheckAvailable.bind(this)
+    this.usernameCheckAvailable = debounce(50)(this.usernameCheckAvailable.bind(this))
   }
 
   validateInput(e){
     let {name, value} = e.target
 
     let errors = {
-      emailError : this.state.emailError,
+      emailError: this.state.emailError,
       passwordError: this.state.passwordError,
-      usernameError: this.usernameError,
+      usernameError: this.state.usernameError,
     }
 
     let setError = (name, error) => {
       let errorName = `${name}Error`
       errors[errorName] = error
     }
-
     let deleteError = (name) => {
       let errorName = `${name}Error`
       errors[errorName] = null
     }
+
     if(name === 'email')
       if(!value)
         setError(name, `${name} can not be empty`)
@@ -60,9 +61,7 @@ class AuthForm extends React.Component {
       if(!value)
         setError(name, `${name} can not be empty`)
       else if(!isAlphanumeric(value))
-        setError(name, `username may only containg letters and numbers`)
-      else if(value.length < 6)
-        setError(name, `username must be 6 characters`)
+        setError(name, `username may only contain letters and numbers`)
       else deleteError(name)
     }
 
@@ -70,9 +69,7 @@ class AuthForm extends React.Component {
       if(!value)
         setError(name, `${name} can not be empty`)
       else if(!isAscii(value))
-        setError(name, `password may only contain nomral characters`)
-      else if(value.length < 6)
-        setError(name, `username must be 6 characters`)
+        setError(name, `password may only contain normal characters`)
       else deleteError(name)
     }
 
@@ -83,7 +80,7 @@ class AuthForm extends React.Component {
   }
 
   handleFocus(e){
-    this.setState({ focused: e.target.name})
+    this.setState({ focused: e.target.name })
   }
 
   handleBlur(e){
@@ -95,71 +92,109 @@ class AuthForm extends React.Component {
 
   handleChange(e){
     let {name, value} = e.target
-    this.vadidateInput({...e})
+    this.validateInput({...e})
 
     this.setState({
       [name]: value,
-      usernameError: name == 'username' && !value ? 'username cannot be empty' : null,
-      emailError: name === 'email' && !value ? 'email cannot be empty' : null,
-      passwordError: name === 'password' && !value ? 'password cannot be empty': null,
     })
+
+    if(this.props.auth === 'signup' && name === 'username'){
+      this.usernameCheckAvailable(value)
+    }
+  }
+
+  usernameCheckAvailable(username){
+    return superagent.get(`${__API_URL__}/usernames/${username}`)
+      .then(() => this.setState({usernameAvailable: true}))
+      .catch(() => this.setState({usernameAvailable: false}))
   }
 
   handleSubmit(e){
     e.preventDefault()
-    this.props.onComplete(this.state)
-      .then(() => {
-        this.setState({username: '', email: '', password: ''})
-      })
-      .catch(error => {
-        console.error(error)
-        this.setState({error})
-      })
+    if(!this.state.error){
+      this.props.onComplete(this.state)
+        .then(() => {
+          this.setState({username: '', email: '', password: ''})
+        })
+        .catch(error => {
+          console.error(error)
+          this.setState({
+            error,
+            submitted: true,
+          })
+        })
+    }
+    this.setState(state => ({
+      submitted: true,
+      usernameError: state.usernameError || state.username ? null : 'required',
+      emailError: state.emailError || state.email ? null : 'required',
+      passwordError: state.passwordError || state.password ? null : 'required',
+    }))
   }
 
   render(){
-    return(
+    let {
+      focused,
+      submitted,
+      username,
+      emailError,
+      passwordError,
+      usernameError,
+      usernameAvailable,
+    } = this.state
+
+    return (
       <form
-        className='auth-form'
         onSubmit={this.handleSubmit}
-      >
+        className={util.classToggler({
+          'auth-form': true,
+          'error': this.state.error && this.state.submitted,
+        })}>
 
-        {util.renderIf(this.props.auth ==='signup',
-          <input
-            type='text'
-            name='email'
-            placeholder='email'
-            value={this.state.email}
-            onChange={this.handleChange}
-          />
+        {util.renderIf(this.props.auth === 'signup',
+          <div>
+            <Tooltip message={emailError} show={focused === 'email' || submitted} />
+            <input
+              className={util.classToggler({error: emailError})}
+              type='text'
+              name='email'
+              placeholder='email'
+              value={this.state.email}
+              onChange={this.handleChange}
+              onFocus={this.handleFocus}
+              onBlur={this.handleBlur}
+            />
+          </div>
         )}
 
-        {util.renderIf(this.props.usernameError,
-          <span className='tool-tip'>
-            {this.state.usernameError}
-          </span>
-        )}
-
+        <Tooltip message={usernameError} show={focused === 'username' || submitted}/>
         <input
+          className={util.classToggler({error: usernameError || !usernameAvailable})}
           type='text'
           name='username'
           placeholder='username'
           value={this.state.username}
           onChange={this.handleChange}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
         />
-
-        {util.renderIf(this.props.passwordError,
-          <span className='tool-tip'>
-            {this.state.passwordError}
-          </span>
+        {util.renderIf(username,
+          <p className='username-available'>
+            {username} {usernameAvailable ? 'available': 'not available'}
+          </p>
         )}
 
+
+        <Tooltip message={passwordError} show={ focused === 'password' || submitted}/>
         <input
+          className={util.classToggler({passwordError})}
           type='password'
           name='password'
           placeholder='password'
           value={this.state.password}
           onChange={this.handleChange}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
         />
 
         <button type='submit'>
@@ -167,7 +202,6 @@ class AuthForm extends React.Component {
         </button>
 
       </form>
-
     )
   }
 }
