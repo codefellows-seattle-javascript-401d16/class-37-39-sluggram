@@ -57,7 +57,10 @@ class Nav extends React.Component {
   }
 }
 
-let mapStateToProps = state => ({})
+let mapStateToProps = state => ({
+  auth: state.auth,
+  profile: state.profile,
+})
 let mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
   tokenSet: token => dispatch(tokenSet(token)),

@@ -17,10 +17,7 @@ class App extends React.Component {
 
   componentDidMount() {
     let token = util.readCookie('X-Sluggram-Token')
-    if (token) {
-      this.props.tokenSet(token)
-      return this.history.push('/dashboard')
-    }
+    if (token) this.props.tokenSet(token)
   }
 
   render() {
