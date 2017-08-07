@@ -7,6 +7,9 @@ import {profileCreateRequest, profileUpdateRequest} from '../../actions/profile-
 class SettingsContainer extends React.Component{
   constructor(props){
     super(props);
+    this.state = {
+      profile: props.profile ? props.profile : undefined,
+    };
 
     this.handleProfileCreate = this.handleProfileCreate.bind(this);
     this.handleProfileUpdate = this.handleProfileUpdate.bind(this);
@@ -37,14 +40,14 @@ class SettingsContainer extends React.Component{
       <div className='settings-container'>
         <h2> settings </h2>
 
-        {util.renderIf(!localStorage.profile,
+        {util.renderIf(!this.state.profile,
           <ProfileForm
             buttonText='create profile'
             onComplete={this.handleProfileCreate}
           />
         )}
 
-        {util.renderIf(localStorage.profile,
+        {util.renderIf(this.state.profile,
           <ProfileForm
             buttonText='update profile'
             onComplete={this.handleProfileUpdate}
