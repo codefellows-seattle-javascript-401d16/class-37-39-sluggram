@@ -6,6 +6,29 @@ import AuthForm from '../auth-form'
 
 
 class LandingContainer extends React.Component {
+  constructor(props){
+    super(props)
+
+    this.handleLogin = this.handleLogin.bind(this)
+    this.handleSignup = this.handleSignup.bind(this)
+  }
+
+  handleLogin(user){
+    return this.props.login(user)
+    .then(()=>{
+      this.props.history.push('/dashboard')
+    })
+    .catch(console.error)
+  }
+
+  handleSignup(user){
+    console.log(this.props.signup(user),'this.props.signup');
+    return this.props.signup(user)
+    .then(()=> {
+      this.props.history.push('/dashboard')
+    })
+    .catch(console.error)
+  }
   render(){
     {console.log(this.props.match)}
     let {params} = this.props.match
@@ -22,6 +45,14 @@ class LandingContainer extends React.Component {
 
     return(
       <div>
+
+      {util.renderIf(this.props.auth && this.props.profile,
+      <Redirect to='/dashboard'/>
+      )}
+
+      {util.renderIf(this.props.auth && !this.props.profile,
+      <Redirect to='/settings'/>
+      )}
       {title}
         <AuthForm
           auth={params.auth}
@@ -33,7 +64,10 @@ class LandingContainer extends React.Component {
   }
 }
 
-let mapStateToProps = () => ({})
+let mapStateToProps = () => ({
+  auth: state.auth,
+  profile: state.profile,
+})
 
 let mapDispatchToProps = (dispatch) => {
   return {

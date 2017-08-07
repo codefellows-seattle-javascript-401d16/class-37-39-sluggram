@@ -1,4 +1,4 @@
-import reducer from '../reducer/auth.js'
+import reducer from '../reducer'
 import react from 'react'
 import {createStore, applyMiddleware} from 'redux'
 import thunk from './redux-thunk.js'

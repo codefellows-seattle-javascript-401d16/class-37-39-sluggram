@@ -1,5 +1,19 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-import App from './component/app'
+import {Provider} from 'react-redux'
 
-ReactDom.render(<App />, document.getElementById('app'))
+import App from './component/app'
+import appStoreCreate from './lib/app-store-create.js'
+
+let store = appStoreCreate()
+
+let AppContainer = () => {
+  // console.log(store.profile);
+  return (
+    <Provider store={store}>
+        <App />
+    </Provider>
+  )
+}
+
+ReactDom.render(<AppContainer />, document.getElementById('app'))
