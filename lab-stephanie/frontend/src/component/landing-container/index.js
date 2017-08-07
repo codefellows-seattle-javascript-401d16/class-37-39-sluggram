@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 import AuthForm from '../auth-form'
 import * as util from '../../lib/util.js'
-
 import { signupRequest, loginRequest } from '../../action/auth-actions.js'
+import { userProfileFetchRequest } from '../../action/profile-actions.js'
 
 class LandingContainer extends React.Component {
   constructor(props) {
@@ -15,46 +15,50 @@ class LandingContainer extends React.Component {
     this.handleSignup = this.handleSignup.bind(this)
   }
 
+  componentWillReceiveProps(props) {
+    if (props.auth && props.userProfile) props.history.replace('/dashboard')
+    if (props.auth && !props.userProfile) props.history.replace('/settings')
+  }
+
   handleLogin(user) {
+    let { profileFetch, history } = this.props
     return this.props
       .login(user)
-      .then(() => {
-        this.props.history.push('/dashboard')
-      })
-      .catch(console.error)
+      .then(() => profileFetch())
+      .then(() => history.push('/dashboard'))
+      .catch(util.logError)
   }
 
   handleSignup(user) {
     return this.props
       .signup(user)
       .then(() => {
-        console.log('cool')
-        this.props.history.push('/dashboard')
+        this.props.history.push('/settings')
       })
-      .catch(console.error)
+      .catch(util.logError)
   }
 
   render() {
-    console.log('this.props.match', this.props.match)
     let { params } = this.props.match
-    console.log('history', this.props.history)
 
     let handleComplete =
       params.auth === 'login' ? this.handleLogin : this.handleSignup
 
     return (
-      <div>
-        {util.renderIf(
-          this.props.auth && this.props.profile,
-          <Redirect to="/dashboard" />
-        )}
-
-        {util.renderIf(
-          this.props.auth && !this.props.profile,
-          <Redirect to="/settings" />
-        )}
-
+      <div className="landing-container">
         <AuthForm auth={params.auth} onComplete={handleComplete} />
+
+        <div className="auth-nav">
+          {util.renderIf(
+            params.auth === 'login',
+            <Link to="/welcome/signup"> signup </Link>
+          )}
+
+          {util.renderIf(
+            params.auth === 'signup',
+            <Link to="/welcome/login"> login </Link>
+          )}
+        </div>
       </div>
     )
   }
@@ -62,13 +66,14 @@ class LandingContainer extends React.Component {
 
 let mapStateToProps = state => ({
   auth: state.auth,
-  profile: state.profile,
+  userProfile: state.userProfile,
 })
 
 let mapDispatchToProps = dispatch => {
   return {
     signup: user => dispatch(signupRequest(user)),
     login: user => dispatch(loginRequest(user)),
+    profileFetch: () => dispatch(userProfileFetchRequest()),
   }
 }
 
