@@ -1,0 +1,116 @@
+@import "vars";
+
+.navbar {
+  position: relative;
+  height: 100px;
+  &:hover { 
+    .bird {
+      transition: 500ms;
+      fill: blue !important; 
+    } 
+  }
+
+  main {
+    margin: 0 auto;
+    height: 100%;
+    border-bottom: 2px solid $color-secondary;
+  }
+
+  .panel {
+    height: 100%;
+  }
+
+  .logo, h1, nav, button, .avatar {
+    height: 100px;
+    display: inline;
+    float: left;
+    width: auto;
+    margin: 0;
+  }
+
+  .logo {
+    width: 10%;
+    svg {
+      width: 100px;
+      height: 100px;
+      margin-left: $pad;
+      .bird {
+        fill: green;
+        transition: 500ms;
+      }
+    }
+  }
+
+  h1 {
+    transform: translate(-70px, 32px);
+    color: cyan * 0.8;
+    text-shadow: 2px 2px black;
+    width: 20%;
+    text-align: center;
+    padding-top: $pad * 1.5;
+    font-size: 2em;
+    font-family: 'Fredoka One', cursive;
+  }
+
+  nav {
+    height: 100%;
+    width: 60%;
+    padding-top: 50px;
+    padding-right: 50px;
+
+    ul { height: 100%; }
+
+    li {
+      display: inline-block;
+      height: 100%;
+      width: auto;
+      float: right;
+      border-top: 2px solid $color-secondary;
+      border-left: 2px solid $color-secondary;
+      border-right: 2px solid $color-secondary;
+      border-radius: 5px 5px 0 0 ;
+
+      a {
+        height: 100%;
+        font-weight: bolder;
+        padding: $pad;
+        padding-top: $pad * 1.5;
+        &:hover { color: $color-primary; }
+        &:active { color: $color-primary * 0.5; }
+      }
+    }
+    .selected {
+      a {
+        background: $color-secondary;
+        &:hover { 
+          color: $color-black;
+          background: transparentize($color-secondary, 0.5);
+        }
+        &:active { color: $color-darkgrey; }
+      }
+    }
+  }
+
+  .avatar {
+    padding-top: $pad;
+    width: 10%;
+    height: 50%;
+    border-radius: 50px;
+
+    img {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto;
+      border-radius: 25px;
+    }
+  }
+
+  button {
+    width: 10%;
+    height: 50%;
+    background: none;
+    color: $color-error;
+    &:hover {color: $color-error * 0.6;}
+    &:active {color: $color-error * 0.3;}
+  }
+}
