@@ -1,8 +1,10 @@
 import {combineReducers} from 'redux'
 import auth from './auth.js'
-import profile from './profile.js'
+import userProfile from './user-profile.js'
+import userPhotos from './user-photos.js'
 
 export default combineReducers({
   auth,
-  profile,
+  userProfile,
+  userPhotos,
 })

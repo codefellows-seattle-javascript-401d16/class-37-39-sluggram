@@ -1,0 +1,9 @@
+@import "vars";
+
+.auth-form {
+  input.error {
+    border: 1px solid $color-error;
+  }
+
+
+}

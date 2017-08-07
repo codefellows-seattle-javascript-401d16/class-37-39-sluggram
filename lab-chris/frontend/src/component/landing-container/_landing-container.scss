@@ -1,0 +1,27 @@
+@import "vars";
+
+.landing-container {
+  width: 60%;
+  margin: 0 auto;
+  padding-top: $pad * 10; 
+
+  .auth-nav a {
+    display: inline-block;
+    width: auto;
+    padding: $pad;
+    margin-top: $pad;
+    border: 1px solid $color-primary;
+
+    &:hover { 
+      $temp-color: transparentize($color-primary, 0.5) ;
+      background: $temp-color; 
+      border: 1px solid $temp-color;
+    }
+
+    &:active { 
+      $temp-color: transparentize($color-primary * 0.8, 0.5) ;
+      background: $temp-color;
+      border: 1px solid $temp-color;
+    }
+  }
+}

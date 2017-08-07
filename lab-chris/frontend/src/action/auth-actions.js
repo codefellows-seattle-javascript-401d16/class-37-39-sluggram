@@ -13,7 +13,7 @@ export const signupRequest =  (user) => (dispatch) => {
     .send(user)
     .then(res => {
       dispatch(tokenSet(res.text))
-      //res.text === toke
+      //res.text === token
       try {
         localStorage.token = res.text
       } catch (error) {

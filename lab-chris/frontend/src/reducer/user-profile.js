@@ -8,10 +8,10 @@ let validateProfileCreate = (profile) => {
 export default (state=null, action) => {
   let {type, payload} = action
   switch(type){
-  case 'PROFILE_CREATE':
+  case 'USER_PROFILE_CREATE':
     validateProfileCreate(payload)
     return payload
-  case 'PROFILE_UPDATE':
+  case 'USER_PROFILE_UPDATE':
     if(!state)
       throw new Error('USAGE ERROR: can not update when profile is null')
     validateProfileCreate(payload)

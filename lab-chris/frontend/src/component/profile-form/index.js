@@ -5,17 +5,14 @@ class ProfileForm extends React.Component {
   constructor(props){
     super(props)
 
+    console.log('props', props)
     this.state = props.profile
       ? {...props.profile, preview: ''}
-      : { bio: '', avatar: null, preview: '' }
+      : { bio: '', avatar: null, preview: '' } 
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-
-  //componentDidUpdate(){
-  //console.log('PROFILE FORM STATE', this.state)
-  //}
 
   componentWillReceiveProps(props){
     if(props.profile)
@@ -41,7 +38,8 @@ class ProfileForm extends React.Component {
 
   handleSubmit(e){
     e.preventDefault()
-    this.props.onComplete(this.state)
+    return this.props.onComplete(this.state)
+
   }
 
   render(){
@@ -50,7 +48,7 @@ class ProfileForm extends React.Component {
         className='profile-form'
         onSubmit={this.handleSubmit} >
 
-        <img src={this.state.preview} />
+        <img src={this.state.preview || this.state.avatar } />
 
         <input
           type='file'
