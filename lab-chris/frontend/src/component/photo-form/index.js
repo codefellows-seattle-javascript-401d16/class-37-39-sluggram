@@ -1,3 +1,4 @@
+import './_photo-form.scss'
 import React from 'react'
 import * as util from '../../lib/util.js'
 

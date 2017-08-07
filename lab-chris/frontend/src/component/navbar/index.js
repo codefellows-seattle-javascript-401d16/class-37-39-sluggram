@@ -59,7 +59,7 @@ class Navbar extends React.Component {
       <header className='navbar'>
         <main>
           <Icon className='logo' name='kiwi' />
-          <h1> sluggram </h1>
+          <h1> full of bugs(gram) </h1>
 
           {util.renderIf(this.props.loggedIn,
             <div className='panel'>

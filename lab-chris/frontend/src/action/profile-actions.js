@@ -10,7 +10,7 @@ export const userProfileUpdate = (profile) => ({
   payload: profile,
 })
 
-export const useProfileCreateRequest = (profile) => (dispatch, getState) => {
+export const userProfileCreateRequest = (profile) => (dispatch, getState) => {
   let {auth} = getState()
   return superagent.post(`${__API_URL__}/profiles`)
     .set('Authorization', `Bearer ${auth}`)
@@ -29,7 +29,7 @@ export const userProfileUpdateRequest = (profile) => (dispatch, getState) => {
     .field('bio', profile.bio)
     .attach('avatar', profile.avatar)
     .then(res => {
-      dispatch(userProfileUpdate(res.body)) //demo has userProfileCreate
+      dispatch(userProfileCreate(res.body))
       return res
     })
 }

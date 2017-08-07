@@ -66,4 +66,7 @@ let mapDispatchToProps = (dispatch) => ({
 })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(PhotoItem)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PhotoItem)

@@ -1,31 +1,31 @@
 import superagent from 'superagent'
 
-export const userPhotoSet = (photos) => ({
-  type: 'USER_PHOTO_SET',
+export const userPhotosSet = (photos) => ({
+  type: 'USER_PHOTOS_SET',
   payload: photos,
 })
 
-export const userPhotoCreate = (photos) => ({
+export const userPhotoCreate = (photo) => ({
   type: 'USER_PHOTO_CREATE',
-  payload: photos,
+  payload: photo,
 })
 
-export const userPhotoUpdate = (photos) => ({
+export const userPhotoUpdate = (photo) => ({
   type: 'USER_PHOTO_UPDATE',
-  payload: photos,
+  payload: photo,
 })
 
-export const userPhotoDelete= (photos) => ({
+export const userPhotoDelete = (photo) => ({
   type: 'USER_PHOTO_DELETE',
-  payload: photos,
+  payload: photo,
 })
 
-export const userPhotoFetchRequest = (photo) => (dispatch, getState) => {
+export const userPhotosFetchRequest = (phoro) => (dispatch, getState) => {
   let {auth} = getState()
   return superagent.get(`${__API_URL__}/photos/me`)
     .set('Authorization', `Bearer ${auth}`)
     .then(res => {
-      dispatch(userPhotoSet(res.body.data))
+      dispatch(userPhotosSet(res.body.data))
       return res
     })
 }
@@ -36,7 +36,7 @@ export const userPhotoCreateRequest = (photo) => (dispatch, getState) => {
     .set('Authorization', `Bearer ${auth}`)
     .field('description', photo.description)
     .attach('photo', photo.photo)
-    .then(res => {
+    .then((res) => {
       dispatch(userPhotoCreate(res.body))
       return res
     })

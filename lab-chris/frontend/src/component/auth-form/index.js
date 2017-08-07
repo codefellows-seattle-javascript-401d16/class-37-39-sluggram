@@ -14,12 +14,12 @@ class AuthForm extends React.Component {
       email: '',
       username: '',
       password: '',
+      emailError: null,
       usernameError: null,
       usernameAvailable: true,
       passwordError: null,
-      emailError: null,
-      error: null,
       focused: null,
+      error: false,
       submitted: false,
     }
 
@@ -67,28 +67,29 @@ class AuthForm extends React.Component {
       else deleteError(name)
     }
 
-    if(name === 'password')
+    if(name === 'password'){
       if(!value)
         setError(name, `${name} can not be empty`)
       else if(!isAscii(value))
-        setError(name, 'password may only contain normal characters')
+        setError(name, `password may only contain normal characters`)
       else if(value.length < 8)
-        setError(name, 'password must be at least 8 characters')
+        setError(name, `password must be 8 characters`)
       else deleteError(name)
+    }
 
     this.setState({
       ...errors,
-      error: !!(errors.emailError || errors.usernameError || errors. passwordError),
+      error: !!(errors.emailError || errors.usernameError || errors.passwordError),
     })
   }
 
   handleFocus(e){
-    this.setState({focused: e.target.name})
+    this.setState({ focused: e.target.name })
   }
 
   handleBlur(e){
     let {name} = e.target
-    this.setState( state => ({
+    this.setState(state => ({
       focused: state.focused == name ? null : state.focused,
     }))
   }
@@ -96,9 +97,11 @@ class AuthForm extends React.Component {
   handleChange(e){
     let {name, value} = e.target
     this.validateInput({...e})
+
     this.setState({
       [name]: value,
     })
+
     if(this.props.auth === 'signup' && name === 'username'){
       this.usernameCheckAvailable(value)
     }
@@ -119,7 +122,10 @@ class AuthForm extends React.Component {
         })
         .catch(error => {
           console.error(error)
-          this.setState({error})
+          this.setState({
+            error,
+            submitted: true,
+          })
         })
     }
     this.setState(state => ({

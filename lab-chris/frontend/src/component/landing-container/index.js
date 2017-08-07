@@ -79,4 +79,7 @@ let mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LandingContainer)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LandingContainer)

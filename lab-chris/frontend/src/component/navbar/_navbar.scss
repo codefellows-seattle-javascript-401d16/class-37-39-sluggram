@@ -3,11 +3,11 @@
 .navbar {
   position: relative;
   height: 100px;
-  &:hover { 
+  &:hover {
     .bird {
       transition: 500ms;
-      fill: blue !important; 
-    } 
+      fill: blue !important;
+    }
   }
 
   main {
@@ -49,7 +49,7 @@
     text-align: center;
     padding-top: $pad * 1.5;
     font-size: 2em;
-    font-family: 'Fredoka One', cursive;
+    font-family: 'Fredoka One';
   }
 
   nav {
@@ -82,7 +82,7 @@
     .selected {
       a {
         background: $color-secondary;
-        &:hover { 
+        &:hover {
           color: $color-black;
           background: transparentize($color-secondary, 0.5);
         }

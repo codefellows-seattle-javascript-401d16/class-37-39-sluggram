@@ -46,4 +46,7 @@ let mapDispatchToProps = (dispatch) => ({
   userPhotosFetch: (photos) => dispatch(photoActions.userPhotosFetchRequest()),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DashboardContainer)

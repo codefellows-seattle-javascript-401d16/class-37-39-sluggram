@@ -6,9 +6,9 @@ class ProfileForm extends React.Component {
     super(props)
 
     console.log('props', props)
-    this.state = props.profile
-      ? {...props.profile, preview: ''}
-      : { bio: '', avatar: null, preview: '' } 
+    this.state = props.profile                  
+      ? {...props.profile, preview: ''}        
+      : { bio: '', avatar: null, preview: '' }  
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
