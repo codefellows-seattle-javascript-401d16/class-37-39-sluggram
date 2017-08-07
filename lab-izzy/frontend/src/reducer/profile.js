@@ -1,6 +1,7 @@
 let validateProfileCreate = (profile) => {
-  if(!profile.avatar || !profile.bio || !profile._id || !profile.owner || !profile.username || !profile.email)
+  if(!profile.avatar || !profile.bio || !profile._id || !profile.owner || !profile.username || !profile.email){
     throw new Error('VALIDATION ERROR: profile requires avatar and bio');
+  }
 };
 
 export default (state = null, action) => {

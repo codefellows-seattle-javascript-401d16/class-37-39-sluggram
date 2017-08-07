@@ -31,14 +31,16 @@ class AuthForm extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    this.props.onComplete(this.state)
-      .then(() => {
-        this.setState({username: '', email: '', password: ''});
-      })
-      .catch(error => {
-        console.error(error);
-        this.setState({error});
-      });
+    if(!this.state.error){
+      this.props.onComplete(this.state)
+        .then(() => {
+          this.setState({username: '', email: '', password: ''});
+        })
+        .catch(error => {
+          console.error(error);
+          this.setState({error});
+        });
+    }
   }
 
   render(){

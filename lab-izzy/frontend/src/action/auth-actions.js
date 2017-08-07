@@ -1,11 +1,15 @@
 import superagent from 'superagent';
+import * as util from '../lib/util.js';
 
 export const tokenSet = (token) => ({
   type: 'TOKEN_SET',
   payload: token,
 });
 
-export const logout = () => ({type: 'LOGOUT'});
+export const logout = () => {
+  util.deleteCookie('X-Sluggram-token');
+  return {type: 'LOGOUT'};
+};
 
 export const signupRequest = (user) => (dispatch) => {
   return superagent.post(`${__API_URL__}/signup`)
@@ -13,6 +17,11 @@ export const signupRequest = (user) => (dispatch) => {
     .send(user)
     .then(res => {
       dispatch(tokenSet(res.text));
+      try {
+        localStorage.token = res.text;
+      } catch (error) {
+        console.log(error);
+      }
       return res;
     });
 };

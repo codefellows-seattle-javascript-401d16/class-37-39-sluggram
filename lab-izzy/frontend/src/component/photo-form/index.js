@@ -6,30 +6,25 @@ class PhotoForm extends React.Component {
     super(props);
 
     this.state = props.photo
-      ? {...props.photo, preview: ''}
-      : {description: '', photoURI: null, preview: ''};
+      ? props.photo
+      : {description: '', photo: null, preview: ''};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillReceiveProps(props){
-    if(props.photo)
-      this.setState(props.photo);
-  }
-
   handleChange(e){
-    let {type, name} = e.target;
+    let {name} = e.target;
 
     if(name === 'description'){
       this.setState({description: e.target.value});
     }
 
-    if(name === 'photoURI'){
+    if(name === 'photo'){
       let {files} = e.target;
-      let photoURI = files[0];
-      this.setState({photoURI});
-      util.photoToDataURL(photoURI)
+      let photo = files[0];
+      this.setState({photo});
+      util.photoToDataURL(photo)
         .then(preview => this.setState({preview}))
         .catch(console.error);
     }
@@ -37,8 +32,12 @@ class PhotoForm extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    console.log('YAAAAAS');
-    this.props.onComplete(this.state);
+    return this.props.onComplete(this.state)
+      .then(() => {
+        if(!this.props.profile){
+          this.setState({description: '', preview: '', photo: null});
+        }
+      });
   }
 
   render(){
@@ -47,11 +46,11 @@ class PhotoForm extends React.Component {
         className='photo-form'
         onSubmit={this.handleSubmit} >
 
-        <img src={this.state.preview} />
+        <img src={this.state.preview || this.state.url || ''} />
 
         <input
           type='file'
-          name='photoURI'
+          name='photo'
           onChange={this.handleChange}
         />
 
@@ -62,7 +61,7 @@ class PhotoForm extends React.Component {
           onChange={this.handleChange}>
         </textarea>
 
-        <button type='submit'> {this.props.buttonName}</button>
+        <button type='submit'> {this.props.buttonName} </button>
       </form>
     );
   }

@@ -1,83 +1,48 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import Photo from '../photo';
+import {connect} from 'react-redux';
 import PhotoForm from '../photo-form';
 import * as util from '../../lib/util.js';
-import PhotoUpdateForm from '../photo-update-form';
-import {
-  photoCreateRequest,
-  photoUpdateRequest,
-  photoDeleteRequest,
-} from '../../action/photo-actions.js';
+import * as photoActions from '../../action/photo-actions.js';
 
 class DashboardContainer extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-      editing: false,
-    };
-    this.handlePhotoCreate = this.handlePhotoCreate.bind(this);
-    this.handlePhotoUpdate = this.handlePhotoUpdate.bind(this);
   }
 
-  handlePhotoCreate(photo){
-    console.log('photo', photo);
-    return this.props.photoCreate(photo)
-      .catch(console.error);
-  }
-
-  handlePhotoUpdate(photo){
-    console.log('photo', photo);
-    return this.props.photoUpdate(photo)
-      .catch(console.error);
+  componentDidiMount(){
+    this.props.photoFetch()
+      .catch(util.logError);
   }
 
   render() {
-    let {photo} = this.props;
-    let handleComplete = this.props.photo
-      ? this.handlePhotoCreate
-      : this.handlePhotoUpdate;
-
     return(
-      <div
-        className='dashboard-container'
-        onSubmit={this.handleSubmit}>
+      <div className='dashboard-container'>
 
         <h2> Dashboard </h2>
-        <li onDoubleClick={() => this.setState(state => ({editing: !state.editing}))}>
-          {util.renderIf(!this.state.editing,
-            <div>
-              <PhotoForm
-                photo={photo}
-                buttonName='add photo'
-                onComplete={this.handlePhotoCreate} />
-              <button onClick={() => this.props.photoDelete(photo)}>
-                delete
-              </button>
-              {/* <p> description: {photo.description} </p> */}
-            </div>)}
-
-          {util.renderIf(this.state.editing,
-            <PhotoUpdateForm
-              photo={photo}
-              buttonName='update photo'
-              onComplete={this.handlePhotoUpdate}
-            />
-          )}
-        </li>
+        <PhotoForm
+          buttonName='post'
+          onComplete={(photo) => {
+            return this.props.photoCreate(photo)
+              .catch(console.error);
+          }}
+        />
+        {this.props.photos.map(photo =>
+          <Photo key={photo._id} photo={photo} />
+        )}
       </div>
     );
   }
 }
 
 let mapStateToProps = (state) => ({
+  profile: state.profile,
   photos: state.photos,
 });
 
 let mapDispatchToProps = (dispatch) => ({
-  photoCreate: (photo) => dispatch(photoCreateRequest(photo)),
-  photoUpdate: (photo) => dispatch(photoUpdateRequest(photo)),
-  photoDelete: (photo) => dispatch(photoDeleteRequest(photo)),
+  photoCreate: (photo) => dispatch(photoActions.photoCreateRequest(photo)),
+  photoFetch: (photos) => dispatch(photoActions.photoFetchRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);
