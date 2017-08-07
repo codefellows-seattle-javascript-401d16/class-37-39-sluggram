@@ -8,8 +8,15 @@
     "indent": [ "error", 2 ],
     "semi": ["error", "always"]
   },
-  "plugins": [ "react" ],
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": [ "import", "react" ],
   "parserOptions": {
+    "ecmaVersion": 6,
     "sourceType": "module",
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
