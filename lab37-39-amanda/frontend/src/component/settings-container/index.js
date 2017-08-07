@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import ProfileForm from '../profile-form'
-import {userProfileCreateRequest, userProfileUpdateRequest} from '../../action/profile-actions.js'
+import {profileCreateRequest} from '../../action/profile-actions.js'
 
 class SettingsContainer extends React.Component {
   constructor(props){
@@ -10,22 +10,16 @@ class SettingsContainer extends React.Component {
     this.handleProfileUpdate = this.handleProfileUpdate.bind(this)
   }
 
-  handleProfileCreate(userProfile){
-    console.log('profile', userProfile)
-    return this.props.userProfileCreate(userProfile)
-      .then(res => {
-        console.log('res', res)
-      })
+  handleProfileCreate(profile){
+    return this.props.profileCreate(profile)
       .catch(console.error)
   }
 
-  handleProfileUpdate(profile){
-    return this.props.userProfileUpdate(profile)
-      .catch(console.error)
+  handleProfileUpdate(){
   }
 
   render(){
-    let handleComplete = this.props.userProfile
+    let handleComplete = this.props.profile
       ? this.handleProfileCreate
       : this.handleProfileUpdate
 
@@ -34,21 +28,20 @@ class SettingsContainer extends React.Component {
         <h2> settings </h2>
 
         <ProfileForm
-          profile={this.props.userProfile}
-          buttonText='create user profile'
-          onComplete={handleComplete} />
+          buttonText='create profile'
+          onComplete={this.handleProfileCreate}
+        />
       </div>
     )
   }
 }
 
 let mapStateToProps = (state) => ({
-  userProfile: state.userProfile,
+  profile: state.profile,
 })
 
 let mapDispatchToProps = (dispatch) => ({
-  userProfileCreate: (userProfile) => dispatch(userProfileCreateRequest(userProfile)),
-  userProfileUpdate: (userProfile) => dispatch(userProfileCreateRequest(userProfile)),
+  profileCreate: (profile) => dispatch(profileCreateRequest(profile)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsContainer)

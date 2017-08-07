@@ -1,24 +1,22 @@
 import superagent from 'superagent'
-import * as util from '../lib/util.js'
 
+// sync actions for updating store
 export const tokenSet = (token) => ({
-  type: 'TOKEN SET',
+  type: 'TOKEN_SET',
   payload: token,
 })
 
-export const logout =() => {
-  util.deleteCookie('X-Token')
-  return { type:  'LOGOUT' }
-}
+export const logout = () => ({ type: 'LOGOUT' })
 
-export const signupRequest = (user) => (dispatch) => {
+// async actions
+export const signupRequest =  (user) => (dispatch) => {
   return superagent.post(`${__API_URL__}/signup`)
     .withCredentials()
     .send(user)
     .then(res => {
       dispatch(tokenSet(res.text))
-
-      try{
+      //res.text === toke
+      try {
         localStorage.token = res.text
       } catch (error) {
         console.log(error)

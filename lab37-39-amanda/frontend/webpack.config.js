@@ -30,7 +30,7 @@ module.exports = {
   output: {
     path: `${__dirname}/build`,
     filename: 'bundle-[hash].js',
-    publicPath: '/',
+    publicPath: process.env.CDN_URL,
   },
   module: {
     rules: [
@@ -41,43 +41,48 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractPlugin.extract(['css-loader', 'sass-loader']),
+        loader: ExtractPlugin.extract(['css-loader', 'resolve-url-loader', 'sass-loader?sourceMap']),
       },
       {
-        test: /\.(woff|woff2|ttf|eot|glyph\.svg)$/,
+        test: /\.(woff|woff2|ttf|eot|svg).*/,
+        exclude: /\.icon.svg/,
         use: [
           {
             loader: 'url-loader',
             options: {
               limit: 10000,
-              name: 'font/[name].[ext]',
+              name: 'font/[name].[hash].[ext]',
             },
           },
         ],
       },
       {
-        test: /\.(jpg|jpeg|gif|png|tiff|svg)$/,
-        exclude: /\.glyph.svg/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 60000,
-              name: 'image/[name].[ext]',
-            },
-          },
-        ],
+        test: /\.icon.svg/,
+        loader: 'raw-loader',
       },
-      {
-        test: /\.(mp3|aac|aiff|wav|flac|m4a|ogg)$/,
-        exclude: /\.glyph.svg/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: { name: 'audio/[name].[ext]' },
-          },
-        ],
-      },
+      //{
+      //test: /\.(jpg|jpeg|gif|png|tiff|svg)$/,
+      //exclude: /\.glyph.svg/,
+      //use: [
+      //{
+      //loader: 'url-loader',
+      //options: {
+      //limit: 60000,
+      //name: 'image/[name].[ext]',
+      //},
+      //},
+      //],
+      //},
+      //{
+      //test: /\.(mp3|aac|aiff|wav|flac|m4a|ogg)$/,
+      //exclude: /\.glyph.svg/,
+      //use: [
+      //{
+      //loader: 'file-loader',
+      //options: { name: 'audio/[name].[ext]' },
+      //},
+      //],
+      //},
     ],
   },
 }

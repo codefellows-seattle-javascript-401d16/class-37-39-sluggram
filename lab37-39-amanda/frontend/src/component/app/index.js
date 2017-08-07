@@ -8,17 +8,16 @@ import LandingContainer from '../landing-container'
 import SettingsContainer from '../settings-container'
 import appStoreCreate from '../../lib/app-store-create.js'
 
-
-// let Icon = (props) => {
-//   let innerHtml = {__html: props.data}
-//   return (
-//     <div dangerouslySetInnerHTML={innerHtml}></div>
-//   )
-// }
+let Icon = (props) => {
+  let innerHtml = {__html: props.data}
+  return (
+    <div dangerouslySetInnerHTML={innerHtml}></div>
+  )
+}
 
 class App extends React.Component {
   componentDidMount(){
-    let token = util.readCookie('X-Sluggram-Token')
+    let token = util.readCookie('X-Token')
     if(token){
       this.props.tokenSet(token)
     }
@@ -30,7 +29,8 @@ class App extends React.Component {
         <BrowserRouter>
           <div>
             <header>
-              <h1> Fake Instagram </h1>
+              <h1> Instagram Hack </h1>
+              <i className="fa fa-trash" aria-hidden="true"></i>
               <nav>
                 <ul>
                   <li><Link to='/welcome/signup'> signup </Link> </li>

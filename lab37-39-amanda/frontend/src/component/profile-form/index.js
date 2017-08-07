@@ -1,16 +1,20 @@
 import React from 'react'
 import * as util from '../../lib/util.js'
 
-class ProfileFrom extends React.Component {
+class ProfileForm extends React.Component {
   constructor(props){
     super(props)
 
-    this.state = props.profile
-      ? {...props.profile, preview: ''}
-      : { bio: '', avatar: null, preview: ''}
+    this.state = props.profile                  // passed in only if updateing
+      ? {...props.profile, preview: ''}         // inital state on update
+      : { bio: '', avatar: null, preview: '' }  // inital state for createing a profile
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentDidUpdate(){
+    console.log('PROFILE FORM STATE', this.state)
   }
 
   componentWillReceiveProps(props){
@@ -34,19 +38,20 @@ class ProfileFrom extends React.Component {
         .catch(console.error)
     }
   }
+
   handleSubmit(e){
     e.preventDefault()
-    console.log('---HIT HANDLE SUBMIT---')
+    console.log('HIT HANDLE SUBMIT')
     this.props.onComplete(this.state)
   }
 
-  render() {
-    return(
+  render(){
+    return (
       <form
         className='profile-form'
         onSubmit={this.handleSubmit} >
 
-        <img src={this.state.preview || this.state.avatar} />
+        <img src={this.state.preview} />
 
         <input
           type='file'
@@ -55,17 +60,16 @@ class ProfileFrom extends React.Component {
         />
 
         <textarea
-          type='test'
+          type='text'
           name='bio'
           value={this.state.bio}
           onChange={this.handleChange}>
         </textarea>
 
-        <button type='submit'>{this.props.buttonText}</button>
+        <button type='submit'> {this.props.buttonText} </button>
       </form>
-
     )
   }
 }
 
-export default ProfileFrom
+export default ProfileForm

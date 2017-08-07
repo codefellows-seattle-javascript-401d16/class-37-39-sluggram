@@ -7,12 +7,13 @@ class AuthForm extends React.Component {
     this.state = {
       username: '',
       usernameError: null,
-      password: '',
       passwordError: null,
-      email: '',
       emailError: null,
+      email: '',
+      password: '',
       error: null,
     }
+
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -22,9 +23,9 @@ class AuthForm extends React.Component {
 
     this.setState({
       [name]: value,
-      usernameError: name === 'username' && ! value ? 'username can not be empty' : null,
-      emailError: name === 'email' && ! value ? 'email can not be empty' : null,
-      passwordError: name === 'password' && !value ? 'password can not be empty' : null,
+      usernameError: name == 'username' && ! value ? 'username can not be empty' : null,
+      emailError: name == 'email' && ! value ? 'email can not be empty' : null,
+      passwordError: name == 'password' && ! value ? 'password can not be empty' : null,
     })
   }
 
@@ -35,15 +36,16 @@ class AuthForm extends React.Component {
         this.setState({username: '', email: '', password: ''})
       })
       .catch(error => {
-        util.logError(error)
+        console.error(error)
         this.setState({error})
       })
   }
+
   render(){
-    return(
+    return (
       <form
         onSubmit={this.handleSubmit}
-      >
+        className='auth-form'>
 
         {util.renderIf(this.props.auth === 'signup',
           <input
@@ -52,8 +54,7 @@ class AuthForm extends React.Component {
             placeholder='email'
             value={this.state.email}
             onChange={this.handleChange}
-          />
-        )}
+          />)}
 
         {util.renderIf(this.state.usernameError,
           <span className='tooltip'>
@@ -83,11 +84,10 @@ class AuthForm extends React.Component {
           onChange={this.handleChange}
         />
 
-        <button
-          type='submit'
-        >
+        <button type='submit'>
           {this.props.auth}
         </button>
+
       </form>
     )
   }
