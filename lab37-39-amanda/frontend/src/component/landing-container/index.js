@@ -1,5 +1,3 @@
-//this is the welcome page/route
-
 import React from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
@@ -57,6 +55,7 @@ class LandingContainer extends React.Component {
           auth={params.auth}
           onComplete={handleComplete}
         />
+
       </div>
     )
   }
