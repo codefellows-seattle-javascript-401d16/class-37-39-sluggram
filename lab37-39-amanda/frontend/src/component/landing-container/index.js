@@ -1,5 +1,3 @@
-//this is the welcome page/route
-
 import React from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
@@ -27,7 +25,7 @@ class LandingContainer extends React.Component {
   handleSignup(user){
     return this.props.signup(user)
       .then(() => {
-        console.log('cool')
+        console.log('HIT HANDLE SIGNUP')
         this.props.history.push('/dashboard')
       })
       .catch(console.error)
@@ -57,6 +55,7 @@ class LandingContainer extends React.Component {
           auth={params.auth}
           onComplete={handleComplete}
         />
+
       </div>
     )
   }

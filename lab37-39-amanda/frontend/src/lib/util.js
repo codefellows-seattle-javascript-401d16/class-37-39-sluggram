@@ -13,6 +13,7 @@ export const photoToDataURL = (file) => {
   })
 }
 
+// from
 export const readCookie = (name) => {
   var nameEQ = name + '='
   var ca = document.cookie.split(';')
@@ -22,20 +23,6 @@ export const readCookie = (name) => {
     if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length)
   }
   return null
-}
-
-export const createCookie = (name,value,days) => {
-  if (days) {
-    var date = new Date()
-    date.setTime(date.getTime()+(days*24*60*60*1000))
-    var expires = '; expires='+date.toGMTString()
-  }
-  else var expires = ''
-  document.cookie = name+'='+value+expires+'; path=/'
-}
-
-export const deleteCookie  = (name) => {
-  createCookie(name,'',-1)
 }
 
 export const log = (...args) =>
