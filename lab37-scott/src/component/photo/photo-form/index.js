@@ -4,11 +4,12 @@ import * as util from '../../../lib/util.js';
 class PhotoForm extends React.Component{
   constructor(props){
     super(props);
-    this.state = {
-      photoURL: null,
-      description: '',
-      preview: '',
-    };
+    this.state = props.photo ? props.photo :
+      {
+        photoURL: null,
+        description: '',
+        preview: '',
+      };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

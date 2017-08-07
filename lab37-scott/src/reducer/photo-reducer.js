@@ -6,10 +6,10 @@ export default (state=[], action) => {
     return [payload, ...state];
 
   case 'PHOTO_FETCH':
-    console.log('photo reducer: ', payload);
     return payload;
 
   case 'PHOTO_UPDATE':
+    console.log('photo reducer: ', payload);
     return state.map(photo => {
       return photo._id === payload._id ? payload : photo;
     });

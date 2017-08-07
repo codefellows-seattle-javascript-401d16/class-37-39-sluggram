@@ -36,13 +36,28 @@ export const photoCreateRequest = (photo) => (dispatch, getState) => {
 
 export const photosFetchRequest = () => (dispatch, getState) => {
   let {auth} = getState();
-  console.log('PCR auth: ', {auth});
 
   return superagent.get(`${__API_URL__}/photos`)
     .set('Authorization', `Bearer ${auth}`)
     .then(res => {
       console.log('PSR res: ', res.body);
       dispatch(photoFetch(res.body.data));
+      return res;
+    });
+};
+
+export const photoUpdateRequest = (photo) => (dispatch, getState) => {
+  console.log('PUR photo: ', photo);
+  let {auth} = getState();
+  console.log('PUR auth: ', {auth});
+
+  return superagent.put(`${__API_URL__}/photos/${photo._id}`)
+    .set('Authorization', `Bearer ${auth}`)
+    .attach('photo', photo.photoURL)
+    .field('description', photo.description)
+    .then(res => {
+      console.log('PUR res: ', res.body);
+      dispatch(photoUpdate(res.body));
       return res;
     });
 

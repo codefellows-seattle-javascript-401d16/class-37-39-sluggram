@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PhotoForm from '../photo/photo-form';
+import PhotoItem from '../photo/photo-item';
 import * as photoAction from '../../action/photo-action.js';
 
 class Dashboard extends React.Component{
@@ -36,12 +37,9 @@ class Dashboard extends React.Component{
         <br></br>
         <h4> Everyones photos! </h4>
         {this.props.photos.map(photo => {
-          return <div key={photo._id}>
-            <img src={photo.url} height='100' width='100' />
-            <h6>{photo.description}</h6>
-          </div>;
+          return <PhotoItem key={photo._id} photo={photo} />;
         })}
-
+        <br></br>
       </div>
     );
   }
