@@ -26,7 +26,7 @@ export const photoCreateRequest = (photo) => (dispatch, getState) => {
     .set('Authorization', `Bearer ${auth}`)
     .field('description', photo.description)
     .attach('photo', photo.photo)
-    .then(res => {
+    .then((res) => {
       dispatch(photoCreate(res.body));
       return res;
     });
@@ -50,6 +50,7 @@ export const photoFetchRequest = (photo) => (dispatch, getState) => {
     .set('Authorization', `Bearer ${auth}`)
     .then(res => {
       dispatch(photoFetch(res.body.data));
+      return res;
     });
 };
 

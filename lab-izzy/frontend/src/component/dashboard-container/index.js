@@ -1,9 +1,8 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import Photo from '../photo';
+import {connect} from 'react-redux';
 import PhotoForm from '../photo-form';
 import * as util from '../../lib/util.js';
-import PhotoUpdateForm from '../photo-update-form';
 import * as photoActions from '../../action/photo-actions.js';
 
 class DashboardContainer extends React.Component {
@@ -13,7 +12,7 @@ class DashboardContainer extends React.Component {
 
   componentDidiMount(){
     this.props.photoFetch()
-      .catch(console.error);
+      .catch(util.logError);
   }
 
   render() {
@@ -24,7 +23,7 @@ class DashboardContainer extends React.Component {
         <PhotoForm
           buttonName='post'
           onComplete={(photo) => {
-            this.props.photoCreate(photo)
+            return this.props.photoCreate(photo)
               .catch(console.error);
           }}
         />
@@ -43,7 +42,7 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => ({
   photoCreate: (photo) => dispatch(photoActions.photoCreateRequest(photo)),
-  photoFetch: (photo) => dispatch(photoActions.photoFetchRequest(photo)),
+  photoFetch: (photos) => dispatch(photoActions.photoFetchRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);

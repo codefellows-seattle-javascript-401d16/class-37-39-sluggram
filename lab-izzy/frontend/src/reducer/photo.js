@@ -25,6 +25,9 @@ export default (state = [], action) => {
     validatePhotoCreate(payload);
     return state.filter(photo => photo._id !== payload._id);
 
+  case 'LOGOUT':
+    return [];
+
   default:
     return state;
   }

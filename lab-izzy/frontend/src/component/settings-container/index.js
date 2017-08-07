@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ProfileForm from '../profile-form';
 import * as util from '../../lib/util.js';
-// import ProfileUpdateForm from '../profile-update-form';
+
 import {
   profileCreateRequest,
   profileUpdateRequest,
@@ -19,7 +19,7 @@ class SettingsContainer extends React.Component {
   handleProfileCreate(profile){
     return this.props.profileCreate(profile)
       .then(() => {
-        this.history.push('/dashboard');
+        this.props.history.push('/dashboard');
       })
       .catch(console.error);
   }
