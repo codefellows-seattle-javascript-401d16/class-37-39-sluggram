@@ -39,8 +39,6 @@ class ProfileForm extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault()
-    console.log('hooooo')
     this.props.onComplete(this.state)
   }
 
