@@ -5,6 +5,7 @@ import createStore from '../../lib/create-store.js';
 import LandingContainer from '../landing-container';
 import SplashContainer from '../splash-container';
 import ProfileContainer from '../profile-container';
+import DashboardContainer from '../dashboard-container';
 
 const store = createStore();
 
@@ -36,6 +37,7 @@ const App = props => {
             <Route exact path='/' component={SplashContainer} />
             <Route path='/welcome/:auth' component={LandingContainer} />
             <Route exact path='/profile' component={ProfileContainer} />
+            <Route exact path='/dashboard' component={DashboardContainer} />
           </div>
         </BrowserRouter>
       </Provider>

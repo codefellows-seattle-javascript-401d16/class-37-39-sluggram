@@ -1,12 +1,14 @@
 import auth from './auth.js';
 import profile from './profile.js';
+import photo from './photo.js';
 
 const initialState = {
   auth: null,
   profile: null,
+  photos: [],
 };
 
-const reducers = [auth, profile];
+const reducers = [auth, profile, photo];
 
 /*
   Build map from reducer functions to validators.

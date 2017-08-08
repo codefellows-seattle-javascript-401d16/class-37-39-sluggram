@@ -1,13 +1,13 @@
 import { SET_TOKEN, DELETE_TOKEN, LOGOUT } from '../action/actions.js';
 
 const reducer = {
-  [SET_TOKEN]: (state, { type, payload }) => ({
+  [SET_TOKEN]: (state, { payload }) => ({
     auth: {
       token: payload,
     },
   }),
 
-  [DELETE_TOKEN]: (state, { type, payload }) => ({
+  [DELETE_TOKEN]: () => ({
     auth: {
       token: null,
     },
