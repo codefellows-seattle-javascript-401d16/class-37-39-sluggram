@@ -1,4 +1,5 @@
 import superagent from 'superagent';
+import {logError, log} from '../lib/util.js';
 
 // sync actions for updating store
 export const tokenSet = (token) => ({
@@ -6,7 +7,7 @@ export const tokenSet = (token) => ({
   payload: token,
 });
 
-export const tokenDelete = () => ({ type: 'TOKEN_DELETE' });
+export const logout = () => ({ type: 'LOGOUT' });
 
 // async actions
 export const signupRequest =  (user) => (dispatch) => {
@@ -18,7 +19,7 @@ export const signupRequest =  (user) => (dispatch) => {
       try {
         localStorage.token = res.text;
       } catch (error) {
-        console.log(error);
+        logError(error);
       }
       return res;
     });
@@ -31,5 +32,8 @@ export const loginRequest = (user) => (dispatch) => {
     .then(res => {
       dispatch(tokenSet(res.text));
       return res;
-    });
+    })
+    .catch(err =>
+      logError(err)
+    );
 };

@@ -1,6 +1,4 @@
-
 import React from 'react';
-import {BrowserRouter, Route} from 'react-router-dom';
 import * as util from '../../lib/util.js';
 
 class AuthForm extends React.Component {
@@ -15,7 +13,6 @@ class AuthForm extends React.Component {
       password: '',
       error: null,
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -37,9 +34,9 @@ class AuthForm extends React.Component {
       .then(() => {
         this.setState({username: '', email: '', password: ''});
       })
-      .catch(error => {
-        console.error(error);
-        this.setState({error});
+      .catch(err => {
+        util.logError(err);
+        this.setState({err});
       });
   }
 
