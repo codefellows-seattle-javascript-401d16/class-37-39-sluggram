@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import ProfileForm from '../profile-form'
-import {profileCreateRequest} from '../../action/profile-actions.js'
+import {profileCreateRequest, profileUpdate, profileCreate} from '../../action/profile-actions.js'
 
 
 class SettingsContainer extends React.Component {
@@ -16,12 +16,13 @@ class SettingsContainer extends React.Component {
     return this.props.profileCreate(profile)
     .then(res => {
       console.log('res', res)
-      this.props.history.push('/dashboard')
+      // this.props.history.push('/dashboard')
     })
     .catch(console.error)
   }
 
   handleProfileUpdate(){
+    return this.props.profileUpdate(profile)
   }
 
 
@@ -31,7 +32,7 @@ class SettingsContainer extends React.Component {
       : this.handleProfileUpdate
     return (
       <div className="settings-container">
-        <h2>Settings Test</h2>
+        <h2>Profile Settings </h2>
         <ProfileForm
         buttonText='Create Profile'
         onComplete={this.handleProfileCreate}

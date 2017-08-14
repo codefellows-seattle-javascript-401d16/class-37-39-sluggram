@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {signupRequest, loginRequest} from '../../action/auth-actions.js'
 import * as util from '../../lib/util.js'
 import AuthForm from '../auth-form'
-
+import {Redirect} from 'react-router-dom'
 
 class LandingContainer extends React.Component {
   constructor(props){
@@ -30,7 +30,7 @@ class LandingContainer extends React.Component {
     .catch(console.error)
   }
   render(){
-    {console.log(this.props.match)}
+    {console.log(this.props,'!!!!')}
     let {params} = this.props.match
     let handleComplete
     let title
@@ -45,7 +45,7 @@ class LandingContainer extends React.Component {
 
     return(
       <div>
-
+      <h1> This is the landing container </h1>
       {util.renderIf(this.props.auth && this.props.profile,
       <Redirect to='/dashboard'/>
       )}
@@ -64,7 +64,7 @@ class LandingContainer extends React.Component {
   }
 }
 
-let mapStateToProps = () => ({
+let mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
 })

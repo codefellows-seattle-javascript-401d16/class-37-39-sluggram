@@ -6,7 +6,7 @@ class ProfileForm extends React.Component {
     super(props)
 
     this.state = props.profile
-      ? {...props.profile, preview: ''}         
+      ? {...props.profile, preview: ''}
       : { bio: '', avatar: null, preview: '' }
 
     this.handleChange = this.handleChange.bind(this)
@@ -43,6 +43,7 @@ class ProfileForm extends React.Component {
     e.preventDefault()
     console.log('hooooo')
     this.props.onComplete(this.state)
+    // this.props.history.push('/dashboard')
   }
 
   render(){
