@@ -24,6 +24,7 @@ class AuthForm extends React.Component {
       emailError: name == 'email' && ! value ? 'email can not be empty' : null,
       passwordError: name == 'password' && ! value ? 'password can not be empty' : null,
     })
+    console.log(this.props);
     console.log(e.target);
   }
 

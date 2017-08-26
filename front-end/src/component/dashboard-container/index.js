@@ -6,9 +6,6 @@ import * as util from '../../lib/util.js'
 // import BarItem from '../bar-item'
 class Dashboard extends React.Component {
 
-  componentWillMount(){
-    console.log('this.props',this.props);
-  }
 
   render(){
     return (
