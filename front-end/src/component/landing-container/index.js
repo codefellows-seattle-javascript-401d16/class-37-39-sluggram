@@ -4,6 +4,8 @@ import {signupRequest, loginRequest} from '../../action/auth-actions.js'
 import * as util from '../../lib/util.js'
 import AuthForm from '../auth-form'
 import {Redirect} from 'react-router-dom'
+import NavBar from '../navbar/index.js'
+
 
 class LandingContainer extends React.Component {
   constructor(props){
@@ -45,20 +47,7 @@ class LandingContainer extends React.Component {
 
     return(
       <div>
-      <h1> This is the landing container </h1>
-      {util.renderIf(this.props.auth && this.props.profile,
-      <Redirect to='/dashboard'/>
-      )}
-
-      {util.renderIf(this.props.auth && !this.props.profile,
-      <Redirect to='/settings'/>
-      )}
-      {title}
-        <AuthForm
-          auth={params.auth}
-          onComplete={handleComplete}
-          />
-
+      <NavBar/>
       </div>
     )
   }
